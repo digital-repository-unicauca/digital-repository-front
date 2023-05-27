@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './componets/home/home.component';
 import { SearcContractsComponent } from './componets/searc-contracts/searc-contracts.component';
 import { SidebarComponent } from './componets/sidebar/sidebar.component';
+import { HttpClientModule } from '@angular/common/http';
 
 //import icons
 import { LucideAngularModule,Home,Search,Settings,FolderPlus} from 'lucide-angular';
@@ -23,7 +24,7 @@ import { CreateContractComponent } from './componets/create-contract/create-cont
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, 
+    AppRoutingModule,HttpClientModule, 
     LucideAngularModule.pick({Home,Search,Settings,
       FolderPlus})
   ],
