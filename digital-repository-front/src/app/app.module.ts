@@ -7,11 +7,18 @@ import { HomeComponent } from './componets/home/home.component';
 import { SearcContractsComponent } from './componets/searc-contracts/searc-contracts.component';
 import { SidebarComponent } from './componets/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDividerModule} from '@angular/material/divider';
+
 
 //import icons
-import { LucideAngularModule,Home,Search,Settings,FolderPlus} from 'lucide-angular';
+import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
+//components
 import { SettingSystemComponent } from './componets/setting-system/setting-system.component';
 import { CreateContractComponent } from './componets/create-contract/create-contract.component';
+import { SideInformationComponent } from './componets/side-information/side-information.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,13 +27,16 @@ import { CreateContractComponent } from './componets/create-contract/create-cont
     SearcContractsComponent,
     SidebarComponent,
     SettingSystemComponent,
-    CreateContractComponent
+    SideInformationComponent,
+    CreateContractComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,HttpClientModule, 
-    LucideAngularModule.pick({Home,Search,Settings,
-      FolderPlus})
+    AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
+    MatDividerModule,
+    LucideAngularModule.pick({Home,Search,Settings,Check,X,
+      FolderPlus}), BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

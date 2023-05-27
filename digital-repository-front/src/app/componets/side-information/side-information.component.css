@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+
+.sidebar{
+    right:0;
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    padding: 20px 20px;
+    position: fixed;
+    background: #0e4185;
+}
+.acordionD{
+    position: relative;
+    top: 50px;
+    width: 80%;
+    margin-left: 20px;
+}
+.acordionC{
+    position: relative;
+    top: 50px;
+    width: 80%;
+    margin-left: 20px;
+    margin-top: 30px;
+
+}
+p{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+h3{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+h4{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+.ListExisting{
+    background-color: #a6efab;
+    border-radius: 8px;
+}
+.ListExisting li {
+    padding: 10px;
+    padding-right: 30px;
+    color: #037003;
+    
+}
+.grid{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+}
+.ListMissing{
+    margin-top: 20px;
+    background-color: #ea8f8f;
+    border-radius: 8px;
+}
+.ListMissing li{
+    padding: 10px;
+    padding-right: 30px;
+    color: #8f4744;
+}

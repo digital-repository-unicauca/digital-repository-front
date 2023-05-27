@@ -1,0 +1,42 @@
+<div class="sidebar">
+    <div class="PartOne">
+        <mat-accordion class="acordionD">
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                 <h3>Datos de Contrato</h3>
+
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>aqui datos de contratista</p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        <mat-accordion class="acordionC">
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                <h3>Lista de chequeo</h3>
+                <mat-divider></mat-divider>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <h4>Documentos Presentes</h4>  
+              <ul class="ListExisting">
+               <li class="grid"><i-lucide name="Check"></i-lucide>documento 1</li>
+                <li class="grid"><i-lucide name="Check"></i-lucide>documento 2</li>
+                <li class="grid"><i-lucide name="Check"></i-lucide>documento 3</li>
+
+            </ul>
+            <h4>Documentos faltantes</h4>
+            <ul class="ListMissing">
+
+              <li class="grid"><i-lucide name="X"></i-lucide>documento 1</li>
+              <li class="grid"><i-lucide name="X"></i-lucide>documento 2</li>
+          </ul>
+            </mat-expansion-panel>
+          </mat-accordion>
+    </div>
+
+
+</div>
