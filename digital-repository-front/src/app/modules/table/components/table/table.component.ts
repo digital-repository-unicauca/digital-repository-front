@@ -1,27 +1,27 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTable, MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { formatDate } from '@angular/common';
 
 
 export interface PeriodicElement {
-  position: number;
-  radicado: number;
-  modalidad: string;
-  tipoContrato: string;
-  contratista: string;
-  anioSus: Date;
+  id: number;
+  modality: string;
+  contractType: string;
+  signingDate: Date;
+  reference: string;
+  signingYear: Date;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 2, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 3, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 4, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 5, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 6, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date},
-  {position: 7, radicado: 1231233, modalidad: 'virtual', tipoContrato: 'Prestación de servicios', contratista: 'Carlos Andrés', anioSus: new Date}
+  { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 2, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 3, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 4, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 5, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
 ];
 
 @Component({
@@ -31,8 +31,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   standalone: true,
   imports: [MatTableModule, MatCheckboxModule],
 })
-export class TableComponent{
-  displayedColumns: string[] = ['select', 'position', 'radicado', 'modalidad', 'tipoContrato', 'contratista', 'anioSus'];
+export class TableComponent {
+  displayedColumns: string[] = ['select', 'id', 'modality', 'contractType', 'signingDate', 'reference', 'signingYear'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -58,10 +58,28 @@ export class TableComponent{
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  formatDate(date: Date): string {
-    return formatDate(date, 'yyyy-MM-dd', 'en-US');
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+
+
+  /** Format date for Year */
+  formatSigningYear(year: Date): string {
+    return year.getFullYear().toString();
+  }
+
+  /** Format date for signingDate */
+  formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+
+    return date.toLocaleString('en-US', options);
+  }
 }
+

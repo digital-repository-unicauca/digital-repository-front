@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 
 //import icons
@@ -36,7 +37,7 @@ import { TableModule } from './modules/table/table.module';
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
     MatDividerModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule, TableModule
+      FolderPlus}), BrowserAnimationsModule, TableModule,MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
