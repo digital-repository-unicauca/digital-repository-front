@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response} from 'src/app/modules/response/response'; 
+import { Response } from 'src/app/modules/response/response'; 
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,12 +17,14 @@ export class ContractService {
       'Content-Type': 'application/json',
     }),
   };
-  //service to return all contracts
-  async getAll(){
-    return await this.httpClient.get<Response>(this.urlAPI + "/contract");
+  
+  // Service para obtener todos los contratos
+  getAll(): Observable<Response> {
+    return this.httpClient.get<Response>(`${this.urlAPI}/contract/contractualFolders?pageNo=1&pageSize=10`);
   }
-  //service to return a contract by id
-  async getContract(id:number){
-    return await this.httpClient.get<Response>(this.urlAPI + "/contract/" + id);
+
+  // Service para obtener un contrato por su ID
+  getContract(id: number): Observable<Response> {
+    return this.httpClient.get<Response>(`${this.urlAPI}/contract/${id}`);
   }
 }

@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { formatDate } from '@angular/common';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
+import { ContractService } from 'src/app/shared/services/contract.service';
+import { PlegableResponse } from 'src/app/modules/response/plegable-response';
 
 export interface PeriodicElement {
   id: number;
@@ -15,13 +17,13 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+ /* { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 2, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 3, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 4, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 5, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },*/
 ];
 
 @Component({
@@ -32,15 +34,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 
 export class TableComponent implements OnInit {
-  constructor(private paginatorIntl: MatPaginatorIntl) { }
+
+  paginado: PlegableResponse[]=[]
+
+  datos: PeriodicElement[]=[]
+  ELEMENT_DATA: PeriodicElement[] = this.datos
+  constructor(private paginatorIntl: MatPaginatorIntl, private service:ContractService) { }
   displayedColumns: string[] = ['select', 'id', 'modality', 'contractType', 'signingDate', 'reference', 'signingYear'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
+
+ /* async getContracts() {
+    const response = await this.service.getAll().toPromise();
+    if (response) {
+      this.dataSource.data = response.data as PeriodicElement[];
+    }
+  }*/
+
+  async getContrats(){
+    (await this.service.getAll()).subscribe(arg => {this.paginado= arg.data;});
+    
+  }
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.nextPageLabel = 'Siguiente página';
     this.paginatorIntl.previousPageLabel = 'Página anterior';
@@ -54,8 +73,13 @@ export class TableComponent implements OnInit {
       const startIndex = page * pageSize;
       const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} - ${endIndex} de ${length}`;
+      
     };
+    this.getContrats;
+    this.datos = this.paginado[0].data;
+    this.dataSource.paginator = this.paginator;
   }
+
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
