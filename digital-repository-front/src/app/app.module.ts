@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
 
 
 //import icons
@@ -19,6 +20,7 @@ import { SettingSystemComponent } from './componets/setting-system/setting-syste
 import { CreateContractComponent } from './componets/create-contract/create-contract.component';
 import { SideInformationComponent } from './componets/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from './modules/table/table.module';
 
 @NgModule({
   declarations: [
@@ -29,14 +31,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SettingSystemComponent,
     SideInformationComponent,
     CreateContractComponent,
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
     MatDividerModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule
+      FolderPlus}), BrowserAnimationsModule, TableModule,MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
