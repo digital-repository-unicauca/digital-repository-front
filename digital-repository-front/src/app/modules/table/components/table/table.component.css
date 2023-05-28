@@ -1,0 +1,12 @@
+
+
+table {
+    width: 100%;
+}
+
+.main{
+    width: 1360px;
+    margin-left: 250px;
+    position: relative;
+    top: 150px;
+}

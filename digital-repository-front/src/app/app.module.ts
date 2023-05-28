@@ -19,6 +19,7 @@ import { SettingSystemComponent } from './componets/setting-system/setting-syste
 import { CreateContractComponent } from './componets/create-contract/create-contract.component';
 import { SideInformationComponent } from './componets/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TableModule } from './modules/table/table.module';
 
 @NgModule({
   declarations: [
@@ -29,14 +30,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SettingSystemComponent,
     SideInformationComponent,
     CreateContractComponent,
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
     MatDividerModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule
+      FolderPlus}), BrowserAnimationsModule, TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
