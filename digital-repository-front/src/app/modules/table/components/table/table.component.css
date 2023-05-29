@@ -10,3 +10,56 @@ table {
     position: relative;
     top: 150px;
 }
+
+.btn{
+    width: fit-content;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    order: 0;
+    flex-grow: 0;
+  }
+  
+  .btn.white{
+      background-color: #bed2da;
+      border: 1px solid #ffffff;
+      color: #0e4185;
+  }
+  
+  .btn.blue{
+      background-color: #6586b0;
+      border: 1px solid #ffffff;
+      color: #fbfbfb;
+  }
+
+  .grid{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .box{
+    width: fit-content;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  
+.box.fecha{
+    color: white;;
+}
+
+.box input{
+  /*background-color: #3569ae;*/
+  background-color: #6586b0;
+  color: white;
+  font-weight: lighter;
+}
+
+.box a{
+  font-weight: bold;
+}
+
+

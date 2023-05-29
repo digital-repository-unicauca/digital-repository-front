@@ -6,6 +6,7 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
 import { ContractService } from 'src/app/shared/services/contract.service';
 import { PlegableResponse } from 'src/app/modules/response/plegable-response';
+import {MatSort, MatSortModule} from '@angular/material/sort';
 
 export interface PeriodicElement {
   id: number;
@@ -18,12 +19,12 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [
  { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 2, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 3, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 4, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 5, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 2, modality: '+ 50 millones', contractType: 'Arrendamiento', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 3, modality: '+ 50 millones', contractType: 'Comodato', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 4, modality: '+ 50 millones', contractType: 'Judicatura', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 5, modality: '+ 50 millones', contractType: 'Pasantia', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 7, modality: '+ 50 millones', contractType: 'Interventoria', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
 ];
 
 @Component({
@@ -58,9 +59,12 @@ export class TableComponent implements OnInit {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.nextPageLabel = 'Siguiente página';
     this.paginatorIntl.previousPageLabel = 'Página anterior';
@@ -90,6 +94,16 @@ export class TableComponent implements OnInit {
       this.getContract(this.Contract[0]);
     }
     return numSelected === numRows;
+  }
+
+    //Search Contract
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */

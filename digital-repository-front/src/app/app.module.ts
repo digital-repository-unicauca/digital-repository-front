@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,8 +13,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatListModule} from  '@angular/material/list' ;
-
 
 //import icons
 import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
@@ -21,7 +24,8 @@ import { SettingSystemComponent } from './componets/setting-system/setting-syste
 import { CreateContractComponent } from './componets/create-contract/create-contract.component';
 import { SideInformationComponent } from './componets/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableModule } from './modules/table/table.module';
+import { TableComponent } from './modules/table/components/table/table.component';
+
 
 @NgModule({
   declarations: [
@@ -32,13 +36,16 @@ import { TableModule } from './modules/table/table.module';
     SettingSystemComponent,
     SideInformationComponent,
     CreateContractComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
-    MatDividerModule,MatListModule,
+    MatDividerModule,MatListModule,MatDividerModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule, TableModule,MatTableModule,
+      FolderPlus}), BrowserAnimationsModule,MatTableModule,CommonModule,
+      MatCheckboxModule,
+      MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
