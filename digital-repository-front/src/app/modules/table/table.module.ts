@@ -15,7 +15,7 @@ import { TableComponent } from './components/table/table.component';
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule
-  ],  
+  ],
   exports: [TableComponent],
 })
 export class TableModule { }

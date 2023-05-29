@@ -12,7 +12,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 
-
+import { SharedModuleModule } from './shared-module/shared-module.module';
 //import icons
 import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
 //components
@@ -21,6 +21,8 @@ import { CreateContractComponent } from './componets/create-contract/create-cont
 import { SideInformationComponent } from './componets/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from './modules/table/table.module';
+import { LayoutComponent } from './componets/layout/layout.component';
+
 
 @NgModule({
   declarations: [
@@ -31,13 +33,18 @@ import { TableModule } from './modules/table/table.module';
     SettingSystemComponent,
     SideInformationComponent,
     CreateContractComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
     MatDividerModule,
-    LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule, TableModule,MatTableModule,
+    LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
+
+    BrowserAnimationsModule,
+    TableModule,
+    MatTableModule,
+    SharedModuleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
