@@ -11,6 +11,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import {MatListModule} from  '@angular/material/list' ;
 
 import { SharedModuleModule } from './shared-module/shared-module.module';
 //import icons
@@ -45,6 +46,9 @@ import { LayoutComponent } from './componets/layout/layout.component';
     TableModule,
     MatTableModule,
     SharedModuleModule,
+    MatDividerModule,MatListModule,
+    LucideAngularModule.pick({Home,Search,Settings,Check,X,
+      FolderPlus}), BrowserAnimationsModule, TableModule,MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
