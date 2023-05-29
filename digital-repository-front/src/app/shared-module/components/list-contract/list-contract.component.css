@@ -92,7 +92,7 @@ button:hover {
 }
 
 .content-select select:hover{
-	background: #b8ddf4;
+	background: #cfe6f4;
 }
 
 /*
@@ -107,8 +107,8 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 	width: 16px;
 	height: 16px;
 	display: block;
-	border-left:4px solid #b8ddf4;
-	border-bottom:4px solid #b8ddf4;
+	border-left:4px solid #cfe6f4;
+	border-bottom:4px solid #cfe6f4;
 	transform: rotate(-45deg); /* Giramos el cuadrado */
 	transition: all 0.25s ease;
 }

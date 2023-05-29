@@ -5,6 +5,7 @@
 
   <div class="selects-container" *ngIf="pressedSettingsButton">
     <!-- <div class="select-container"> -->
+      <br>
     <div class="content-select">
 
       <select id="filterSelect" [formControl]="filterControl">
@@ -15,7 +16,7 @@
 
     <!-- <div *ngIf="filterControl.value !== ''" class="select-container"> -->
     <div *ngIf="filterControl.value !== ''" class="content-select">
-     
+
       <select id="secondFilterSelect" [formControl]="secondFilterControl">
         <option value="">Valor: </option>
         <option *ngFor="let option of getSecondFilterOptions()" [value]="option">{{ option }}</option>
