@@ -3,13 +3,19 @@
         <mat-accordion class="acordionD">
             <mat-expansion-panel (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header >
                 <mat-panel-title>
                  <h3>Datos de Contrato</h3>
 
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <p>aqui datos de contratista</p>
+              <mat-list role="list" *ngFor="let CONTRACT of contract">
+                <mat-list-item role="listitem">{{CONTRACT.id}}</mat-list-item>
+                <mat-list-item role="listitem">{{CONTRACT.reference}}</mat-list-item>
+                <mat-list-item role="listitem">{{CONTRACT.initialDate}}</mat-list-item>
+                <mat-list-item role="listitem">{{CONTRACT.finalDate}}</mat-list-item>
+                <mat-list-item role="listitem">{{CONTRACT.vendor}}</mat-list-item>
+              </mat-list>
             </mat-expansion-panel>
           </mat-accordion>
         <mat-accordion class="acordionC">
