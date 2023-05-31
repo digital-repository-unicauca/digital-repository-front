@@ -1,4 +1,11 @@
 <div id="search" class="main">
+    
+    <div id="search" class="main">
+    <div class="box">
+        <div class="btn blue"><a class="grid"><i-lucide name="search"></i-lucide><input matInput (keyup)="applyFilter($event)" type="text" class="form-control" placeholder="Buscar Contrato" #input></a></div>
+    </div>
+
+    
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Checkbox Column -->
