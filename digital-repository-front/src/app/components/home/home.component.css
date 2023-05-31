@@ -1,3 +1,109 @@
-body{
-    background-color: aquamarine;
+.udc-logo-size {
+    height: 5em;
+    width: 5em;
+    margin: 5px;
+}
+
+.udc-logo-title {
+    width: 10em;
+    padding-inline: 10px;
+    border-style: dashed;
+}
+
+.main-title-s {
+    font-weight: bolder;
+}
+
+.start-menu-bg {
+    background: linear-gradient(112.47deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%);
+    margin: auto;
+    border-radius: 20px;
+}
+
+.log-out,
+.user-settings {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+.settings {
+    padding-top: 4em;
+    padding-bottom: 4em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    min-height: 4em;
+}
+
+.search-doc,
+.new-doc {
+    padding-top: 4em;
+    padding-bottom: 4em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    min-height: 4em;
+    width: 50%;
+}
+
+.icon-menu {
+    height: 2.5em;
+    width: 2.5em;
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.start-menu {
+    padding-top: .3em;
+    padding-bottom: .3em;
+    padding-right: 2em;
+    padding-left: 2em;
+}
+
+.border-blue {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.new-doc {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.208333) 45.83%, rgba(255, 255, 255, 0.3) 100%);
+}
+
+.start-menu {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.settings {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.user-settings {
+    background: rgba(14, 65, 133, 0.5);
+}
+
+.log-out {
+    background: rgba(14, 65, 133, 0.5);
+}
+
+.search-doc {
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.blue-color-text {
+    color: #0E4185;
+}
+
+.custom-darkblue-bg {
+    background-color: #100f47;
+}
+
+.custom-seablue-bg {
+    background-color: #0E4185;
+}
+
+.new-doc:hover,
+.search-doc:hover,
+.settings:hover,
+.user-settings:hover,
+.log-out:hover {
+    background-color: rgba(173, 194, 221, 5);
 }
