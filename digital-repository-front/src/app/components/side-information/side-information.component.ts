@@ -12,23 +12,28 @@ import { ContractService } from 'src/app/services/contract.service';
 
 export class SideInformationComponent implements OnInit {
   panelOpenState = false;
-  contract:Contract []=[];
+  // contract:Contract[] =[];
+  contract:Contract= new Contract()
   response:Response[]=[];
   constructor(private service:ContractService){}
 
   ngOnInit(): void {
 
     this.getContract();
+
+
   }
 
 
-  async getContract(){
+   getContract(){
 
     var id = JSON.parse(localStorage.getItem('id') || '1');
-    (await this.service.getContract(id)).subscribe((response) => {;
-      this.contract= response.data.data;
+    this.service.getContract(id).subscribe((response) => {;
+      console.log(response)
+      this.contract= response.data;
+      console.log(id,this.contract)
     });
-    console.log(id)
+
   }
 
 }

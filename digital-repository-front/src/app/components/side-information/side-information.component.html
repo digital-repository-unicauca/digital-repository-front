@@ -5,16 +5,16 @@
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header >
                 <mat-panel-title>
-                 <h3>Datos de Contrato</h3>
+                 <h3>Datos de contractrato</h3>
 
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <mat-list role="list" *ngFor="let CONTRACT of contract">
-                <mat-list-item role="listitem">{{CONTRACT.id}}</mat-list-item>
-                <mat-list-item role="listitem">{{CONTRACT.reference}}</mat-list-item>
-                <mat-list-item role="listitem">{{CONTRACT.initialDate}}</mat-list-item>
-                <mat-list-item role="listitem">{{CONTRACT.finalDate}}</mat-list-item>
-                <mat-list-item role="listitem">{{CONTRACT.vendor}}</mat-list-item>
+              <mat-list role="list" >
+                <mat-list-item role="listitem">{{contract.id}}</mat-list-item>
+                <mat-list-item role="listitem">{{contract.reference}}</mat-list-item>
+                <mat-list-item role="listitem">{{contract.initialDate}}</mat-list-item>
+                <mat-list-item role="listitem">{{contract.finalDate}}</mat-list-item>
+                <mat-list-item role="listitem">{{contract.vendor}}</mat-list-item>
               </mat-list>
             </mat-expansion-panel>
           </mat-accordion>
@@ -27,7 +27,7 @@
                 <mat-divider></mat-divider>
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <h4>Documentos Presentes</h4>  
+              <h4>Documentos Presentes</h4>
               <ul class="ListExisting">
                <li class="grid"><i-lucide name="Check"></i-lucide>documento 1</li>
                 <li class="grid"><i-lucide name="Check"></i-lucide>documento 2</li>

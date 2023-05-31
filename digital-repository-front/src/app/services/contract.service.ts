@@ -48,8 +48,8 @@ export class ContractService {
 
 
   //service to return a contract by id
-  getContract(id:number): Observable<Response>{
-    return  this.httpClient.get<Response>(this.urlAPI + "/" + id).pipe(
+  getContract(id:number): Observable<any>{
+    return  this.httpClient.get<any>(this.urlAPI + "/" + id).pipe(
       catchError((e) => {
 
 
@@ -58,5 +58,14 @@ export class ContractService {
 
       })
     )
+  }
+  private selectedContractId: number | null = null;
+
+  setSelectedContractId(contractId: number) {
+    this.selectedContractId = contractId;
+  }
+
+  getSelectedContractId(): number | null {
+    return this.selectedContractId;
   }
 }

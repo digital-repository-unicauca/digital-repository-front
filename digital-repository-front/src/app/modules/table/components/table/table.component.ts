@@ -4,14 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { formatDate } from '@angular/common';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
-<<<<<<< HEAD
 import { ContractService } from 'src/app/services/contract.service';
 import { PlegableResponse } from 'src/app/class/plegable-response';
-=======
-import { ContractService } from 'src/app/shared/services/contract.service';
-import { PlegableResponse } from 'src/app/modules/response/plegable-response';
 import {MatSort, MatSortModule} from '@angular/material/sort';
->>>>>>> b942d874064ec77ce254122d2dce3ab298a1f130
 
 export interface PeriodicElement {
   id: number;
@@ -30,6 +25,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
   { id: 5, modality: '+ 50 millones', contractType: 'Pasantia', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 7, modality: '+ 50 millones', contractType: 'Interventoria', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 8, modality: '- 50 millones', contractType: 'Interventoria', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+
 ];
 
 @Component({

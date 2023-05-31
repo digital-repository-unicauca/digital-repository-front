@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { LocationStrategy } from '@angular/common';
 
 import { PeriodicElement } from 'src/app/class/models/PeriodicElement';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -29,17 +30,27 @@ export class ListContractComponent {
   selection = new SelectionModel<PeriodicElement>(true, []);
   filterOptions = ['REFERENCE', 'MODALITY', 'TYPE','VENDOR','SUPERSCRIBE-YEAR'];
   yearOptions = ["2021", "2022", "2023"];
-  modalityOptions = ['Modalidad 1', 'Modalidad 2', 'Modalidad 3'];
-  contractTypeOptions = ['Tipo 1', 'Tipo 2', 'Tipo 3'];
-  referenceOptions =[]
-  vendorOptions =[]
+  modalityOptions = ['+ 50 Millones', '+ 120 Millones', '- 50 Millones'];
+  contractTypeOptions = ['Arrendamiento', 'Compraventa', 'Obra', 'Judicatura','Pasantia'];
+  referenceOptions =['xxx.yyy.zzz.1','xxx.yyy.zzz.2','xxx.yyy.zzz.3','xxx.yyy.zzz.4','xxx.yyy.zzz.5']
+  vendorOptions =['1']
   // Control del primer select
   filterControl = new FormControl('');
 
   // Control del segundo select
   secondFilterControl = new FormControl('');
+
+  selectedFirstFilter: string = ''; // Variable para almacenar la opción seleccionada del primer filtro
+  selectedSecondFilter: string = ''; // Variable para almacenar la opción seleccionada del segundo filtro
+
   pressedSettingsButton:boolean=false
   isFilterApplied:boolean =false
+  isSearchApplied:boolean =false
+  allContracts: PeriodicElement[] = [];
+
+  searchValue: string = '';
+  selectedFilter:string = '';
+  selectedFilterValue:string='';
 
   formRadio1 = new UntypedFormGroup({
     radio1: new UntypedFormControl('Radio1')
@@ -47,7 +58,8 @@ export class ListContractComponent {
 
   constructor(
     private  contractService:ContractService,
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private location: LocationStrategy
     ) {
 
     }
@@ -79,20 +91,39 @@ export class ListContractComponent {
         selectedFilter = "SUPERSCRIBE-YEAR"; // Asignar el valor solo si no es null
         selectedValue = "2023"
       }
-      this.contractService.getAllFilteredContracts(pageNo,pageSize,selectedFilter,selectedValue).subscribe((response) => {
+      this.selectedFilter = selectedFilter
+      this.selectedFilterValue = selectedValue
+      console.log("Filtrando ",this.selectedFilter,this.selectedFilterValue)
+      this.contractService.getAllFilteredContracts(pageNo,pageSize,this.selectedFilter,this.selectedFilterValue).subscribe((response) => {
         console.log("Del servicio get all filtered  ",response)
         this.contracts = response.data.data as PeriodicElement[]
         this.totalElements=response.data.totalElements as number
         this.totalPages=response.data.totalPages as number
+        this.pageSize = response.data.pageSize as number
 
       })
-    }else{
+    }else if(this.isSearchApplied){
+      const selectedFilter = "TYPE"
+
+      this.selectedFilter = selectedFilter
+      this.selectedFilterValue = this.searchValue
+      this.contractService.getAllFilteredContracts(pageNo,pageSize,this.selectedFilter,this.selectedFilterValue).subscribe((response) => {
+        console.log("Del servicio get all filtered  ",response)
+        this.contracts = response.data.data as PeriodicElement[]
+        this.totalElements=response.data.totalElements as number
+        this.totalPages=response.data.totalPages as number
+        this.pageSize = response.data.pageSize as number
+
+      })
+    }
+    else{
 
       this.contractService.getAll(pageNo,pageSize).subscribe((response) => {
         console.log("Del servicio ",response)
         this.contracts = response.data.data as PeriodicElement[]
         this.totalElements=response.data.totalElements as number
         this.totalPages=response.data.totalPages as number
+        this.pageSize = response.data.pageSize as number
         this.isFilterApplied=false
 
       })
@@ -105,7 +136,8 @@ export class ListContractComponent {
    * @returns retorna el array de opciones para los vlaores del filtro
    */
   getSecondFilterOptions() {
-    const selectedFilter = this.filterControl.value;
+    // const selectedFilter = this.filterControl.value;
+    const selectedFilter = this.selectedFirstFilter
     switch (selectedFilter) {
       case 'SUPERSCRIBE-YEAR':
         return this.yearOptions;
@@ -128,7 +160,8 @@ export class ListContractComponent {
   filterData() {
 
     this.isFilterApplied=true
-    this.loadTableContracts([0,10])
+
+    this.loadTableContracts([0,5])
   }
 
   /**
@@ -158,6 +191,11 @@ export class ListContractComponent {
     }
   }
 
+  setIdContract(id:number){
+    this.contractService.setSelectedContractId(id);
+    localStorage.setItem('id',id.toString())
+    window.location.reload()
+  }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -216,7 +254,7 @@ export class ListContractComponent {
       this.filterData()
     }else{
       this.resetFilter()
-      this.loadTableContracts([0,10])
+      this.loadTableContracts([0,5])
     }
   }
 
@@ -225,7 +263,43 @@ export class ListContractComponent {
    */
   resetFilter(){
     this.isFilterApplied=false
+    this.isSearchApplied=false
+    this.selectedFirstFilter=" "
+    this.selectedSecondFilter=" "
     this.filterControl.reset('');
     this.secondFilterControl.reset('');
   }
+
+  applyFilter(event: HTMLInputElement) {
+    //this.loadTableContracts([0,10])
+    // const filterValue = (event.target as HTMLInputElement).value;
+    // const filteredContracts = this.contracts.filter(contract =>
+    //   contract.contractType.toLowerCase() === filterValue.toLowerCase()
+    // );
+    // this.contracts = filteredContracts
+    //   console.log(filteredContracts)
+
+    const searchValue = (event as HTMLInputElement).value.trim().toLowerCase();
+    console.log("search value ",searchValue)
+    if(searchValue =='' || searchValue==null){
+      this.resetFilter()
+    }else{
+      this.isSearchApplied=true
+      this.isFilterApplied=false
+
+      this.searchValue=searchValue
+    }
+
+
+    this.loadTableContracts([0,5])
+  }
+
+  selectFirstFilter(option: string) {
+    this.selectedFirstFilter = option;
+  }
+
+  selectSecondFilter(option: string) {
+    this.selectedSecondFilter = option;
+  }
+
 }

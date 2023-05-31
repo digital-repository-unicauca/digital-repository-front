@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ListContractComponent } from './components/list-contract/list-contract.component';
 import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
 
@@ -13,6 +14,11 @@ import {
   ButtonModule,
   DropdownModule,
   ButtonGroupModule ,
+  CollapseModule ,
+  CalloutModule ,
+  GridModule,
+  NavbarModule,
+  NavModule ,
   PaginationModule,
   TableModule,
   UtilitiesModule
@@ -27,15 +33,21 @@ import {
     CommonModule,
     ButtonModule,
     ButtonGroupModule,
+    CollapseModule,
+    CalloutModule ,
     DropdownModule,
+    FormsModule,
+    GridModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    NavbarModule,
+    NavModule ,
     PaginationModule,
     ReactiveFormsModule,
     TableModule,
-    UtilitiesModule 
+    UtilitiesModule
   ],
   exports :[
     ListContractComponent,
