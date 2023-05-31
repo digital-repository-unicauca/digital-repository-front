@@ -30,7 +30,7 @@ export class ListContractComponent {
   selection = new SelectionModel<PeriodicElement>(true, []);
   filterOptions = ['REFERENCE', 'MODALITY', 'TYPE','VENDOR','SUPERSCRIBE-YEAR'];
   yearOptions = ["2021", "2022", "2023"];
-  modalityOptions = ['+ 50 Millones', '+ 120 Millones', '- 50 Millones'];
+  modalityOptions = ['50 Millones', '120 Millones', '- 50 Millones'];
   contractTypeOptions = ['Arrendamiento', 'Compraventa', 'Obra', 'Judicatura','Pasantia'];
   referenceOptions =['xxx.yyy.zzz.1','xxx.yyy.zzz.2','xxx.yyy.zzz.3','xxx.yyy.zzz.4','xxx.yyy.zzz.5']
   vendorOptions =['1']
@@ -91,8 +91,8 @@ export class ListContractComponent {
         selectedFilter = "SUPERSCRIBE-YEAR"; // Asignar el valor solo si no es null
         selectedValue = "2023"
       }
-      this.selectedFilter = selectedFilter
-      this.selectedFilterValue = selectedValue
+      this.selectedFilter = this.selectedFirstFilter
+      this.selectedFilterValue = this.selectedSecondFilter
       console.log("Filtrando ",this.selectedFilter,this.selectedFilterValue)
       this.contractService.getAllFilteredContracts(pageNo,pageSize,this.selectedFilter,this.selectedFilterValue).subscribe((response) => {
         console.log("Del servicio get all filtered  ",response)
