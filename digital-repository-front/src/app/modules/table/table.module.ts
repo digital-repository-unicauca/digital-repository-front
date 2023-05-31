@@ -6,6 +6,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { TableComponent } from './components/table/table.component';
 
+import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
+
 @NgModule({
   declarations: [
     TableComponent
@@ -14,8 +16,10 @@ import { TableComponent } from './components/table/table.component';
     CommonModule,
     MatTableModule,
     MatCheckboxModule,
-    MatPaginatorModule
-  ],  
+    MatPaginatorModule,
+    LucideAngularModule.pick({Home,Search,Settings,Check,X,
+      FolderPlus})
+  ],
   exports: [TableComponent],
 })
 export class TableModule { }

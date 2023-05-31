@@ -26,13 +26,13 @@ h3{
 }
 .logo{
     background: #100f47;
-    width: 60px; 
+    width: 60px;
     height: 90px;
     margin-left: 10px;
     border-radius: 10px;
 }
 .titleRepo{
-    width: 150px; 
+    width: 150px;
     height: 100px;
     display: flex;
     padding: 10px;
@@ -48,15 +48,16 @@ h3{
     padding: 20px 0px;
     position: fixed;
     background: #0e4185;
+    border-right: 2px solid white;
   }
-  
+
  .sidebar ul li{
 
     padding: 8px;
     margin-left: 10px;
     margin-right: 15px;
     border-radius: 10px;
-  } 
+  }
  .sidebar ul li a{
     color: #ffffff;
     font-family:source sans pro ;

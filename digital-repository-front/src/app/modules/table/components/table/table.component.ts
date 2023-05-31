@@ -4,8 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { formatDate } from '@angular/common';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
-import { ContractService } from 'src/app/shared/services/contract.service';
-import { PlegableResponse } from 'src/app/modules/response/plegable-response';
+import { ContractService } from 'src/app/services/contract.service';
+import { PlegableResponse } from 'src/app/class/plegable-response';
+import {MatSort, MatSortModule} from '@angular/material/sort';
 
 export interface PeriodicElement {
   id: number;
@@ -18,12 +19,14 @@ export interface PeriodicElement {
 
 const ELEMENT_DATA: PeriodicElement[] = [
  { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 2, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 3, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 4, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 5, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 2, modality: '+ 50 millones', contractType: 'Arrendamiento', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 3, modality: '+ 50 millones', contractType: 'Comodato', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 4, modality: '+ 50 millones', contractType: 'Judicatura', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 5, modality: '+ 50 millones', contractType: 'Pasantia', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
   { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-  { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 7, modality: '+ 50 millones', contractType: 'Interventoria', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+  { id: 8, modality: '- 50 millones', contractType: 'Interventoria', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
+
 ];
 
 @Component({
@@ -53,14 +56,17 @@ export class TableComponent implements OnInit {
   }*/
 
   async getContrats(){
-    (await this.service.getAll()).subscribe(arg => {this.paginado = arg.data;});
+    //(await this.service.getAll()).subscribe(arg => {this.paginado = arg.data;});
     console.log(this.paginado)
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
     this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
     this.paginatorIntl.nextPageLabel = 'Siguiente página';
     this.paginatorIntl.previousPageLabel = 'Página anterior';
@@ -75,9 +81,9 @@ export class TableComponent implements OnInit {
       const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
- 
-    this.getContrats;
-    this.datos = this.paginado[0].data;
+
+    this.getContrats();
+    //this.datos = this.paginado[0].data;
     this.dataSource.paginator = this.paginator;
   }
 
@@ -90,6 +96,16 @@ export class TableComponent implements OnInit {
       this.getContract(this.Contract[0]);
     }
     return numSelected === numRows;
+  }
+
+    //Search Contract
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */

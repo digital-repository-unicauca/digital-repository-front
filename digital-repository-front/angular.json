@@ -26,6 +26,8 @@
             ],
             "styles": [
               "src/custom-theme.scss",
+              "node_modules/@coreui/icons/css/all.min.css",
+              "node_modules/@coreui/coreui/dist/css/coreui.min.css",
               "src/styles.css"
             ],
             "scripts": []
