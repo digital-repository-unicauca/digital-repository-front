@@ -1,23 +1,13 @@
-
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { ViewChild } from '@angular/core';
-import { PeriodicElement } from 'src/app/models/PeriodicElement';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ContractService } from 'src/app/shared/services/contract.service';
-import { FormControl } from '@angular/forms';
-//import { CdkColumnDef } from '@angular/cdk/table';
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   { id: 1, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 2, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 3, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 4, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 5, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 6, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-//   { id: 7, modality: '+ 50 millones', contractType: 'Prestación de servicios', signingDate: new Date(), reference: 'xxx.yyy.zzz.4', signingYear: new Date() },
-// ];
+import { PeriodicElement } from 'src/app/class/models/PeriodicElement';
+import { SelectionModel } from '@angular/cdk/collections';
+import { ContractService } from 'src/app/services/contract.service';
+import { FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+
+
+
 
 @Component({
   selector: 'app-list-contract',
@@ -30,23 +20,13 @@ import { FormControl } from '@angular/forms';
 export class ListContractComponent {
 
   contracts:PeriodicElement[]=[];
-  displayedColumns: string[] = ['select','id', 'modality', 'contractType', 'reference', 'signingYear'];
+  displayedColumns: string[] = ['Id', 'Modality', 'ContractType', 'Reference', 'SigningYear'];
+  totalElements:number=0;
+  totalPages:number=1;
+  pageSize:number=5;
 
-  constructor(
-    private paginatorIntl: MatPaginatorIntl,
-    private  contractService:ContractService,
-
-    ) {
-
-    }
-  //displayedColumns: string[] = ['select', 'id', 'modality', 'contractType', 'signingDate', 'reference', 'signingYear'];
-  dataSource = new MatTableDataSource<PeriodicElement>(this.contracts);
-  //dataSource!: MatTableDataSource<PeriodicElement>;
-
+  // checkbox selection
   selection = new SelectionModel<PeriodicElement>(true, []);
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  //filterOptions = ['Fecha', 'Modalidad', 'Tipo de contrato'];
   filterOptions = ['REFERENCE', 'MODALITY', 'TYPE','VENDOR','SUPERSCRIBE-YEAR'];
   yearOptions = ["2021", "2022", "2023"];
   modalityOptions = ['Modalidad 1', 'Modalidad 2', 'Modalidad 3'];
@@ -59,40 +39,71 @@ export class ListContractComponent {
   // Control del segundo select
   secondFilterControl = new FormControl('');
   pressedSettingsButton:boolean=false
+  isFilterApplied:boolean =false
+
+  formRadio1 = new UntypedFormGroup({
+    radio1: new UntypedFormControl('Radio1')
+  });
+
+  constructor(
+    private  contractService:ContractService,
+    private formBuilder: UntypedFormBuilder
+    ) {
+
+    }
+
+
+
   ngOnInit() {
 
 
+    this.loadTableContracts([0,5])
 
+  }
 
-    this.dataSource.paginator = this.paginator;
-    this.paginatorIntl.itemsPerPageLabel = 'Elementos por página:';
-    this.paginatorIntl.nextPageLabel = 'Siguiente página';
-    this.paginatorIntl.previousPageLabel = 'Página anterior';
-    this.paginatorIntl.firstPageLabel = 'Primera página';
-    this.paginatorIntl.lastPageLabel = 'Última página';
+  isSelectedColumn(column: string): boolean {
+    return column === 'selected';
+  }
 
-    this.getAllContracts()
+  /**  cargar los contenidos de la tabla segun si esta filtrado o es generico
+  *   @param args paginado para consumir los servicios
+  */
+  loadTableContracts(args: number[]){
+    let pageNo:number = args[0];
+    let pageSize: number = args[1]
 
-    this.paginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-      if (length === 0 || pageSize === 0) {
-        return `0 de ${length}`;
+    if(this.isFilterApplied){
+      let selectedFilter= this.filterControl.value;
+      let selectedValue = this.secondFilterControl.value;
+      if (selectedFilter == null || selectedValue ==null ||selectedFilter == "" || selectedValue =="" ) {
+        selectedFilter = "SUPERSCRIBE-YEAR"; // Asignar el valor solo si no es null
+        selectedValue = "2023"
       }
-      length = Math.max(length, 0);
-      const startIndex = page * pageSize;
-      const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-      return `${startIndex + 1} - ${endIndex} de ${length}`;
-    };
+      this.contractService.getAllFilteredContracts(pageNo,pageSize,selectedFilter,selectedValue).subscribe((response) => {
+        console.log("Del servicio get all filtered  ",response)
+        this.contracts = response.data.data as PeriodicElement[]
+        this.totalElements=response.data.totalElements as number
+        this.totalPages=response.data.totalPages as number
+
+      })
+    }else{
+
+      this.contractService.getAll(pageNo,pageSize).subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.contracts = response.data.data as PeriodicElement[]
+        this.totalElements=response.data.totalElements as number
+        this.totalPages=response.data.totalPages as number
+        this.isFilterApplied=false
+
+      })
+    }
+
   }
 
-  getAllContracts(){
-    this.contractService.getAll(0,10).subscribe((response) => {
-      console.log("Del servicio ",response)
-      this.contracts = response.data.data as PeriodicElement[]
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.contracts);
-      //this.dataSource = this.contracts
-      console.log(this.contracts)
-    })
-  }
+  /**
+   * obtiene valores del filtro
+   * @returns retorna el array de opciones para los vlaores del filtro
+   */
   getSecondFilterOptions() {
     const selectedFilter = this.filterControl.value;
     switch (selectedFilter) {
@@ -111,45 +122,38 @@ export class ListContractComponent {
     }
   }
 
-  // Función para filtrar los datos según las opciones seleccionadas
+  /**
+   * llama a cargar los datos según la info del form
+   */
   filterData() {
-    let selectedFilter:string | null = "";
-    let selectedValue :string | null   ="";
-    selectedFilter = this.filterControl.value;
-    selectedValue = this.secondFilterControl.value;
 
-    if (selectedFilter == null || selectedValue ==null ||selectedFilter == "" || selectedValue =="" ) {
-      selectedFilter = "SUPERSCRIBE-YEAR"; // Asignar el valor solo si no es null
-      selectedValue = "2023"
-    }
-    // Aquí puedes realizar la llamada al servicio backend para obtener los datos filtrados
-    console.log('Filtrar por:', selectedFilter);
-    console.log('Valor seleccionado:', selectedValue);
-
-    this.contractService.getAllFilteredContracts(0,10,selectedFilter,selectedValue).subscribe((response) => {
-      console.log("Del servicio get all filtered  ",response)
-      this.contracts = response.data.data as PeriodicElement[]
-      // this.dataSource = new MatTableDataSource<PeriodicElement>(this.contracts);
-      //this.dataSource = this.contracts
-
-    })
+    this.isFilterApplied=true
+    this.loadTableContracts([0,10])
   }
+
+  /**
+   * Activa o inactiva el boton de filtros
+   */
   toggleSettingButton(){
     this.pressedSettingsButton = !this.pressedSettingsButton
-    console.log(this.pressedSettingsButton)
+
   }
+  /**
+   * Lee los cambios del componente y obtiene el array de contratos
+   * @param changes cambios del componente
+   */
   ngOnChanges(changes: SimpleChanges) {
     if (changes['contracts'] && changes['contracts'].currentValue) {
       const updatedContracts = changes['contracts'].currentValue;
 
       if (updatedContracts.length > 0) {
-        // Aquí puedes acceder a los datos actualizados en `updatedContracts`
+        // acceder a los datos actualizados en `updatedContracts`
         console.log('Contratos actualizados:', updatedContracts);
 
         // Inicializa MatTableDataSource con los datos actualizados
-        this.dataSource = new MatTableDataSource<PeriodicElement>(updatedContracts);
+        this.contracts=updatedContracts
 
-        // Realiza cualquier acción necesaria con los datos en este punto
+
       }
     }
   }
@@ -157,10 +161,10 @@ export class ListContractComponent {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.contracts.length;
     return numSelected === numRows;
 
-    //return true
+
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
@@ -170,7 +174,7 @@ export class ListContractComponent {
       return;
     }
 
-    this.selection.select(...this.dataSource.data);
+    this.selection.select(...this.contracts);
   }
 
   /** The label for the checkbox on the passed row */
@@ -198,5 +202,30 @@ export class ListContractComponent {
     };
 
     return date.toLocaleString('en-US', options);
+  }
+/**
+ * Asignar el valor del boton, se pinta el que este seleccionado
+ * ejecuta la busqueda por default o la busqueda fltrada
+ * @param value valor del boton
+ */
+  setRadioValue(value: string): void {
+    //
+    //si es filtrar filtra con los datos seleccionados; sino tablaDefault
+    this.formRadio1.setValue({ radio1: value });
+    if(value== 'filtrar'){
+      this.filterData()
+    }else{
+      this.resetFilter()
+      this.loadTableContracts([0,10])
+    }
+  }
+
+  /**
+   * hace reset de los filtros y sus valores
+   */
+  resetFilter(){
+    this.isFilterApplied=false
+    this.filterControl.reset('');
+    this.secondFilterControl.reset('');
   }
 }

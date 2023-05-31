@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PeriodicElement } from 'src/app/models/PeriodicElement';
-import { ContractService } from 'src/app/shared/services/contract.service';
+import { PeriodicElement } from 'src/app/class/models/PeriodicElement';
+import { ContractService } from 'src/app/services/contract.service';
 
 @Component({
   selector: 'app-searc-contracts',

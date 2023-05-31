@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="main">
+  <!-- toggle to display filters options -->
   <button (click)="toggleSettingButton()" class="btn"><i class="fa fa-bars" ></i> Filtros </button>
   <br>
 
+  <!-- block that displays the filter options -->
   <div class="selects-container" *ngIf="pressedSettingsButton">
-    <!-- <div class="select-container"> -->
       <br>
     <div class="content-select">
 
@@ -14,7 +15,6 @@
       </select>
     </div>
 
-    <!-- <div *ngIf="filterControl.value !== ''" class="select-container"> -->
     <div *ngIf="filterControl.value !== ''" class="content-select">
 
       <select id="secondFilterSelect" [formControl]="secondFilterControl">
@@ -23,42 +23,81 @@
       </select>
     </div>
 
-    <button (click)="filterData()">Filtrar</button>
+    <form [formGroup]="formRadio1">
+      <c-button-group [vertical]="false" aria-label="Vertical button group" role="group">
+        <input class="btn-check" formControlName="radio1" type="radio" value="filtrar" />
+        <label (click)="setRadioValue('filtrar')" cButton cFormCheckLabel color="primary"
+               variant="outline">Filtrar</label>
+
+
+        <input class="btn-check" formControlName="radio1" type="radio" value="noFiltrar" *ngIf="isFilterApplied"/>
+        <label (click)="setRadioValue('noFiltrar')" cButton cFormCheckLabel color="primary"
+               variant="outline">No filtrar</label>
+
+
+      </c-button-group>
+    </form>
+
+
   </div>
 
 
   <br>
-  <table mat-table [dataSource]="contracts" class="mat-elevation-z8">
-    <!-- Columna de selección -->
-    <ng-container matColumnDef="selectedRow">
-      <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()"
-                      [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-      </th>
-      <td mat-cell *matCellDef="let contract">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(contract) : null"
-                      [checked]="selection.isSelected(contract)"
-                      [aria-label]="checkboxLabel(contract)">
-        </mat-checkbox>
-      </td>
-    </ng-container>
 
+  <!-- table to display contracts on the contracts array  -->
+  <table [striped]="true" cTable color="light">
+    <thead>
+      <tr>
+        <th>
+          <ng-container>
+            <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
 
-    <!-- Resto de las columnas -->
-    <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{ column }}">
-      <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
-      <td mat-cell *matCellDef="let contract"> {{ contract[column] }} </td>
-    </ng-container>
+            </mat-checkbox>
+          </ng-container>
+        </th>
+        <th *ngFor="let column of displayedColumns" >{{column}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of contracts">
+        <td>
+          <ng-container>
+            <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(item) : null"
+            [checked]="selection.isSelected(item)"
+            [aria-label]="checkboxLabel(item)">
 
-    <!-- Estructura de las filas -->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let contract; columns: displayedColumns;"></tr>
+            </mat-checkbox>
+          </ng-container>
+        </td>
+        <td>{{ item.id }}</td>
+        <td>{{ item.modality }}</td>
+        <td>{{ item.contractType }}</td>
+
+        <td>{{ item.reference }}</td>
+        <td>{{ item.signingYear }}</td>
+        <!-- <td>{{ item.vendor }}</td> -->
+      </tr>
+    </tbody>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+
+
+
+
+
+  <app-paginador
+    [totalElements]="totalElements"
+    [pageSize]="pageSize"
+    [totalPages]="totalPages"
+    (pageChanged)="loadTableContracts($event)"
+  ></app-paginador>
+
+
+  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
 </div>
 
 

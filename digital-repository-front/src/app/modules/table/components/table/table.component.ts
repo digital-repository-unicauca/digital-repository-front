@@ -4,8 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { formatDate } from '@angular/common';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { ViewChild } from '@angular/core';
-import { ContractService } from 'src/app/shared/services/contract.service';
-import { PlegableResponse } from 'src/app/modules/response/plegable-response';
+import { ContractService } from 'src/app/services/contract.service';
+import { PlegableResponse } from 'src/app/class/plegable-response';
 
 export interface PeriodicElement {
   id: number;
@@ -76,8 +76,8 @@ export class TableComponent implements OnInit {
       return `${startIndex + 1} - ${endIndex} de ${length}`;
     };
 
-    this.getContrats;
-    this.datos = this.paginado[0].data;
+    this.getContrats();
+    //this.datos = this.paginado[0].data;
     this.dataSource.paginator = this.paginator;
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response} from 'src/app/modules/response/response';
+import { Response} from 'src/app/class/response';
 import { Observable, catchError, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,15 @@ export class ContractService {
 
 
   //service to return a contract by id
-  async getContract(id:number){
-    return await this.httpClient.get<Response>(this.urlAPI + "/contract/" + id);
+  getContract(id:number): Observable<Response>{
+    return  this.httpClient.get<Response>(this.urlAPI + "/" + id).pipe(
+      catchError((e) => {
+
+
+        console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
   }
 }

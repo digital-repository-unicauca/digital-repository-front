@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './componets/home/home.component';
-import { SearcContractsComponent } from './componets/searc-contracts/searc-contracts.component';
-import { CreateContractComponent } from './componets/create-contract/create-contract.component';
-import { SettingSystemComponent } from './componets/setting-system/setting-system.component';
-import { LayoutComponent } from './componets/layout/layout.component';
+import { HomeComponent } from './components/home/home.component';
+import { SearcContractsComponent } from './components/searc-contracts/searc-contracts.component';
+import { CreateContractComponent } from './components/create-contract/create-contract.component';
+import { SettingSystemComponent } from './components/setting-system/setting-system.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 
 

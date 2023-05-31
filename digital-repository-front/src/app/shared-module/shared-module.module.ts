@@ -7,21 +7,39 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaginadorComponent } from './components/paginador/paginador.component';
+
+import {
+  ButtonModule,
+  DropdownModule,
+  ButtonGroupModule ,
+  PaginationModule,
+  TableModule,
+  UtilitiesModule
+}from '@coreui/angular'
 
 @NgModule({
   declarations: [
-    ListContractComponent
+    ListContractComponent,
+    PaginadorComponent
   ],
   imports: [
     CommonModule,
+    ButtonModule,
+    ButtonGroupModule,
+    DropdownModule,
+    LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule,
-    LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
+    PaginationModule,
     ReactiveFormsModule,
+    TableModule,
+    UtilitiesModule 
   ],
   exports :[
-    ListContractComponent
+    ListContractComponent,
+    PaginadorComponent
   ]
 })
 export class SharedModuleModule { }
