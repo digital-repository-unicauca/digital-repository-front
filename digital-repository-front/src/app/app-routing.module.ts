@@ -11,14 +11,15 @@ import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
   // {path:'',component:HomeComponent},
+  { path: 'home', component: HomeComponent },
   {
     path: '',
     component: LayoutComponent,
-    children:[
-      {path:'searchCont',component:SearcContractsComponent},
-      {path:'createCont',component:CreateContractComponent},
-      {path:'settingSyst',component:SettingSystemComponent},
-      {path:'**',redirectTo:'',pathMatch:'full'}
+    children: [
+      { path: 'searchCont', component: SearcContractsComponent },
+      { path: 'createCont', component: CreateContractComponent },
+      { path: 'settingSyst', component: SettingSystemComponent },
+      { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },
   // {path:'searchCont',component:SearcContractsComponent},

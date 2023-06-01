@@ -1,7 +1,67 @@
+<section class="flex flex-col custom-seablue-bg p-3 min-w-screen min-h-screen">
 
-<div class="relative">
-    <div class="absolute top-0 right-20 h-16 w-16">
-        <p>home works!</p>
+    <div class="flex flex-row justify-stretch">
+        <div class="flex flex-col justify-around rounded-3xl mr-1 custom-darkblue-bg">
+            <img class="udc-logo-size" src="../../assets/svg/udc.svg" alt="start menu" />
+        </div>
+        <div class="flex flex-col justify-around mr-1 min-w-min udc-logo-title">
+            <h2 class="main-title-s font-extrabold dark:text-white">
+                Repositorio de Contratación
+            </h2>
+        </div>
     </div>
-  
-</div>
+
+    <div class="flex flex-col start-menu-bg px-20 py-10 border-blue items-center">
+
+        <div class="flex flex-col justify-stretch">
+
+            <div class="flex justify-start rounded-md border-blue start-menu mb-2 items-center">
+                <img class="icon-menu" src="../../assets/svg/home.svg" alt="start menu" />
+                <h6 class="text-lg font-bold blue-color-text">Inicio</h6>
+            </div>
+
+            <div class="flex flex-row justify-stretch my-2">
+                <a class="flex justify-start rounded-md border-blue mr-1 new-doc items-center"
+                    [routerLink]="['/createCont']">
+                    <img class="icon-menu" src="../../assets/svg/folder-plus.svg" alt="new document" />
+                    <h6 class="text-lg font-bold dark:text-white">Crear nuevo documento</h6>
+                </a>
+                <a class="flex justify-start rounded-md border-blue ml-1 search-doc items-center"
+                    [routerLink]="['/searchCont']">
+                    <img class="icon-menu" src="../../assets/svg/search.svg" alt="search" />
+                    <h6 class="text-lg font-bold dark:text-white">Buscar contratos y documentos</h6>
+                </a>
+            </div>
+
+            <div class="flex flex-row justify-stretch my-2">
+
+                <div class="flex flex-col justify-around w-2/4 mr-1">
+                    <a class="flex justify-start rounded-md border-blue settings items-center"
+                        [routerLink]="['/settingSyst']">
+                        <img class="icon-menu" src="../../assets/svg/settings.svg" alt="settings" />
+                        <h6 class="text-lg font-bold dark:text-white">Configuración del sistema</h6>
+                    </a>
+                </div>
+
+                <div class="flex flex-col justify-around w-2/4 ml-1">
+                    <!-- TODO User settings -->
+                    <a class="flex justify-start rounded-md h-2/4 border-blue user-settings mb-1 items-center"
+                        [routerLink]="['/']">
+                        <img class="icon-menu" src="../../assets/svg/user-cog.svg" alt="user settings" />
+                        <h6 class="text-lg font-bold dark:text-white">Configuración de usuario</h6>
+                    </a>
+                    <!-- TODO logout link -->
+                    <a class="flex justify-start rounded-md h-2/4 border-blue log-out mt-1 items-center"
+                        [routerLink]="['/']">
+                        <img class="icon-menu" src="../../assets/svg/log-out.svg" alt="log out" />
+                        <h6 class="text-lg font-bold dark:text-white">Cerrar sesión</h6>
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
