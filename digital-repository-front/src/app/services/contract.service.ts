@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response} from 'src/app/class/response';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ContractService {
 
   private urlAPI = 'http://localhost:8081/api/contract';
+  private cart = new BehaviorSubject<number>(1);
 
-  constructor(private httpClient: HttpClient) { }
+  cart$ = this.cart.asObservable();
+  constructor(
+    private httpClient: HttpClient) { }
 
   httpHeader = {
     headers: new HttpHeaders({
@@ -63,6 +66,7 @@ export class ContractService {
 
   setSelectedContractId(contractId: number) {
     this.selectedContractId = contractId;
+    this.cart.next(contractId);
   }
 
   getSelectedContractId(): number | null {

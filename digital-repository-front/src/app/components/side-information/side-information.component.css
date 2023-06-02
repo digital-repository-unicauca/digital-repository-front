@@ -4,11 +4,18 @@
 .sidebar{
     right:0;
     position: absolute;
-    width: 250px;
+    width: 300px;
     height: 100%;
     padding: 20px 20px;
     position: fixed;
     background: #0e4185;
+}
+.btn-Menu{
+  right:0;
+  position: absolute;
+  position: fixed;
+  background: #0e4185;
+  color:white
 }
 .acordionD{
     position: relative;
@@ -47,7 +54,7 @@ h4{
     padding: 10px;
     padding-right: 30px;
     color: #037003;
-    
+
 }
 .grid{
     display: inline-grid;

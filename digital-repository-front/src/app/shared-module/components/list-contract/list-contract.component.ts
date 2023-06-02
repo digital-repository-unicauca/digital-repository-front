@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges,Output,EventEmitter } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 
 import { PeriodicElement } from 'src/app/class/models/PeriodicElement';
@@ -21,7 +21,7 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angul
 export class ListContractComponent {
 
   contracts:PeriodicElement[]=[];
-  displayedColumns: string[] = ['Id', 'Modality', 'ContractType', 'Reference', 'SigningYear'];
+  displayedColumns: string[] = ['Id', 'Modality', 'ContractType', 'Reference','Vendor', 'SigningYear'];
   totalElements:number=0;
   totalPages:number=1;
   pageSize:number=5;
@@ -52,14 +52,15 @@ export class ListContractComponent {
   selectedFilter:string = '';
   selectedFilterValue:string='';
 
+  @Output('checkedContract') checkedContract = new EventEmitter<number> ();
+
   formRadio1 = new UntypedFormGroup({
     radio1: new UntypedFormControl('Radio1')
   });
 
   constructor(
     private  contractService:ContractService,
-    private formBuilder: UntypedFormBuilder,
-    private location: LocationStrategy
+
     ) {
 
     }
@@ -194,7 +195,7 @@ export class ListContractComponent {
   setIdContract(id:number){
     this.contractService.setSelectedContractId(id);
     localStorage.setItem('id',id.toString())
-    window.location.reload()
+    this.checkedContract.emit(id)
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {

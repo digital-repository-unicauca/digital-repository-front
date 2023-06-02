@@ -1,5 +1,7 @@
-<div class="sidebar">
-    <div class="PartOne">
+<!-- <button (click)="toggleMenu()" class="btn-Menu"><i class="fa fa-bars" ></i></button> -->
+<div class="sidebar"  >
+
+    <div class="PartOne" >
         <mat-accordion class="acordionD">
             <mat-expansion-panel (opened)="panelOpenState = true"
                                  (closed)="panelOpenState = false">
@@ -8,13 +10,14 @@
                  <h3>Datos de contractrato</h3>
 
                 </mat-panel-title>
+
               </mat-expansion-panel-header>
               <mat-list role="list" >
-                <mat-list-item role="listitem">{{contract.id}}</mat-list-item>
-                <mat-list-item role="listitem">{{contract.reference}}</mat-list-item>
-                <mat-list-item role="listitem">{{contract.initialDate}}</mat-list-item>
-                <mat-list-item role="listitem">{{contract.finalDate}}</mat-list-item>
-                <mat-list-item role="listitem">{{contract.vendor}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Id</strong><br>{{contract.id}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Referencia:</strong><br>{{contract.reference}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Fecha Inicial:</strong><br>{{contract.initialDate}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Fecha Final:</strong><br>{{contract.finalDate}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Proveedor:</strong><br>{{contract.vendor}}</mat-list-item>
               </mat-list>
             </mat-expansion-panel>
           </mat-accordion>
