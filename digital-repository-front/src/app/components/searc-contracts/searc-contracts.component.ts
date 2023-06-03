@@ -31,4 +31,8 @@ export class SearcContractsComponent implements OnInit {
 
     })
   }
+
+  onCheckedContract(idContract : number){
+    console.log(idContract)
+  }
 }
