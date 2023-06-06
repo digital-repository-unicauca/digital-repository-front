@@ -1,7 +1,77 @@
-<div class="relative">
-    <div class="absolute top-0 right-20 h-16 w-16">
-        <p>create-contract works!</p>
+<body>
+  <div class="progressbar-wrapper">
+    <ul class="progressbar">
+      <li class="active"><div>Datos del Contrato</div></li>
+      <li><div>Lista de chequeo</div></li>
+      <li><div>Subir Documentos</div></li>
+      <li><div>Validación</div></li>
+    </ul>
+  </div>
+
+  <div class="boxContainerForm">
+    
+    <div class="boxFormulario">
+      <p>Complete la información del nuevo contrato que desea digitalizar.</p><br>
+        <p>Radicado</p>
+        <div class="grid">
+          <ul>
+              <li><a class="grid"><i-lucide name="ScrollText"></i-lucide><h1>Radicado</h1></a></li>
+              <li><h1>&nbsp; . &nbsp;</h1></li>
+              
+              <li><select name="TipoContrato">
+
+                  <option>Tipo 1</option>
+                  
+                  <option>Tipo 2</option>
+                  
+                  <option>Tipo 3</option>
+                  
+                  </select></li>
+              <li><h1>&nbsp; / &nbsp;</h1></li>
+              <li><input type="text" name="NroContrato" style="background-color:transparent" placeholder="Número de Contrato"></li>
+          </ul>
+        </div>
+        <div class="grid">
+          <ul>
+            <li><p>ID Contratista</p>
+              <input class="form-control" type="text" style="background-color:transparent" name="IDContratista" placeholder="ID Contratista">       
+            </li>
+            <li><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></li>
+            <li><p>Fecha de Expedición</p>
+              <input class="form-control" type="date" style="background-color:transparent" name="fecha" placeholder="Día/Mes/Año">
+            </li>
+            
+            <!--<a class="grid"><h1>Día/Mes/Año</h1><i-lucide name="ScrollText"></i-lucide></a>-->
+            
+            
+          </ul>
+        </div>
+
+
+          <br><p>Modalidad</p>
+          <div class="grid">
+            <select class="select modality" name="modalidad">
+
+                <option>Modalidad1</option>
+                
+                <option>Modalidad2</option>
+                
+                <option>Modalidad3</option>
+                
+                </select>
+        </div>
+
+        <div>
+            <br><p>Objeto del Contrato</p>
+            <textarea name="textarea" rows="10" cols="50" placeholder="Objeto o Finalidad del Contrato"></textarea>
+        </div>
     </div>
-  
-</div>
+
+    
+    <button class="btn-animado" type="button"><span>Continuar</span><i-lucide name="ChevronRight"></i-lucide></button>
+
+  </div>
+
+</body>
+
 

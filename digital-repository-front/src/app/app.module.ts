@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 
 import { SharedModuleModule } from './shared-module/shared-module.module';
 //import icons
-import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
+import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X,CalendarDays,ChevronRight,ScrollText} from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 //components
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
@@ -47,7 +47,6 @@ import { LayoutComponent } from './components/layout/layout.component';
     IconModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
     MatDividerModule,
-    LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
     FormsModule,
     BrowserAnimationsModule,
     TableModule,
@@ -55,7 +54,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     SharedModuleModule,
     MatDividerModule,MatListModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus}), BrowserAnimationsModule,MatTableModule,CommonModule,
+      FolderPlus,CalendarDays,ChevronRight,ScrollText}), BrowserAnimationsModule,MatTableModule,CommonModule,
       MatCheckboxModule,
       MatPaginatorModule,
   ],
