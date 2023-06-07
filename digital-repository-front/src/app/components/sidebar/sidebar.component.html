@@ -1,6 +1,7 @@
 <div class="sidebar">
     <div class="grid">
-        <div class="logo"><img class="imglogo" src="/assets/img/LogoUni.png" alt="logo" width="90%" height="90%" />
+        <div class="logo">
+            <img class="imglogo" src="/assets/img/LogoUni.png" alt="logo" width="90%" height="90%" />
         </div>
         <div class="titleRepo">
             <h3>Repositorio de Contratación</h3>
@@ -9,15 +10,31 @@
 
     <div class="wrapper">
         <ul class="sidebar">
-            <li><a class="grid" [routerLink]="['/home']"><i-lucide name="home"></i-lucide>
-                    Inicio
-                </a></li>
-            <li><a class="grid " [routerLink]="['/searchCont']"><i-lucide name="search"></i-lucide>Busqueda</a></li>
-            <li><a class="grid " [routerLink]="['/createCont']"> <i-lucide name="folder-plus"></i-lucide>Nuevo
-                    contrato</a>
-            </li>
-            <li><a class="grid" [routerLink]="['/settingSyst']"><i-lucide name="settings"></i-lucide> Configuracion</a>
-            </li>
+
+            <div class="my-1">
+                <a class="button-link" [routerLink]="['/home']">
+                    <i-lucide class="custom-icon" name="home"></i-lucide>
+                    <p>Inicio</p>
+                </a>
+            </div>
+            <div class="my-1">
+                <a class="button-link" [routerLink]="['/searchCont']">
+                    <i-lucide class="custom-icon" name="search"></i-lucide>
+                    <p>Busqueda</p>
+                </a>
+            </div>
+            <div class="my-1">
+                <a class="button-link" [routerLink]="['/createCont']">
+                    <i-lucide class="custom-icon" name="folder-plus"></i-lucide>
+                    <p>Nuevo contrato</p>
+                </a>
+            </div>
+            <div class="my-1">
+                <a class="button-link" [routerLink]="['/settingSyst']">
+                    <i-lucide class="custom-icon" name="settings"></i-lucide>
+                    <p>Configuracion</p>
+                </a>
+            </div>
 
         </ul>
     </div>

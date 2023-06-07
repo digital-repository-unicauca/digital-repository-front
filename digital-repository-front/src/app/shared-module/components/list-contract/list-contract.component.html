@@ -1,20 +1,34 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="main">
 
-  <div id="search" class="main">
+  <div id="search">
 
-    <c-navbar colorScheme="dark" expand="lg" class="bg-dark">
+    <c-navbar colorScheme="dark" expand="lg" class="custom-searchbar">
       <c-container fluid>
-        <a cNavbarBrand href="https://coreui.io/angular/" target="_blank">
-          Search
-        </a>
-        <button [cNavbarToggler]="collapseRef1"></button>
+        <!-- 
+          TODO: Preguntar para qué se usa esto
+          <a cNavbarBrand href="/searchCont" target="_blank">
+            Search
+          </a>
+          <button [cNavbarToggler]="collapseRef1"></button>
+         -->
         <div #collapseRef1="cCollapse" navbar cCollapse>
-          <c-navbar-nav class="me-auto mb-2 mb-lg-0">
+
+          <form cForm class="d-flex me-auto" role="search">
+
+            <input cFormControl type="search" placeholder="&#xF002;  Buscar Contrato" #input class="search-input">
+            <button cButton (click)="applyFilter(input)" class="common-button-style">
+              <i-lucide name="search"></i-lucide>
+            </button>
+            <button cButton (click)="setRadioValue('noFiltrar')" class="common-button-style">No filtrar </button>
+
+          </form>
+
+          <c-navbar-nav class="mb-2 mb-lg-0">
 
             <c-dropdown variant="btn-group" direction="dropend">
-              <button cButton cDropdownToggle>
-                <i class="fa fa-bars" ></i>
+              <button cButton cDropdownToggle class="common-button-style">
+                <i class="fa fa-bars"></i>
                 {{ selectedFirstFilter || 'Filtros' }}
               </button>
               <ul cDropdownMenu dark>
@@ -25,7 +39,7 @@
             </c-dropdown>
 
             <c-dropdown *ngIf="selectedFirstFilter !== ''" variant="btn-group" direction="dropend">
-              <button cButton cDropdownToggle>
+              <button cButton cDropdownToggle class="common-button-style">
                 {{ selectedSecondFilter || 'Valor' }}
               </button>
               <ul cDropdownMenu dark>
@@ -37,70 +51,54 @@
 
           </c-navbar-nav>
 
-
-          <form cForm class="d-flex" role="search">
-
-            <input cFormControl  type="search"  placeholder="Buscar Contrato" #input>
-            <button cButton (click)="applyFilter(input)"><i-lucide name="search"></i-lucide> </button>
-            <br>
-            <button cButton (click)="setRadioValue('noFiltrar')">No filtrar </button>
-          </form>
         </div>
       </c-container>
     </c-navbar>
 
     <br>
-    <c-callout color="info" *ngIf="selectedFirstFilter && selectedSecondFilter">
-      Filtrando los datos por :  {{ selectedFirstFilter }} | {{selectedSecondFilter}}
+    <c-callout class="info-box" color="info" *ngIf="selectedFirstFilter && selectedSecondFilter">
+      Filtrando los datos por : {{ selectedFirstFilter }} | {{selectedSecondFilter}}
     </c-callout>
+    <br>
 
 
+    <!-- table to display contracts on the contracts array  -->
+    <table [striped]="true" cTable class="table-elevation">
 
+      <thead>
+        <tr>
+          <th>
+            <ng-container>
+              <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
 
-  <br>
+              </mat-checkbox>
+            </ng-container>
+          </th>
+          <th *ngFor="let column of displayedColumns">{{column}}</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <tr *ngFor="let item of contracts">
+          <td>
+            <ng-container>
+              <mat-checkbox (click)="$event.stopPropagation();setIdContract(item.id)"
+                (change)="$event ? selection.toggle(item) : null" [checked]="selection.isSelected(item)"
+                [aria-label]="checkboxLabel(item)">
 
+              </mat-checkbox>
+            </ng-container>
+          </td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.modality }}</td>
+          <td>{{ item.contractType }}</td>
+          <td>{{ item.reference }}</td>
+          <td>{{ item.vendor}} </td>
+          <td>{{ item.signingYear }}</td>
 
-  <br>
-
-  <!-- table to display contracts on the contracts array  -->
-  <table [striped]="true" cTable color="light" class="table-elevation">
-    <thead>
-      <tr>
-        <th>
-          <ng-container>
-            <mat-checkbox
-            (change)="$event ? toggleAllRows() : null"
-            [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-
-            </mat-checkbox>
-          </ng-container>
-        </th>
-        <th *ngFor="let column of displayedColumns" >{{column}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of contracts">
-        <td>
-          <ng-container>
-            <mat-checkbox
-            (click)="$event.stopPropagation();setIdContract(item.id)"
-            (change)="$event ? selection.toggle(item) : null"
-            [checked]="selection.isSelected(item)"
-            [aria-label]="checkboxLabel(item)">
-
-            </mat-checkbox>
-          </ng-container>
-        </td>
-        <td>{{ item.id }}</td>
-        <td>{{ item.modality }}</td>
-        <td>{{ item.contractType }}</td>
-        <td>{{ item.reference }}</td>
-        <td>{{ item.vendor}} </td>
-        <td>{{ item.signingYear }}</td>
-
-        <!-- <ng-container *ngIf="item.contractType.toLowerCase().includes(searchValue)">
+          <!-- <ng-container *ngIf="item.contractType.toLowerCase().includes(searchValue)">
 
           <td>
             <ng-container>
@@ -118,23 +116,17 @@
           <td>{{ item.reference }}</td>
           <td>{{ item.signingYear }}</td>
         </ng-container> -->
-      </tr>
-    </tbody>
-  </table>
+        </tr>
+      </tbody>
+    </table>
 
 
 
 
 
-  <app-paginador
-    [totalElements]="totalElements"
-    [pageSize]="pageSize"
-    [totalPages]="totalPages"
-    (pageChanged)="loadTableContracts($event)"
-  ></app-paginador>
+    <app-paginador [totalElements]="totalElements" [pageSize]="pageSize" [totalPages]="totalPages"
+      (pageChanged)="loadTableContracts($event)"></app-paginador>
 
 
-  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
-</div>
-
-
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
+  </div>
