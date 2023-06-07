@@ -18,9 +18,18 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatListModule} from  '@angular/material/list' ;
 import { FormsModule } from '@angular/forms';
 
+
+import {FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
+import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule} from '@angular/material/stepper';
 import { SharedModuleModule } from './shared-module/shared-module.module';
+
 //import icons
-import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X,CalendarDays,ChevronRight,ScrollText} from 'lucide-angular';
+import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X,CalendarDays,ChevronRight,ChevronLeft,ScrollText,SlidersHorizontal} from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 //components
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
@@ -43,6 +52,12 @@ import { LayoutComponent } from './components/layout/layout.component';
     LayoutComponent,
   ],
   imports: [
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
     BrowserModule,
     IconModule,
     AppRoutingModule,HttpClientModule, MatSlideToggleModule,MatExpansionModule,
@@ -54,11 +69,15 @@ import { LayoutComponent } from './components/layout/layout.component';
     SharedModuleModule,
     MatDividerModule,MatListModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus,CalendarDays,ChevronRight,ScrollText}), BrowserAnimationsModule,MatTableModule,CommonModule,
+      FolderPlus,CalendarDays,ChevronRight,ScrollText,ChevronLeft,SlidersHorizontal}), BrowserAnimationsModule,MatTableModule,CommonModule,
       MatCheckboxModule,
       MatPaginatorModule,
   ],
-  providers: [IconSetService],
+  providers: [IconSetService,{
+    provide: STEPPER_GLOBAL_OPTIONS,
+    useValue: {displayDefaultIndicatorType: false},
+  },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

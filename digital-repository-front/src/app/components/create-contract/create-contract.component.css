@@ -1,137 +1,32 @@
-body{
+.form-contract{
+    display: flex;
+    align-items: center;
     left: 231px;
-    width: 900px;
-    height: 100%;
-    position: relative;
-    background: #0e4185;
+    width: 65%;
+    height:100%;
+    position: relative; 
 }
 
-::placeholder{
+::ng-deep .mat-step-header .mat-step-icon-selected {
+    background-color: white; 
+    color: #0e4185;
+ }
+.mat-stepper-horizontal {
+    background: #0e4185;
+    height: 100%;
+  }
+::placeholder {
     color: white;
     /**font-size: 15px;*/
 }
-
-.progressbar-wrapper {
-    background: #fff;
-    width: 100%;
-}
-
-.progressbar li {
-    list-style-type: none;
-    width: 20%;
-    top: 30px;
-    float: left;
-    font-size: 12px;
-    position: relative;
-    text-align: center;
-    color: white;
-}
-
-.progressbar li:before {
-    width: 50px;
-    height: 50px;
-    content: "";
-    line-height: 50px;
-    display: block;
-    text-align: center;
-    margin: 0 auto 3px auto;
-    border-radius: 50%;
-    position: relative;
-    z-index: 2;
-    background-color: #466fa4;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-}
-
-.progressbar li:after {
-     width: 100%;
-     height: 15px;
-     content: '';
-     position: absolute;
-     background-color: #466fa4;
-     top: 18px;
-     left: -50%;
-     z-index: 0;
-}
-.progressbar li:first-child:after {
-     content: none;
-}
-
-.progressbar li.active {
-    color: #466fa4;
-    font-weight: bold;  
-}
-.progressbar li.active:before {
-    border-color: white;
-    background: green;
-}
-
- 
-.progressbar li.active + li:after {
-    background-color: white;
-}
-
-
-
-.progressbar li.active:before {
-    background: white  no-repeat center center;
-    background-size: 60%;
-}
-.progressbar li::before {
-    background: #466fa4  no-repeat center center;
-    background-size: 60%;
-}
-
-
-.progressbar {
-    counter-reset: step;
-}
-.progressbar li:before {
-    content: counter(step);
-    counter-increment: step; 
-}
-
-.progressbar [class="active"] div{
-    background-color: white;
-    -webkit-border-radius: 3p;
-    -moz-border-radius: 3p;
-    -ms-border-radius: 3p;
-    -o-border-radius: 3p;
-    background: #ffffff;
-    border-radius: 6px;
-    border: 1px solid #bfd4ef;
-    font-size: 10px;
-    color: #0e4185;
-}
-
-.progressbar div{
-    background-color: #466fa4;
-    background: #466fa4;
-    border-radius: 6px;
-    border: 1px solid #bfd4ef;
-    font-size: 10px;
-    color: #0e4185;
-}
-
-.boxFormulario{
-    margin-left: 30px;
-    color: white;
-}
-
-
-.boxFormulario li {
-    list-style-type: none;
-    float: left; 
-}
-
-.boxFormulario a, select, input{
+.radicado{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
     background: #7195c3be;
     border-radius: 6px;
     width: max-content;
     border: 1px solid #bfd4ef;
-    height: 40px;
+    height: 30px;
     text-align: center;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -140,55 +35,42 @@ body{
     font-size: 10px;
     color: white;
 }
-
-.select.modality{
+.grid-radicado{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
     
+}
+select,
+input {
     background: #7195c3be;
     border-radius: 6px;
-    width: 530px;
     border: 1px solid #bfd4ef;
-    height: 40px;
-    text-align: center;
+    height: 30px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
-    font-size: 10px;
+    font-size: 13px;
     color: white;
 }
-
-
-.boxFormulario textarea{
+ textarea {
     background: #7195c300;
     border-radius: 6px;
-    width: 530px;
     border: 1px solid #bfd4ef;
-    height: 60px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
-    font-size: 10px;
+    font-size: 13px;
     color: white;
+    resize: none;
+}
+.grid-contratista {
+
+    grid-column: 1 / 3;
 }
 
-.boxFormulario input[type="text"]:disabled {
-    background: #96b3de;
-    font-style: bold;
-}
-
-.boxFormulario h1{
-    color: white;
-    font-size: 12px;
-}
-
-.grid{
-    display: inline-grid;
-    grid-template-columns: auto auto auto;    
-}
-
-
-input[type="date"]::-webkit-calendar-picker-indicator{
+input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
     width: 50px;
     opacity: 0.9;
@@ -196,11 +78,11 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     -webkit-filter: invert(0.9);
 }
 
-.boxContainerForm{
-    top: 120px;
-    left: 80px;
+.boxContainerForm {
+    color:white;
+    top: 30px;
     width: 580px;
-    height: 500px;
+    height: 100%;
     position: relative;
     glyph-orientation-horizontal: center;
     border-radius: 20px;
@@ -210,19 +92,45 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+.uniButton{
+    display: flex;
+    grid-template-columns: auto auto auto;
 
-.boxContainerForm button{
+}
+.back-button{
+    background: rgba(255, 255, 255, 0.3);
+    opacity: 0.70;
+    padding-right: 0.6em;
+    padding-top: 0.4em;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.next-button{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 35px;
+    padding-top: 0.3em;
+    padding-left: 0.4em;
     cursor: pointer;
     background: #ffffff;
     border-radius: 6px;
     border: 1px solid #bfd4ef;
-    height: 40px;
-    font-size: 10px;
+    height: 30px;
+    font-size: 14px;
     color: #0e4185;
+    grid-template-columns: auto auto auto;
 }
 
-.btn-animado{
+.btn-animado {
     margin-top: 50px;
     margin-left: 500px;
     margin-bottom: 1rem;
@@ -235,16 +143,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
     color: #0e4185;
 }
 
-.btn-animado i-lucide{
+.btn-animado i-lucide {
     display: inline-block;
     vertical-align: middle;
 }
-
-
-
-
-
-
-
-
-
