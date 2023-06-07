@@ -1,77 +1,74 @@
-<body>
-  <div class="progressbar-wrapper">
-    <ul class="progressbar">
-      <li class="active"><div>Datos del Contrato</div></li>
-      <li><div>Lista de chequeo</div></li>
-      <li><div>Subir Documentos</div></li>
-      <li><div>Validación</div></li>
-    </ul>
-  </div>
+<div class="form-contract">
+  <mat-stepper class="flex flex-col start-menu-bg px-20 py-10 border-blue items-center">
+    <mat-step label="Datos del contrato">
+      <div>
+      <div class="boxContainerForm">
+        <form class="" action="">
+          <p>Complete la información del nuevo contrato que desea digitalizar</p>
+          <br>
+          <p>Radicado</p>
+          <div class="grid-radicado">
 
-  <div class="boxContainerForm">
-    
-    <div class="boxFormulario">
-      <p>Complete la información del nuevo contrato que desea digitalizar.</p><br>
-        <p>Radicado</p>
-        <div class="grid">
-          <ul>
-              <li><a class="grid"><i-lucide name="ScrollText"></i-lucide><h1>Radicado</h1></a></li>
-              <li><h1>&nbsp; . &nbsp;</h1></li>
-              
-              <li><select name="TipoContrato">
+            <div class="radicado"><i-lucide name="ScrollText"></i-lucide>
+              <h1>5.5-31</h1>
+            </div>
+            <div>.
+              <select class="" name="TipoContrato">
+                <option value="1">Tipo 1</option>
+                <option value="2">Tipo 2</option>
+                <option value="3">Tipo 3</option>
+              </select>&nbsp;/
+            </div>
+            <div>
+              <input type="text" name="NroContrato" style="background-color:transparent"
+                placeholder="Número de Contrato">
+            </div>
+          </div>
+          <br>
+          <div class="grid-contratista">
+            <div>
+              <br>
+              ID Contratista
+              <input class="form-control" type="text" style="background-color:transparent" name="IDContratista"
+                placeholder="ID Contratista">
+            </div>
+            <div>
+              <br>
+              <p>Fecha de Expedición</p>
+              <input class="form-control" type="date" style="background-color:transparent" name="fecha"
+                placeholder="Día/Mes/Año">
+            </div>
 
-                  <option>Tipo 1</option>
-                  
-                  <option>Tipo 2</option>
-                  
-                  <option>Tipo 3</option>
-                  
-                  </select></li>
-              <li><h1>&nbsp; / &nbsp;</h1></li>
-              <li><input type="text" name="NroContrato" style="background-color:transparent" placeholder="Número de Contrato"></li>
-          </ul>
-        </div>
-        <div class="grid">
-          <ul>
-            <li><p>ID Contratista</p>
-              <input class="form-control" type="text" style="background-color:transparent" name="IDContratista" placeholder="ID Contratista">       
-            </li>
-            <li><h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h1></li>
-            <li><p>Fecha de Expedición</p>
-              <input class="form-control" type="date" style="background-color:transparent" name="fecha" placeholder="Día/Mes/Año">
-            </li>
-            
-            <!--<a class="grid"><h1>Día/Mes/Año</h1><i-lucide name="ScrollText"></i-lucide></a>-->
-            
-            
-          </ul>
-        </div>
-
-
-          <br><p>Modalidad</p>
-          <div class="grid">
-            <select class="select modality" name="modalidad">
-
+            <div class="grid">
+              <br>
+              <p>Modalidad</p>
+              <select class="form-control"  name="modalidad">
                 <option>Modalidad1</option>
-                
                 <option>Modalidad2</option>
-                
                 <option>Modalidad3</option>
-                
-                </select>
-        </div>
+              </select>
+            </div>
+            <div>
+              <br>
+              <p>Objeto del Contrato</p>
+              <textarea name="textarea" rows="6" cols="80" placeholder="Objeto o Finalidad del Contrato"></textarea>
+            </div>
+            <br>
+          </div>
+        </form>
+      </div>
+      <div>
+        <button matStepperNext>Continuar<i-lucide name="ChevronRight"></i-lucide></button>
+      </div>
 
-        <div>
-            <br><p>Objeto del Contrato</p>
-            <textarea name="textarea" rows="10" cols="50" placeholder="Objeto o Finalidad del Contrato"></textarea>
-        </div>
     </div>
-
-    
-    <button class="btn-animado" type="button"><span>Continuar</span><i-lucide name="ChevronRight"></i-lucide></button>
-
-  </div>
-
-</body>
-
-
+    </mat-step>
+    <mat-step label="Subir Documentos">
+      <p>Subir Documentos</p>
+      <div class="uniButton">
+        <button class="back-button" matStepperPrevious><i-lucide name="ChevronLeft"></i-lucide>Regresar</button>
+        <button class="next-button" matStepperNext>Continuar<i-lucide name="ChevronRight"></i-lucide></button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>
