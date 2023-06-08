@@ -10,13 +10,14 @@ import { SearcContractsComponent } from './components/searc-contracts/searc-cont
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatListModule} from  '@angular/material/list' ;
 import { FormsModule } from '@angular/forms';
+
 
 
 import {FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
