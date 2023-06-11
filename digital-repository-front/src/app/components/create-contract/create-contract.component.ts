@@ -1,5 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
+import { Component} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/componets/create-contract/dialog.component';
+
 
 @Component({
   selector: 'app-create-contract',
@@ -21,5 +23,19 @@ export class CreateContractComponent {
     setTimeout(() => {
       this.acordeonAbierto = true;
     }, 0);
+  }
+
+  constructor(private dialog: MatDialog) { }
+
+  abrirVentanaEmergente() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '800px', // Especifica el ancho deseado
+      height: '600px', // Especifica la altura deseada
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
+      console.log('Diálogo cerrado');
+    });
   }
 }
