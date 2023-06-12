@@ -29,7 +29,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { SharedModuleModule } from './shared-module/shared-module.module';
 
 //import icons
-import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X,CalendarDays,ChevronRight,ChevronLeft,ScrollText,SlidersHorizontal} from 'lucide-angular';
+import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X,CalendarDays,
+  Pencil,ChevronRight,ChevronLeft,ScrollText,SlidersHorizontal,FolderDown} from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 //components
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
@@ -38,6 +39,7 @@ import { SideInformationComponent } from './components/side-information/side-inf
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from './modules/table/table.module';
 import { LayoutComponent } from './components/layout/layout.component';
+import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     SideInformationComponent,
     CreateContractComponent,
     LayoutComponent,
+    EditContractComponent,
   ],
   imports: [
     MatStepperModule,
@@ -69,7 +72,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     SharedModuleModule,
     MatDividerModule,MatListModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,
-      FolderPlus,CalendarDays,ChevronRight,ScrollText,ChevronLeft,SlidersHorizontal}), BrowserAnimationsModule,MatTableModule,CommonModule,
+      FolderPlus,CalendarDays,ChevronRight,ScrollText,ChevronLeft,SlidersHorizontal,Pencil,FolderDown}), BrowserAnimationsModule,MatTableModule,CommonModule,
       MatCheckboxModule,
       MatPaginatorModule,
   ],
