@@ -1,25 +1,29 @@
-.form-contract{
+.form-contract {
     display: flex;
     align-items: center;
     left: 231px;
     width: 65%;
-    height:100%;
-    position: relative; 
+    height: 100%;
+    position: relative;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected {
-    background-color: white; 
+    background-color: white;
     color: #0e4185;
- }
+}
+
 .mat-stepper-horizontal {
     background: #0e4185;
     height: 100%;
-  }
+    width: 100%;
+}
+
 ::placeholder {
     color: white;
     /**font-size: 15px;*/
 }
-.radicado{
+
+.radicado {
     display: inline-grid;
     grid-template-columns: auto auto auto;
     background: rgba(255, 255, 255, 0.2);
@@ -36,11 +40,13 @@
     color: white;
     opacity: 0.8;
 }
-.grid-radicado{
+
+.grid-radicado {
     display: inline-grid;
     grid-template-columns: auto auto auto;
-    
+
 }
+
 select,
 input {
     background: #7195c3be;
@@ -54,7 +60,8 @@ input {
     font-size: 13px;
     color: white;
 }
- textarea {
+
+textarea {
     background: #7195c300;
     border-radius: 6px;
     border: 1px solid #bfd4ef;
@@ -66,6 +73,7 @@ input {
     color: white;
     resize: none;
 }
+
 .grid-contratista {
 
     grid-column: 1 / 3;
@@ -80,7 +88,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .boxContainerForm {
-    color:white;
+    color: white;
     top: 30px;
     width: 580px;
     height: 100%;
@@ -98,12 +106,34 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     align-items: center;
 }
-.uniButton{
+
+.boxContainerFormUD {
+    color: white;
+    top: 30px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    glyph-orientation-horizontal: center;
+    border-radius: 20px;
+    border: 1px solid #9eccf1;
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #466fa4 100%);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.uniButton {
     display: flex;
     grid-template-columns: auto auto auto;
 
 }
-.back-button{
+
+.back-button {
     background: rgba(255, 255, 255, 0.3);
     opacity: 0.70;
     padding-right: 0.6em;
@@ -111,10 +141,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.next-button{
+
+.next-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
 button {
     display: flex;
     justify-content: flex-end;
@@ -148,3 +180,209 @@ button {
     display: inline-block;
     vertical-align: middle;
 }
+
+
+.barra {
+    color: #3064a8;
+    display: flex;
+    background-color: #c7d8e6;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.barraDocumentos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+}
+
+
+.columna {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 10px;
+    flex: 1;
+    margin-right: 20px;
+}
+
+
+
+.columnaDocs {
+    padding: 0 10px;
+    width: 100%;
+    /* Asegurar que ocupe todo el ancho disponible */
+    margin-right: 20px;
+}
+
+
+.columna:last-child {
+    border-right: none;
+}
+
+.mat-panel-title {
+    display: flex;
+    align-items: center;
+}
+
+.mat-accordion {
+    width: 100%;
+}
+
+.mat-expansion-panel {
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
+    /* Color azul clarito */
+    margin-bottom: 10px;
+    border-radius: 10px;
+    /* Agrega un borde blanco de 1px */
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.mat-expansion-panel-header {
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
+    /* Color azul clarito */
+    position: relative;
+    border-radius: 10px;
+
+}
+
+.mat-expansion-panel-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
+.mat-panel-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.mat-panel-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block-end: 5px;
+  }
+
+.columna-acordeon {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.contenedor-acordeon {
+    margin-top: 8px;
+    width: 97%;
+}
+
+.etiqueta {
+    text-align: left;
+    color: white;
+    /* Color blanco para el texto */
+}
+
+.linea-blanca-panel {
+    border: 1px solid #fff;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.lineaDocumentos {
+    border: 1px solid #fff;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.titulo-acordeon {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.acordeonEtapaContractual {
+    padding-top: 10px;
+}
+
+.acordeonEtapaPrecontractual {
+    padding-top: 10px;
+}
+
+
+.add-button {
+    width: 78px;
+    height: 34px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 30px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin-bottom: 35px;
+    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.add-button mat-icon {
+    font-size: 30px;
+}
+
+
+.botones-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+
+  
+  .boton-crear,
+  .boton-editar,
+  .boton-borrar {
+    width: 40px;
+    height: 40px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius:50% ;
+  }
+
+  .boton-crear {
+    background-color: #AFE68D;
+    justify-content: center;
+    align-items: center;
+    color:#0E750C;
+  }
+  
+  .boton-editar {
+    display: flex;
+    background-color: #8DB6E6; 
+    justify-content: center;
+    align-items: center;
+    color: #0E4185;
+  }
+
+  .boton-borrar {
+    display: flex;
+    background-color: #e95c5c;
+    justify-content: center;
+    align-items: center;
+    color: #750C0C;
+  }
+
+  
+  
+  
