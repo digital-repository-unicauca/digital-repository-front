@@ -69,7 +69,6 @@
         <div class="columna">Tipo de documento</div>
         <div class="columna">Fecha de expedición</div>
       </div>
-      <div class="boxContainerFormUD">
         <div class="contenedor-acordeon">
           <mat-accordion [multi]="true">
             <mat-expansion-panel class="linea-blanca-panel">
@@ -88,7 +87,7 @@
                         </div>
                       </mat-panel-title>
                       <button mat-icon-button color="primary" class="add-button" (click)=" $event.stopPropagation(); agregarFila()">
-                        <i class="fas fa-file-alt"></i>
+                        <i-lucide name="FilePlus"></i-lucide>
                       </button>
                     </mat-expansion-panel-header>
                     <mat-panel-description class="acordeonIC" *ngFor="let fila of filas; let i = index">
@@ -99,13 +98,13 @@
                           <div class="columnaDocs">{{ fila.fecha }}</div>
                           <div class="botones-container">
                             <button class="boton-crear" (click)="abrirVentanaEmergente()">
-                              <i class="fa-sharp fa-solid fa-folder-plus"></i>
+                              <i-lucide class="custom-icon" name="FileUp"></i-lucide>
                             </button>
                             <button class="boton-editar">
-                              <i class="fas fa-file-pen fa-lg"></i>
+                              <i-lucide name="FileEdit"></i-lucide>
                             </button>
                             <button class="boton-borrar">
-                              <i class="fas fa-file-excel fa-lg"></i>
+                              <i-lucide name="FileEdit"></i-lucide>
                             </button>
                           </div>
                         </div>
@@ -216,7 +215,6 @@
           
 
         </div>
-      </div>
       <div class="uniButton">
         <button class="back-button" matStepperPrevious><i-lucide name="ChevronLeft"></i-lucide>Regresar</button>
         <button class="next-button" matStepperNext>Continuar<i-lucide name="ChevronRight"></i-lucide></button>

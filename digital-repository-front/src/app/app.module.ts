@@ -26,7 +26,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-import { LucideAngularModule, Home, Search, Settings, FolderPlus, Check, X, CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal } from 'lucide-angular';
+import { LucideAngularModule, Home, Search, Settings, FolderPlus, Check, X, 
+CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus } from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
@@ -34,7 +35,7 @@ import { SideInformationComponent } from './components/side-information/side-inf
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from './modules/table/table.module';
 import { LayoutComponent } from './components/layout/layout.component';
-import { DialogComponent } from './componets/create-contract/dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { DialogComponent } from './componets/create-contract/dialog.component';
     SharedModuleModule,
     MatDividerModule,
     MatListModule,
-    LucideAngularModule.pick({ Home, Search, Settings, Check, X, FolderPlus, CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal }),
+    LucideAngularModule.pick({ Home, Search, Settings, Check, X, FolderPlus, 
+    CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus }),
     BrowserAnimationsModule,
     MatTableModule,
     CommonModule,
