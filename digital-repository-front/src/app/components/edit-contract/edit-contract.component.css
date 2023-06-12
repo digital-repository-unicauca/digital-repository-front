@@ -1,0 +1,107 @@
+.form-contract{
+    display: flex;
+    align-items: center;
+    width: 65%;
+    height:100%;
+    position: relative;
+    left: 25%;
+}
+
+::placeholder {
+    color: white;
+    /**font-size: 15px;*/
+}
+
+.boxContainerForm {
+    color:white;
+    top: 30px;
+    width: 580px;
+    height: 100%;
+    position: relative;
+    glyph-orientation-horizontal: center;
+    border-radius: 20px;
+    border: 1px solid #9eccf1;
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #466fa4 100%);
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    width: 50px;
+    opacity: 0.9;
+    filter: invert(0.9);
+    -webkit-filter: invert(0.9);
+}
+
+.radicado{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    width: max-content;
+    border: 1px solid #bfd4ef;
+    height: 30px;
+    text-align: center;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    font-size: 10px;
+    color: white;
+    opacity: 0.8;
+}
+.grid-radicado{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    
+}
+select,
+input {
+    background: #7195c3be;
+    border-radius: 6px;
+    border: 1px solid #bfd4ef;
+    height: 30px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    font-size: 13px;
+    color: white;
+}
+ textarea {
+    background: #7195c300;
+    border-radius: 6px;
+    border: 1px solid #bfd4ef;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    font-size: 13px;
+    color: white;
+    resize: none;
+}
+.grid-contratista {
+
+    grid-column: 1 / 3;
+}
+button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 35px;
+    padding-top: 0.3em;
+    padding-left: 0.4em;
+    cursor: pointer;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #bfd4ef;
+    height: 30px;
+    font-size: 14px;
+    color: #0e4185;
+    grid-template-columns: auto auto auto;
+}

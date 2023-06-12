@@ -6,6 +6,8 @@ import { SearcContractsComponent } from './components/searc-contracts/searc-cont
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { ListContractComponent } from './shared-module/components/list-contract/list-contract.component';
+import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 
 
 
@@ -19,6 +21,8 @@ const routes: Routes = [
       { path: 'searchCont', component: SearcContractsComponent },
       { path: 'createCont', component: CreateContractComponent },
       { path: 'settingSyst', component: SettingSystemComponent },
+      { path: 'listCont', component: ListContractComponent },
+      { path: 'editCont', component: EditContractComponent },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   },

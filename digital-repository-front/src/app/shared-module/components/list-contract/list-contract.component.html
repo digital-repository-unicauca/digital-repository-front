@@ -97,6 +97,8 @@
           <td>{{ item.reference }}</td>
           <td>{{ item.vendor}} </td>
           <td>{{ item.signingYear }}</td>
+          <td><a ><div class="circle" ><i-lucide name="FolderDown"></i-lucide></div></a></td>
+          <td><a [routerLink]="['/editCont']" ><div   class="circle"><i-lucide name="Pencil"></i-lucide></div></a></td>
 
           <!-- <ng-container *ngIf="item.contractType.toLowerCase().includes(searchValue)">
 
@@ -119,11 +121,6 @@
         </tr>
       </tbody>
     </table>
-
-
-
-
-
     <app-paginador [totalElements]="totalElements" [pageSize]="pageSize" [totalPages]="totalPages"
       (pageChanged)="loadTableContracts($event)"></app-paginador>
 
