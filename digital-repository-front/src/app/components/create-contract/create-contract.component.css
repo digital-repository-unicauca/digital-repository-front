@@ -231,19 +231,20 @@ button {
 }
 
 .mat-expansion-panel {
-    background-color: #8eadec;
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
     /* Color azul clarito */
-    border-radius: 5px;
     margin-bottom: 10px;
-    border: 1px solid white;
+    border-radius: 10px;
     /* Agrega un borde blanco de 1px */
+    border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .mat-expansion-panel-header {
-    background-color: #6794ec;
+    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
     /* Color azul clarito */
-    border-radius: 5px;
     position: relative;
+    border-radius: 10px;
+
 }
 
 .mat-expansion-panel-header::after {
@@ -267,15 +268,17 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-block-end: 5px;
   }
 
 .columna-acordeon {
     flex: 1;
-    margin-right: 20px;
+    margin-right: 5px;
 }
 
 .contenedor-acordeon {
-    width: 100%;
+    margin-top: 8px;
+    width: 97%;
 }
 
 .etiqueta {
@@ -347,46 +350,38 @@ button {
   .boton-crear,
   .boton-editar,
   .boton-borrar {
+    width: 40px;
+    height: 40px;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     margin: 0 5px;
+    border-radius:50% ;
   }
 
   .boton-crear {
     background-color: #AFE68D;
     justify-content: center;
     align-items: center;
+    color:#0E750C;
   }
-  .boton-crear i {
-    font-size: 24px;
-    margin-right: 5px;
-  }
-  
   
   .boton-editar {
     display: flex;
     background-color: #8DB6E6; 
     justify-content: center;
     align-items: center;
+    color: #0E4185;
   }
-  
-  .boton-editar i {
-    font-size: 24px;
-    margin-right: 5px;
-  }
-  
+
   .boton-borrar {
     display: flex;
     background-color: #e95c5c;
     justify-content: center;
     align-items: center;
+    color: #750C0C;
   }
 
-  .boton-borrar i {
-    font-size: 24px;
-    margin-right: 5px;
-  }
   
   
   
