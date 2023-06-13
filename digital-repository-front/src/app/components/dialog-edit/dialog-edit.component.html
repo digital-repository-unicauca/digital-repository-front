@@ -1,29 +1,54 @@
 <div class="custom-dialog-wrapper">
-    <h2 id="tituloEdit" mat-dialog-title>Editar Información</h2>
-    <mat-dialog-content>
-      <form class="form-doc">
-        <h2>Tipo de Documento:</h2>
-        <input formControlName="tipo" class="form-control" type="text" id="tipo"
-                    placeholder="Tipo">
-        <h2>Nombre del Documento:</h2>
-        <input formControlName="nombre" class="form-control" type="text" id="nombre"
-                    placeholder="Nombre">
-        <h2>Fecha de Expedición:</h2>
-        <label for="exampleFormControlInput1" class="form-label"
-                style="color: rgb(249, 247, 247); margin-top: 0;"></label>
-            <input formControlName="pqrFechaAdmision" class="bg-light form-control d-md-flex align-items-md-start"
-                id="pqrFecha" type="date" required="" (change)="SendDataonChange($event)">
-        <h2>Subir Archivo:</h2>
-        <div class="mat-form-field">
-          <input class="file-input" type="file" name="archivoSeleccionado" (change)="onFileSelected($event)" required>
-        </div>
-  
-      </form>
-  
-    </mat-dialog-content>
-  
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>Cancelar</button>
-      <button mat-raised-button (click)="rellenarForm()">Guardar</button>
-    </mat-dialog-actions>
-  </div>
+  <h2 id="tituloEdit" mat-dialog-title>Editar Información</h2>
+  <mat-dialog-content>
+    <form class="form-doc">
+      <h2>Tipo de Documento:</h2>
+      <input
+        formControlName="tipo"
+        class="form-control"
+        type="text"
+        id="tipo"
+        placeholder="Tipo"
+      />
+      <h2>Nombre del Documento:</h2>
+      <input
+        formControlName="nombre"
+        class="form-control"
+        type="text"
+        id="nombre"
+        placeholder="Nombre"
+      />
+      <h2>Fecha de Expedición:</h2>
+      <label
+        for="exampleFormControlInput1"
+        class="form-label"
+        style="color: rgb(249, 247, 247); margin-top: 0"
+      ></label>
+      <input
+        formControlName="pqrFechaAdmision"
+        class="bg-light form-control d-md-flex align-items-md-start"
+        id="pqrFecha"
+        type="date"
+        required=""
+        (change)="SendDataonChange($event)"
+      />
+      <h2>Subir Archivo:</h2>
+      <div class="mat-form-field">
+        <input
+          class="file-input"
+          type="file"
+          name="archivoSeleccionado"
+          (change)="onFileSelected($event)"
+          required
+        />
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button (click)="openDialog('0ms', '0ms')">
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</div>

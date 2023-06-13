@@ -26,8 +26,24 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-import { LucideAngularModule, Home, Search, Settings, FolderPlus, Check, X, 
-CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Home,
+  Search,
+  Settings,
+  FolderPlus,
+  Check,
+  X,
+  CalendarDays,
+  ChevronRight,
+  ChevronLeft,
+  ScrollText,
+  SlidersHorizontal,
+  FileUp,
+  FileEdit,
+  FileDown,
+  FilePlus,
+} from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
@@ -49,7 +65,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     CreateContractComponent,
     LayoutComponent,
     DialogComponent,
-    DialogEditComponent 
+    DialogEditComponent,
   ],
   imports: [
     MatStepperModule,
@@ -72,8 +88,23 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     SharedModuleModule,
     MatDividerModule,
     MatListModule,
-    LucideAngularModule.pick({ Home, Search, Settings, Check, X, FolderPlus, 
-    CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus }),
+    LucideAngularModule.pick({
+      Home,
+      Search,
+      Settings,
+      Check,
+      X,
+      FolderPlus,
+      CalendarDays,
+      ChevronRight,
+      ScrollText,
+      ChevronLeft,
+      SlidersHorizontal,
+      FileUp,
+      FileEdit,
+      FileDown,
+      FilePlus,
+    }),
     BrowserAnimationsModule,
     MatTableModule,
     CommonModule,
@@ -81,7 +112,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     MatPaginatorModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     IconSetService,
@@ -90,6 +121,6 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
       useValue: { displayDefaultIndicatorType: false },
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
