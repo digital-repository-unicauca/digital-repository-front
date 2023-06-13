@@ -37,6 +37,7 @@ import { TableModule } from './modules/table/table.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     SideInformationComponent,
     CreateContractComponent,
     LayoutComponent,
+    DialogEditComponent,
     EditContractComponent,
     DialogComponent
   ],

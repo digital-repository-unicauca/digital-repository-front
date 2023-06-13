@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 
 
 @Component({
@@ -38,4 +39,23 @@ export class CreateContractComponent {
       console.log('Diálogo cerrado');
     });
   }
+
+  abrirVentanaEmergenteEdit() {
+    const dialogRef = this.dialog.open(DialogEditComponent, {
+      width: '800px', // ancho deseado
+      height: '600px', // altura deseada
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Diálogo cerrado');
+    });
+  }
+
+  eliminarItem() {
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar este elemento?');
+    if (confirmacion) {
+      
+    }
+  }
+
 }
