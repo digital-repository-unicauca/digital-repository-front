@@ -7,7 +7,22 @@
   border: 1px solid #FFFFFF;
   border-radius: 10px;
 }
+.circle{
+  background-color: #0e4185;
+  border-radius: 50%;
+  height: 35px;
+  width: 35px;
+  position: relative;
+  align-content: center;
+  color: white;
+}
 
+.circle i-lucide{
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+}
 .common-button-style {
   background: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.8);

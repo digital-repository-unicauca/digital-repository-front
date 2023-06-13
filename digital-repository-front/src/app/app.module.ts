@@ -27,7 +27,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
 import { LucideAngularModule, Home, Search, Settings, FolderPlus, Check, X, 
-CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus } from 'lucide-angular';
+CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus,FolderDown,Pencil } from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
@@ -35,6 +35,7 @@ import { SideInformationComponent } from './components/side-information/side-inf
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from './modules/table/table.module';
 import { LayoutComponent } from './components/layout/layout.component';
+import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 
@@ -48,8 +49,9 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     SideInformationComponent,
     CreateContractComponent,
     LayoutComponent,
-    DialogComponent,
-    DialogEditComponent 
+    DialogEditComponent,
+    EditContractComponent,
+    DialogComponent
   ],
   imports: [
     MatStepperModule,
@@ -73,7 +75,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     MatDividerModule,
     MatListModule,
     LucideAngularModule.pick({ Home, Search, Settings, Check, X, FolderPlus, 
-    CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus }),
+    CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus,Pencil,FolderDown }),
     BrowserAnimationsModule,
     MatTableModule,
     CommonModule,
