@@ -1,0 +1,45 @@
+.custom-dialog-wrapper {
+    background: rgba(14, 65, 133, 0.85);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .form-doc{
+      display: flex;
+     align-content: center;
+    }
+
+    .custom-dialog-wrapper form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+    }
+    
+    .custom-dialog-wrapper form mat-form-field {
+      width: 60%;
+      color: white;
+    }
+
+    mat-raised-button{
+      background: rgba(255, 255, 255, 0.8);
+      color: #0E4185;
+    }
+
+    #tituloEdit {
+      color: white;
+      font-size: 24px;
+  }
+
+  #btnGardar {
+    width: 50%;
+    height: 60px;
+    margin-left: 3%;
+    background-color: #8b0000;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }

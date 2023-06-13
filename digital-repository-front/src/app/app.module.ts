@@ -36,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from './modules/table/table.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     SideInformationComponent,
     CreateContractComponent,
     LayoutComponent,
-    DialogComponent 
+    DialogComponent,
+    DialogEditComponent 
   ],
   imports: [
     MatStepperModule,
