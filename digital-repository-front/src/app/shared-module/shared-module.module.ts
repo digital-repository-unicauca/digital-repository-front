@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ListContractComponent } from './components/list-contract/list-contract.component';
 import { LucideAngularModule,Home,Search,Settings,FolderPlus,Check,X} from 'lucide-angular';
+import { RouterModule } from '@angular/router';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -37,7 +38,7 @@ import {
     CalloutModule ,
     DropdownModule,
     FormsModule,
-    GridModule,
+    GridModule,RouterModule,
     LucideAngularModule.pick({Home,Search,Settings,Check,X,FolderPlus}),
     MatTableModule,
     MatCheckboxModule,

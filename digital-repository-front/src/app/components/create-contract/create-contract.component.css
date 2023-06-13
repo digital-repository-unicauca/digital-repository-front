@@ -26,7 +26,7 @@
 .radicado {
     display: inline-grid;
     grid-template-columns: auto auto auto;
-    background: #7195c3be;
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     width: max-content;
     border: 1px solid #bfd4ef;
@@ -38,6 +38,7 @@
     -o-border-radius: 6px;
     font-size: 10px;
     color: white;
+    opacity: 0.8;
 }
 
 .grid-radicado {
