@@ -1,19 +1,20 @@
+
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
-
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
-
 import { ContractType } from 'src/app/class/models/ContractType';
 import { Modality } from 'src/app/class/models/Modality';
 import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
-
-
-
+import {
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
@@ -97,6 +98,27 @@ export class CreateContractComponent implements OnInit{
     console.log("Numero de referencia "+this.newContract.reference);
   }
 
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    const dialogRef = this.dialog.open(DialogAnimation, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'Si') {
+        for (let i = 0; i < this.filas.length; i++) {
+          const fila = this.filas[i];
+          this.eliminarItem(fila);
+        }
+      }
+    });
+  }
+
   agregarFila() {
     const nuevaFila = {
       documento: 'Documento',
@@ -110,15 +132,18 @@ export class CreateContractComponent implements OnInit{
     }, 0);
   }
 
-  
+
+  eliminarItem(index: number): void {
+    this.filas.splice(index, 1);
+  }
 
   abrirVentanaEmergente() {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '800px', // Especifica el ancho deseado
       height: '600px', // Especifica la altura deseada
     });
-    
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
       console.log('Diálogo cerrado');
     });
@@ -130,17 +155,10 @@ export class CreateContractComponent implements OnInit{
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
     });
-    
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('Diálogo cerrado');
     });
-  }
-
-  eliminarItem() {
-    const confirmacion = confirm('¿Estás seguro de que deseas eliminar este elemento?');
-    if (confirmacion) {
-      
-    }
   }
 
   public fillContract(){
@@ -180,4 +198,14 @@ export class CreateContractComponent implements OnInit{
   
 
 
+}
+
+@Component({
+  selector: 'dialog-animations-example-dialog',
+  templateUrl: 'dialog-animation.html',
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DialogAnimation {
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
 }
