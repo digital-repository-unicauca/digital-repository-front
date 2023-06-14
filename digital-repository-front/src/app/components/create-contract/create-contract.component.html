@@ -5,25 +5,23 @@
     <mat-step label="Datos del contrato">
       <div>
         <div class="boxContainerForm">
-          <form class="" action="">
+          <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro">
             <p>Complete la información del nuevo contrato que desea digitalizar</p>
             <br>
             <p>Radicado</p>
             <div class="grid-radicado">
-
               <div class="radicado"><i-lucide name="ScrollText"></i-lucide>
-                <h1>5.5-31</h1>
+                <h1>{{radicado}}</h1>
               </div>
-              <div>.
-                <select class="" name="TipoContrato">
-                  <option value="1">Tipo 1</option>
-                  <option value="2">Tipo 2</option>
-                  <option value="3">Tipo 3</option>
+              <div>
+                <select class="" formControlName="ncContractType" (change)="loadRadicado()">
+                  <option selected disabled>Tipo de Contrato...</option>
+                  <option *ngFor="let contractsType of contractsType" [value]="contractsType.externalCode">{{contractsType.name}}</option>
                 </select>&nbsp;/
               </div>
               <div>
-                <input type="text" name="NroContrato" style="background-color:transparent"
-                  placeholder="Número de Contrato">
+                <input (input)="loadRadicado()" formControlName="ncNroContract" name="ncNroContract" required=""
+                  placeholder="Número de Contrato" >
               </div>
             </div>
             <br />
@@ -31,13 +29,13 @@
               <div>
                 <br />
                 ID Contratista
-                <input class="form-control" type="text" style="background-color:transparent" name="IDContratista"
+                <input class="form-control" type="text" style="background-color:transparent" formControlName="ncVendor"
                   placeholder="ID Contratista">
               </div>
               <div>
                 <br />
                 <p>Fecha de Expedición</p>
-                <input class="form-control" type="date" style="background-color:transparent" name="fecha"
+                <input class="form-control" type="date" style="background-color:transparent" formControlName="ncInitialDate"
                   placeholder="Día/Mes/Año">
               </div>
 
@@ -52,14 +50,17 @@
               <div>
                 <br />
                 <p>Objeto del Contrato</p>
-                <textarea name="textarea" rows="6" cols="80" placeholder="Objeto o Finalidad del Contrato"></textarea>
+
+                <textarea formControlName="ncSubject" rows="6" cols="80" placeholder="Objeto o Finalidad del Contrato"></textarea>
+
               </div>
               <br />
             </div>
           </form>
         </div>
         <div>
-          <button matStepperNext>Continuar<i-lucide name="ChevronRight"></i-lucide></button>
+          <button (click)="submitFormulario()" type="submit">Continuar<i-lucide name="ChevronRight"></i-lucide></button>
+
         </div>
       </div>
     </mat-step>

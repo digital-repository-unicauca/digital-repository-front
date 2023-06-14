@@ -1,29 +1,28 @@
-
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ContractType } from 'src/app/class/models/ContractType';
 import { Modality } from 'src/app/class/models/Modality';
 import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
-import {
-  MatDialogRef,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit{
-  Spqr:string | undefined;
   filas: any[] = [];
   acordeonAbierto = false;
+  Spqr:string | undefined;
   radicado!:String;
   rad!:String;
 
@@ -39,66 +38,62 @@ export class CreateContractComponent implements OnInit{
 
   textoDeInput!: string 
 
-
-
   constructor(private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService) { }
-    
 
-  ngOnInit() {
-    this.loadContractType()
-    this.loadModalityType()
-    //this.loadRadicado()
-    this.myForm = this.fb.group({
-      ncRadicado:['', Validators.required],
-      ncInitialDate:['', Validators.required],
-      ncNroContract:['', Validators.required],
-      ncContractType:[ '' , Validators.required],
-      ncModalityType:[ '' , Validators.required],
-      ncVendor:['', Validators.required],
-      ncSubject:['', Validators.required]
-    });
+    ngOnInit() {
+      this.loadContractType()
+      this.loadModalityType()
+      //this.loadRadicado()
+      this.myForm = this.fb.group({
+        ncRadicado:['', Validators.required],
+        ncInitialDate:['', Validators.required],
+        ncNroContract:['', Validators.required],
+        ncContractType:[ '' , Validators.required],
+        ncModalityType:[ '' , Validators.required],
+        ncVendor:['', Validators.required],
+        ncSubject:['', Validators.required]
+      });
+  
+      this.Spqr=this.myForm.value.traOficioNum;
+  
+      this.newContract = new Contract();
+      //this.modality = new Modality();
+  
+    }
 
-    this.Spqr=this.myForm.value.traOficioNum;
-
-    this.newContract = new Contract();
-    //this.modality = new Modality();
-
-  }
-
-
-  public loadModalityContractType(){
-    this.contrSv.getModalityContractType().subscribe((response) => {
-      console.log("Del servicio ",response)
-      this.modalityContractType = response.data.data as modalityContractType[]
-
-    })
-  }
-
-  public loadModalityType(){
-    this.contrSv.getModalityType().subscribe((response) => {
-      console.log("Del servicio ",response)
-      this.modalityType = response.data.data as Modality[]
-
-    })
-  }
-
-  public loadContractType(){
-    this.contrSv.getContractType().subscribe((response) => {
-      console.log("Del servicio ",response)
-      this.contractsType = response.data.data as ContractType[]
-
-    })
-  }
-
-
-  public loadRadicado(){
-    return this.radicado = this.myForm.value.ncContractType+"."+this.myForm.value.ncContractType+"-"+this.myForm.value.ncNroContract;
-    console.log("Numero de referencia "+this.newContract.reference);
-  }
-
-
+    public loadModalityContractType(){
+      this.contrSv.getModalityContractType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.modalityContractType = response.data.data as modalityContractType[]
+  
+      })
+    }
+  
+    public loadModalityType(){
+      this.contrSv.getModalityType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.modalityType = response.data.data as Modality[]
+  
+      })
+    }
+  
+    public loadContractType(){
+      this.contrSv.getContractType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.contractsType = response.data.data as ContractType[]
+  
+      })
+    }
+  
+  
+    public loadRadicado(){
+      return this.radicado = this.myForm.value.ncContractType+"."+this.myForm.value.ncContractType+"-"+this.myForm.value.ncNroContract;
+      console.log("Numero de referencia "+this.newContract.reference);
+    }
+  
+  
   openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -132,7 +127,6 @@ export class CreateContractComponent implements OnInit{
     }, 0);
   }
 
-
   eliminarItem(index: number): void {
     this.filas.splice(index, 1);
   }
@@ -149,7 +143,6 @@ export class CreateContractComponent implements OnInit{
     });
   }
 
-
   abrirVentanaEmergenteEdit() {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
@@ -160,7 +153,6 @@ export class CreateContractComponent implements OnInit{
       console.log('Diálogo cerrado');
     });
   }
-
   public fillContract(){
     this.newContract.id = this.myForm.value.id;
     this.newContract.contractType = this.myForm.value.ncContractType
@@ -196,7 +188,6 @@ export class CreateContractComponent implements OnInit{
     }
   }
   
-
 
 }
 
