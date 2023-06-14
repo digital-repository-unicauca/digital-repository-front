@@ -21,19 +21,26 @@ export class DialogComponent {
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
+  constructor(private fb: FormBuilder, public dialog: MatDialog,public dialogRef: MatDialogRef<DialogComponent>) {}
 
-  constructor(private fb: FormBuilder, public dialog: MatDialog) {}
+openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): void {
 
-  openDialog(
-    enterAnimationDuration: string,
-    exitAnimationDuration: string
-  ): void {
-    this.dialog.open(DialogAnimation, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
+  const Dialog1 =  this.dialog.open(DialogAnimation, {
+    width: '250px',
+    enterAnimationDuration,
+    exitAnimationDuration,
+  });
+
+  Dialog1.afterClosed().subscribe((result) => {
+    if (result === 'Si') {
+      if (this.dialogRef) {
+        this.dialogRef.close();
+      }
+    }
+  });
+
+}
+
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -74,7 +81,10 @@ export class DialogComponent {
     const file: File = event.target.files[0];
     // Aquí puedes realizar acciones con el archivo seleccionado, como subirlo a un servidor, procesarlo, etc.
   }
+
 }
+
+
 
 @Component({
   selector: 'dialog-animations-example-dialog',
