@@ -1,8 +1,8 @@
-export interface ContractType {
+export class ContractType {
 
-    id:number;
-    name:string;
-    externalCode:string;
-    description:string;
+    id!:number;
+    name!:string;
+    externalCode!:string;
+    description!:string;
   }
   

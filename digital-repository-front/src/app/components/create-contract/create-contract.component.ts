@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -7,18 +7,93 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ContractType } from 'src/app/class/models/ContractType';
+import { Modality } from 'src/app/class/models/Modality';
+import { ContractService } from 'src/app/services/contract.service';
+import { Contract } from 'src/app/class/contract';
+import { DatePipe } from '@angular/common';
+import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
-export class CreateContractComponent {
+export class CreateContractComponent implements OnInit{
   filas: any[] = [];
   acordeonAbierto = false;
+  Spqr:string | undefined;
+  radicado!:String;
+  rad!:String;
 
-  constructor(private dialog: MatDialog) {}
+  myForm!: FormGroup;
+  pipe = new DatePipe('en-US');
+  nroContract!: String
+  contractsType:ContractType[]=[];
+  modalityContractType:modalityContractType[]=[];
+  modalityType:Modality[]=[];
+  contractType : ContractType = new ContractType();
+  modality : Modality = new Modality();
+  newContract : Contract = new Contract();
 
+  textoDeInput!: string 
+
+  constructor(private dialog: MatDialog,
+    private fb: FormBuilder,
+    private contrSv: ContractService) { }
+
+    ngOnInit() {
+      this.loadContractType()
+      this.loadModalityType()
+      //this.loadRadicado()
+      this.myForm = this.fb.group({
+        ncRadicado:['', Validators.required],
+        ncInitialDate:['', Validators.required],
+        ncNroContract:['', Validators.required],
+        ncContractType:[ '' , Validators.required],
+        ncModalityType:[ '' , Validators.required],
+        ncVendor:['', Validators.required],
+        ncSubject:['', Validators.required]
+      });
+  
+      this.Spqr=this.myForm.value.traOficioNum;
+  
+      this.newContract = new Contract();
+      //this.modality = new Modality();
+  
+    }
+
+    public loadModalityContractType(){
+      this.contrSv.getModalityContractType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.modalityContractType = response.data.data as modalityContractType[]
+  
+      })
+    }
+  
+    public loadModalityType(){
+      this.contrSv.getModalityType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.modalityType = response.data.data as Modality[]
+  
+      })
+    }
+  
+    public loadContractType(){
+      this.contrSv.getContractType().subscribe((response) => {
+        console.log("Del servicio ",response)
+        this.contractsType = response.data.data as ContractType[]
+  
+      })
+    }
+  
+  
+    public loadRadicado(){
+      return this.radicado = this.myForm.value.ncContractType+"."+this.myForm.value.ncContractType+"-"+this.myForm.value.ncNroContract;
+      console.log("Numero de referencia "+this.newContract.reference);
+    }
+  
+  
   openDialog(
     enterAnimationDuration: string,
     exitAnimationDuration: string
@@ -78,6 +153,42 @@ export class CreateContractComponent {
       console.log('Diálogo cerrado');
     });
   }
+  public fillContract(){
+    this.newContract.id = this.myForm.value.id;
+    this.newContract.contractType = this.myForm.value.ncContractType
+    //this.newContract.nroContract = this.myForm.value.ncNroContract
+    this.newContract.initialDate = this.pipe.transform(this.myForm.value.ncInitialDate, 'yyyy-MM-dd HH:mm:ss');
+    this.newContract.reference = this.myForm.value.ncContractType+"."+this.myForm.value.ncContractType+"-"+this.myForm.value.ncNroContract;
+    this.newContract.vendor = this.myForm.value.ncVendor;
+    this.newContract.subject = this.myForm.value.ncSubject;
+    this.newContract.modalityContractType = this.myForm.value.ncModalityType;
+    
+  }
+
+  public submitFormulario(){
+
+    this.fillContract();
+    this.contrSv.addContract(this.newContract);
+
+    if(this.myForm.invalid){
+      Object.values(this.myForm.controls).forEach(control=>{
+        control.markAllAsTouched();
+      });
+      return;
+    }
+
+    this.fillContract();
+
+    this.contrSv.addContract(this.newContract);
+
+    if(!this.contrSv.addContract(this.newContract)){
+      alert("No se pudo agregar la peticion");
+    } else {
+      alert("Peticion agregada correctamente");
+    }
+  }
+  
+
 }
 
 @Component({
