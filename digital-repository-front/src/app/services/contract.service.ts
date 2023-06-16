@@ -103,7 +103,7 @@ export class ContractService {
     console.log("En addContracts, boton")
     var result = false;
     const body = JSON.stringify(contract);
-    await this.httpClient.post<boolean>(this.urlAPI, body, this.httpHeader).subscribe((response)=>{
+    this.httpClient.post<boolean>(this.urlAPI, body, this.httpHeader).subscribe((response) => {
       result = response;
     });
     await new Promise(f => setTimeout(f, 1000));
