@@ -32,6 +32,7 @@ export class CreateContractComponent implements OnInit {
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
+  
 
   
   pipe = new DatePipe('en-US');
@@ -46,6 +47,8 @@ export class CreateContractComponent implements OnInit {
 
   textoDeInput!: string;
 
+  
+
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -55,9 +58,12 @@ export class CreateContractComponent implements OnInit {
 
   ngOnInit() {
 
-    this.filaService.obtenerFilas().subscribe((filas) => {
-      this.filas = filas;
+
+    this.filaService.obtenerFilas().subscribe((fila) => {
+      this.filas = fila;
+      console.log(this.filas);
     });
+    
     this.loadContractType();
     this.loadModalityType();
     //this.loadRadicado()
@@ -117,9 +123,9 @@ export class CreateContractComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
-
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'Si') {
+        console.log(this.filas)
         for (let i = 0; i < this.filas.length; i++) {
           const fila = this.filas[i];
           this.eliminarItem(fila);

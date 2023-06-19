@@ -24,57 +24,70 @@ export class DialogComponent {
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
-  constructor(private fb: FormBuilder, public dialog: MatDialog,public dialogRef: MatDialogRef<DialogComponent>, private filaService: FilaService) {
+  acordeonAbierto = false;
+  constructor(private fb: FormBuilder, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogComponent>, private filaService: FilaService) {
     this.filaService.obtenerFilas().subscribe(filas => {
       this.filas = filas;
     });
   }
 
-openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): void {
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string,): void {
 
-  const Dialog1 =  this.dialog.open(DialogAnimation, {
-    width: '250px',
-    enterAnimationDuration,
-    exitAnimationDuration,
-  });
+    const Dialog1 = this.dialog.open(DialogAnimation, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
 
-  Dialog1.afterClosed().subscribe((result) => {
-    if (result === 'Si') {
-      if (this.dialogRef) {
+    Dialog1.afterClosed().subscribe((result) => {
+      if (result === 'Si') {
+        if (this.dialogRef) {
 
-        const documento = this.myForm.get('nombre')?.value;
-        const invitacion = this.myForm.get('tipo')?.value;
-        const fecha = this.myForm.get('pqrFecha')?.value;
-  
+          const name = this.myForm.value.name;
+          const type = this.myForm.value.type;
+          const date = this.myForm.value.date;
+          const file = this.myForm.value.file;
 
-        const nuevaFila = {
-          documento: documento,
-          invitacion: invitacion,
-          fecha: fecha
-        };
-  
+          const nuevaFila = {
+            name: name,
+            type: type,
+            date: date,
+            file: file
+          };
 
-        this.nuevaFila.push(nuevaFila);
-  
 
-        this.nuevaFilaEvent.emit(this.nuevaFila);
-  
-        this.dialogRef.close();
+          this.nuevaFila.push(nuevaFila);
+
+
+          this.nuevaFilaEvent.emit(this.nuevaFila);
+
+          this.agregarFila();
+
+
+
+          this.dialogRef.close();
+        }
       }
-    }
-  });
-}
+    });
+  }
 
 
+  agregarFila() {
+    this.filaService.agregarFila(this.nuevaFila);
+    this.acordeonAbierto = false;
+    setTimeout(() => {
+      this.acordeonAbierto = true;
+    }, 0);
+  }
 
 
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      tipoDocumento: [''],
-      nombreDocumento: [''],
-      fechaExpedicion: [''],
-      archivoSeleccionado: [''],
+      type: [''],
+      name: [''],
+      date: [''],
+      file: [''],
     });
 
     //this.rellenarForm();
@@ -102,7 +115,7 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): voi
     return this.myForm.controls;
   }
 
-  SendDataonChange(event: any) {}
+  SendDataonChange(event: any) { }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -120,23 +133,6 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): voi
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>, private filaService: FilaService) {}
-
-  filas: any[] = [];
-  acordeonAbierto = false;
-
-  agregarFila() {
-    const nuevaFila = {
-      documento: 'Documento',
-      invitacion: 'Invitación',
-      fecha: 'Fecha',
-    };
-    this.filaService.agregarFila(nuevaFila);
-
-    this.acordeonAbierto = false;
-    setTimeout(() => {
-      this.acordeonAbierto = true;
-    }, 0);
-  }
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>, private filaService: FilaService) { }
 
 }

@@ -118,12 +118,13 @@
                   </mat-expansion-panel-header>
                   <mat-panel-description #dialog class="acordeonIC" *ngIf="filas.length > 0">
                     <mat-panel-title class="lineaDocumentos" *ngFor="let fila of filas; let i = index">
+                      <p *ngFor="let f of fila; let i = index">{{ f.name }}</p>
                       <div class="barraDocumentos">
                         <div class="columnaDocs">
-                          {{ fila.nombreDocumento }}
+                          {{ fila[i].name }}
                         </div>
-                        <div class="columnaDocs">{{ fila.tipoDocumento }}</div>
-                        <div class="columnaDocs">{{ fila.fechaExpedicion }}</div>
+                        <div class="columnaDocs">{{ fila[i].type }}</div>
+                        <div class="columnaDocs">{{ fila[i].date }}</div>
                         <div class="botones-container">
                           <button class="boton-crear">
                             <i-lucide class="custom-icon" name="FileUp"></i-lucide>
@@ -138,7 +139,7 @@
                       </div>
                     </mat-panel-title>
                   </mat-panel-description>
-                  
+
 
                 </mat-expansion-panel>
                 <mat-expansion-panel class="linea-blanca-panel">

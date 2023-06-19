@@ -15,12 +15,13 @@ export class FilaService {
     this.emitirFilas();
   }
 
+
   obtenerFilas(): Observable<any[]> {
     return this.filasSubject.asObservable();
   }
 
   private emitirFilas() {
-    this.filasSubject.next([...this.filas]); 
+    this.filasSubject.next([...this.filas]);
   }
 }
 
