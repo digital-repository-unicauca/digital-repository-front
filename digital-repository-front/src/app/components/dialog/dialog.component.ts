@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {
@@ -7,6 +7,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { FilaService } from 'src/app/services/fila.service';
 
 @Component({
   selector: 'app-dialog',
@@ -16,12 +17,18 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class DialogComponent {
   myForm!: FormGroup;
-
+  nuevaFila: any[] = [];
+  filas: any[] = [];
+  nuevaFilaEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
   //Fechas
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
-  constructor(private fb: FormBuilder, public dialog: MatDialog,public dialogRef: MatDialogRef<DialogComponent>) {}
+  constructor(private fb: FormBuilder, public dialog: MatDialog,public dialogRef: MatDialogRef<DialogComponent>, private filaService: FilaService) {
+    this.filaService.obtenerFilas().subscribe(filas => {
+      this.filas = filas;
+    });
+  }
 
 openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): void {
 
@@ -34,12 +41,32 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): voi
   Dialog1.afterClosed().subscribe((result) => {
     if (result === 'Si') {
       if (this.dialogRef) {
+
+        const documento = this.myForm.get('nombre')?.value;
+        const invitacion = this.myForm.get('tipo')?.value;
+        const fecha = this.myForm.get('pqrFecha')?.value;
+  
+
+        const nuevaFila = {
+          documento: documento,
+          invitacion: invitacion,
+          fecha: fecha
+        };
+  
+
+        this.nuevaFila.push(nuevaFila);
+  
+
+        this.nuevaFilaEvent.emit(this.nuevaFila);
+  
         this.dialogRef.close();
       }
     }
   });
-
 }
+
+
+
 
 
   ngOnInit() {
@@ -93,5 +120,23 @@ openDialog(enterAnimationDuration: string, exitAnimationDuration: string, ): voi
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>, private filaService: FilaService) {}
+
+  filas: any[] = [];
+  acordeonAbierto = false;
+
+  agregarFila() {
+    const nuevaFila = {
+      documento: 'Documento',
+      invitacion: 'Invitación',
+      fecha: 'Fecha',
+    };
+    this.filaService.agregarFila(nuevaFila);
+
+    this.acordeonAbierto = false;
+    setTimeout(() => {
+      this.acordeonAbierto = true;
+    }, 0);
+  }
+
 }

@@ -27,6 +27,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
 
+
 import {
   LucideAngularModule,
   Home,
@@ -57,6 +58,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
+import { FilaService } from './services/fila.service';
 
 @NgModule({
   declarations: [
@@ -130,6 +132,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     },
+    FilaService
   ],
   bootstrap: [AppComponent],
 })

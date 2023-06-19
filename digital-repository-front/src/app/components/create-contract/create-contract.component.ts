@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -14,12 +14,18 @@ import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
+import { FilaService } from 'src/app/services/fila.service';
+
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
+  
+  @Output() nuevaFilaEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  @ViewChild('dialog', { static: false }) dialogComponent!: DialogComponent;
   filas: any[] = [];
   acordeonAbierto = false;
   myForm: FormGroup = new FormGroup({});
@@ -43,10 +49,15 @@ export class CreateContractComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private contrSv: ContractService
+    private contrSv: ContractService,
+    private filaService: FilaService
   ) {}
 
   ngOnInit() {
+
+    this.filaService.obtenerFilas().subscribe((filas) => {
+      this.filas = filas;
+    });
     this.loadContractType();
     this.loadModalityType();
     //this.loadRadicado()
@@ -60,13 +71,13 @@ export class CreateContractComponent implements OnInit {
       ncVendor: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
       ncSubject: ['', Validators.required],
     });
-
+  
     this.Spqr = this.myForm.value.traOficioNum;
-
+  
     this.newContract = new Contract();
     //this.modality = new Modality();
   }
-
+  
   public loadModalityContractType() {
     this.contrSv.getModalityContractType().subscribe((response) => {
       console.log('Del servicio ', response);
@@ -115,19 +126,6 @@ export class CreateContractComponent implements OnInit {
         }
       }
     });
-  }
-
-  agregarFila() {
-    const nuevaFila = {
-      documento: 'Documento',
-      invitacion: 'Invitación',
-      fecha: 'Fecha',
-    };
-    this.filas.push(nuevaFila);
-    this.acordeonAbierto = false;
-    setTimeout(() => {
-      this.acordeonAbierto = true;
-    }, 0);
   }
 
   eliminarItem(index: number): void {
