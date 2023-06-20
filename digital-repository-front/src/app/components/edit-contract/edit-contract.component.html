@@ -1,38 +1,35 @@
 <div class="form-contract">
     <div class="boxContainerForm">
-        <form class="" action="">
+        <form [formGroup]="myForm" class="" action="">
             <p>Complete la información del nuevo contrato que desea digitalizar</p>
             <br>
             <p>Radicado</p>
             <div class="grid-radicado">
                 <div>
-                    <input class="radicado" type="text" name="NroContrato" style="background-color:transparent"
-                        placeholder="Radicado" disabled>
+                    <input formControlName="radicado" class="radicado" type="text" name="NroContrato" style="background-color:transparent"
+                        placeholder="Radicado">
                 </div>
+                
             </div>
+            &nbsp; &nbsp; <mat-slide-toggle color="primary" class="mat-lg-slide-toggle" [checked]="isChecked" (change)="onToggleChange($event)"><h3>&nbsp;   Estado del contrato : {{status}}</h3></mat-slide-toggle>
             <br>
             <div class="grid-contratista">
                 <div>
                     <br>
                     ID Contratista
-                    <input class="form-control" type="text" style="background-color:transparent" name="IDContratista"
+                    <input  formControlName="idVendor" class="form-control" type="text" style="background-color:transparent" name="IDContratista"
                         placeholder="ID Contratista">
                 </div>
                 <div>
                     <br>
                     <p>Fecha de Expedición</p>
-                    <input class="form-control" type="date" style="background-color:transparent" name="fecha"
-                        placeholder="Día/Mes/Año">
+                    <input formControlName="DateExp" class="form-control" type="date" style="background-color:transparent" name="fecha"  [value]="todayWithPipe">
                 </div>
 
                 <div class="grid">
                     <br>
-                    <p>Modalidad</p>
-                    <select class="form-control" name="modalidad">
-                        <option>Modalidad1</option>
-                        <option>Modalidad2</option>
-                        <option>Modalidad3</option>
-                    </select>
+                    <p>Fecha de Terminacion</p>
+                    <input formControlName="DateEnd" class="form-control" type="date" style="background-color:transparent" name="fecha">
                 </div>
                 <div>
                     <br>
@@ -43,5 +40,7 @@
                 <br>
             </div>
         </form>
+        <button class="float-center">Editar</button>
     </div>
+   
 </div>

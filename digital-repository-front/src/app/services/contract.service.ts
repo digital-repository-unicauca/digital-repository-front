@@ -110,6 +110,11 @@ export class ContractService {
     return result;
   }
 
+  public update(contract: Contract): Observable<Response> {
+    const body = JSON.stringify(contract);
+   return this.httpClient.patch<Response>(this.urlAPI , body, this.httpHeader);
+  }
+
   private selectedContractId: number | null = null;
 
   setSelectedContractId(contractId: number) {
