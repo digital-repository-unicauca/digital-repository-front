@@ -25,7 +25,11 @@ export class DialogComponent {
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
   acordeonAbierto = false;
-  constructor(private fb: FormBuilder, public dialog: MatDialog, public dialogRef: MatDialogRef<DialogComponent>, private filaService: FilaService) {
+  constructor(
+    private fb: FormBuilder,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<DialogComponent>,
+    private filaService: FilaService) {
     this.filaService.obtenerFilas().subscribe(filas => {
       this.filas = filas;
     });
@@ -33,42 +37,43 @@ export class DialogComponent {
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string,): void {
 
-    const Dialog1 = this.dialog.open(DialogAnimation, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
+    // const Dialog1 = this.dialog.open(DialogAnimation, {
+    //   width: '250px',
+    //   enterAnimationDuration,
+    //   exitAnimationDuration,
+    // });
 
-    Dialog1.afterClosed().subscribe((result) => {
-      if (result === 'Si') {
-        if (this.dialogRef) {
+    // Dialog1.afterClosed().subscribe((result) => {
+    //   if (result === 'Si') {
+    //     if (this.dialogRef) {
 
-          const name = this.myForm.value.name;
-          const type = this.myForm.value.type;
-          const date = this.myForm.value.date;
-          const file = this.myForm.value.file;
+    //       const name = this.myForm.value.name;
+    //       const type = this.myForm.value.type;
+    //       const date = this.myForm.value.date;
+    //       const file = this.myForm.value.file;
 
-          const nuevaFila = {
-            name: name,
-            type: type,
-            date: date,
-            file: file
-          };
-
-
-          this.nuevaFila.push(nuevaFila);
+    //       const nuevaFila = {
+    //         name: name,
+    //         type: type,
+    //         date: date,
+    //         file: file
+    //       };
 
 
-          this.nuevaFilaEvent.emit(this.nuevaFila);
-
-          this.agregarFila();
+    //       this.nuevaFila.push(nuevaFila);
 
 
+    //       this.nuevaFilaEvent.emit(this.nuevaFila);
 
-          this.dialogRef.close();
-        }
-      }
-    });
+    //       this.agregarFila();
+
+
+
+    //       this.dialogRef.close();
+    //     }
+    //   }
+    // });
+    this.dialogRef.close(this.myForm.value);
   }
 
 

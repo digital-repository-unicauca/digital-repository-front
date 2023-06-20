@@ -15,6 +15,7 @@ import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { FilaService } from 'src/app/services/fila.service';
+import { Fila } from 'src/app/class/models/Fila';
 
 @Component({
   selector: 'app-create-contract',
@@ -22,19 +23,21 @@ import { FilaService } from 'src/app/services/fila.service';
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
-  
+
   @Output() nuevaFilaEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
   @ViewChild('dialog', { static: false }) dialogComponent!: DialogComponent;
-  filas: any[] = [];
+  //filas: any[] = [];
   acordeonAbierto = false;
+  filas : Fila[]=[];
+
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
-  
 
-  
+
+
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
@@ -47,7 +50,7 @@ export class CreateContractComponent implements OnInit {
 
   textoDeInput!: string;
 
-  
+
 
   constructor(
     private dialog: MatDialog,
@@ -63,7 +66,7 @@ export class CreateContractComponent implements OnInit {
       this.filas = fila;
       console.log(this.filas);
     });
-    
+
     this.loadContractType();
     this.loadModalityType();
     //this.loadRadicado()
@@ -77,13 +80,13 @@ export class CreateContractComponent implements OnInit {
       ncVendor: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
       ncSubject: ['', Validators.required],
     });
-  
+
     this.Spqr = this.myForm.value.traOficioNum;
-  
+
     this.newContract = new Contract();
     //this.modality = new Modality();
   }
-  
+
   public loadModalityContractType() {
     this.contrSv.getModalityContractType().subscribe((response) => {
       console.log('Del servicio ', response);
@@ -128,7 +131,7 @@ export class CreateContractComponent implements OnInit {
         console.log(this.filas)
         for (let i = 0; i < this.filas.length; i++) {
           const fila = this.filas[i];
-          this.eliminarItem(fila);
+          //this.eliminarItem(fila);
         }
       }
     });
@@ -146,7 +149,9 @@ export class CreateContractComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      console.log('Diálogo cerrado');
+      console.log('Diálogo cerrado',result);
+      this.filas.push(result)
+      console.log("filas ",this.filas)
     });
   }
 
