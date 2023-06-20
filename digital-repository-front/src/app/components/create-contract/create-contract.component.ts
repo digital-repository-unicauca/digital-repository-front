@@ -1,4 +1,10 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -16,6 +22,7 @@ import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { FilaService } from 'src/app/services/fila.service';
 import { Fila } from 'src/app/class/models/Fila';
+import { DocumentsService } from 'src/app/services/documents.service';
 
 @Component({
   selector: 'app-create-contract',
@@ -23,20 +30,17 @@ import { Fila } from 'src/app/class/models/Fila';
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
-
   @Output() nuevaFilaEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
 
   @ViewChild('dialog', { static: false }) dialogComponent!: DialogComponent;
   //filas: any[] = [];
   acordeonAbierto = false;
-  filas : Fila[]=[];
+  filas: Fila[] = [];
 
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
-
-
 
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
@@ -50,18 +54,15 @@ export class CreateContractComponent implements OnInit {
 
   textoDeInput!: string;
 
-
-
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService,
-    private filaService: FilaService
+    private filaService: FilaService,
+    private documentService: DocumentsService
   ) {}
 
   ngOnInit() {
-
-
     this.filaService.obtenerFilas().subscribe((fila) => {
       this.filas = fila;
       console.log(this.filas);
@@ -74,10 +75,24 @@ export class CreateContractComponent implements OnInit {
       //ncRadicado: ['', Validators.required],
       ncInitialDate: ['', Validators.required],
       //(/^\w+$/)             Expresion regular que permite numeros y letras sin espacios
-      ncNroContract: ['',Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/),Validators.max(9999),Validators.min(1)])],
+      ncNroContract: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/),
+          Validators.max(9999),
+          Validators.min(1),
+        ]),
+      ],
       ncContractType: ['', Validators.required],
       ncModalityType: ['', Validators.required],
-      ncVendor: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
+      ncVendor: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/),
+        ]),
+      ],
       ncSubject: ['', Validators.required],
     });
 
@@ -128,10 +143,9 @@ export class CreateContractComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'Si') {
-        console.log(this.filas)
+        console.log(this.filas);
         for (let i = 0; i < this.filas.length; i++) {
           const fila = this.filas[i];
-          //this.eliminarItem(fila);
         }
       }
     });
@@ -149,9 +163,9 @@ export class CreateContractComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      console.log('Diálogo cerrado',result);
-      this.filas.push(result)
-      console.log("filas ",this.filas)
+      console.log('Diálogo cerrado', result);
+      this.filas.push(result);
+      console.log('filas ', this.filas);
     });
   }
 
@@ -167,30 +181,47 @@ export class CreateContractComponent implements OnInit {
   }
 
   //Validación de campos del formulario
-  get ncNroContractInvalid(){
-    return (this.myForm.get('ncNroContract')?.invalid && this.myForm.get('ncNroContract')?.touched);
+  get ncNroContractInvalid() {
+    return (
+      this.myForm.get('ncNroContract')?.invalid &&
+      this.myForm.get('ncNroContract')?.touched
+    );
   }
 
-  get ncInitialDateInvalid(){
-    return this.myForm.get('ncInitialDate')?.invalid && this.myForm.get('ncInitialDate')?.touched;
+  get ncInitialDateInvalid() {
+    return (
+      this.myForm.get('ncInitialDate')?.invalid &&
+      this.myForm.get('ncInitialDate')?.touched
+    );
   }
 
-  get ncContractTypeInvalid(){
-    return this.myForm.get('ncContractType')?.invalid && this.myForm.get('ncContractType')?.touched;
+  get ncContractTypeInvalid() {
+    return (
+      this.myForm.get('ncContractType')?.invalid &&
+      this.myForm.get('ncContractType')?.touched
+    );
   }
 
-  get ncModalityTypeInvalid(){
-    return this.myForm.get('ncModalityType')?.invalid && this.myForm.get('ncModalityType')?.touched;
+  get ncModalityTypeInvalid() {
+    return (
+      this.myForm.get('ncModalityType')?.invalid &&
+      this.myForm.get('ncModalityType')?.touched
+    );
   }
 
-  get ncVendorInvalid(){
-    return this.myForm.get('ncVendor')?.invalid && this.myForm.get('ncVendor')?.touched;
+  get ncVendorInvalid() {
+    return (
+      this.myForm.get('ncVendor')?.invalid &&
+      this.myForm.get('ncVendor')?.touched
+    );
   }
 
-  get ncSubjectInvalid(){
-    return this.myForm.get('ncSubject')?.invalid && this.myForm.get('ncSubject')?.touched;
+  get ncSubjectInvalid() {
+    return (
+      this.myForm.get('ncSubject')?.invalid &&
+      this.myForm.get('ncSubject')?.touched
+    );
   }
-
 
   public fillContract() {
     this.date = new Date();
@@ -207,6 +238,16 @@ export class CreateContractComponent implements OnInit {
     this.newContract.subject = this.myForm.value.ncSubject;
     this.newContract.vendor = this.myForm.value.ncVendor;
     this.newContract.modalityContractType = this.myForm.value.ncModalityType;
+  }
+
+  public fillDocument() {
+    for (let i = 0; i < this.filas.length; i++) {
+      this.filas[i].collectionId = i;
+      this.filas[i].description = '';
+      this.filas[i].ordering = i;
+      this.filas[i].consecutive = i;
+      this.filas[i].isException = false;
+    }
   }
 
   public submitFormulario() {
@@ -230,6 +271,27 @@ export class CreateContractComponent implements OnInit {
       alert('No se pudo agregar la peticion');
     } else {
       alert('Peticion agregada correctamente');
+    }
+  }
+
+  public submitDocument() {
+    this.fillDocument();
+    this.documentService.addDocuments(this.filas);
+
+    if (this.myForm.invalid) {
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }
+
+    this.fillDocument();
+
+    this.documentService.addDocuments(this.filas);
+
+    if (!this.documentService.addDocuments(this.filas)) {
+      alert('No fue posible guardar');
+    } else {
+      alert('Guardado correctamente');
     }
   }
 }

@@ -1,7 +1,11 @@
 export interface Fila {
-  date:string;
-  file:string;
-  name:string;
-  type:string;
-
+  expeditionDate: string;
+  url: string;
+  name: string;
+  type: string;
+  collectionId: number;
+  description: string;
+  ordering: number;
+  consecutive: number;
+  isException: false;
 }
