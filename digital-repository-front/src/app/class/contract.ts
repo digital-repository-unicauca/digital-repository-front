@@ -7,5 +7,6 @@ export class Contract {
     status!: String;
     subject !: String;
     vendor: String = "";
-    modalityContractType !: number;
+    modalityId !: number;
+    contractTypeId !: number;
 }

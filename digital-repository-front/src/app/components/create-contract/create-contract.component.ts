@@ -197,7 +197,10 @@ export class CreateContractComponent implements OnInit {
     this.newContract.status = 'ACTIVO';
     this.newContract.subject = this.myForm.value.ncSubject;
     this.newContract.vendor = this.myForm.value.ncVendor;
-    this.newContract.modalityContractType = this.myForm.value.ncModalityType;
+    console.log('Nuevo Contrato ModalityType' + this.newContract.modalityId);
+    console.log('Nuevo Contrato contractType' + this.newContract.contractTypeId);
+    this.newContract.modalityId = this.myForm.value.ncModalityType;
+    this.newContract.contractTypeId = this.myForm.value.ncContractType;
   }
 
   public submitFormulario() {

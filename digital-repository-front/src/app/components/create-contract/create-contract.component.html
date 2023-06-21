@@ -16,7 +16,7 @@
               <div>
                 <select class="form-control" formControlName="ncContractType" (change)="loadRadicado()" [class.is-invalid]="ncContractTypeInvalid">
                   <option selected disabled>Tipo de Contrato...</option>
-                  <option *ngFor="let contractsType of contractsType" [value]="contractsType.externalCode">{{contractsType.name}}</option>
+                  <option *ngFor="let contractsType of contractsType" [value]="contractsType.id">{{contractsType.name}}</option>
                 </select>
                 <small *ngIf="ncContractTypeInvalid">Tipo de Contrato Invalido</small>
                 &nbsp;/
@@ -69,18 +69,7 @@
         </div>
         <div>
           <button (click)="submitFormulario()" type="submit">Continuar<i-lucide name="ChevronRight"></i-lucide></button>
-        
-          <pre>
-            Estado Formulario:{{myForm.valid}}
-          </pre>
-        
-          <pre>
-          Status:{{myForm.status}}
-        </pre>
-        
-          <pre>
-          {{myForm.value | json}}
-        </pre>
+
         </div>
       </div>
     </mat-step>
