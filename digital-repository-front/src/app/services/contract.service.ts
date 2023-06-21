@@ -65,8 +65,8 @@ export class ContractService {
     )
   }
 
-  getModalityContractType(): Observable<Response>{
-    return this.httpClient.get<Response>(`${this.urlAPIModalityType}`).pipe(
+  getModalityContractType(type:number,modality:number): Observable<Response>{
+    return this.httpClient.get<Response>(`${this.urlAPIModalityType}+?contractTypeId=${type}&modalityId=${modality}`).pipe(
       catchError((e) => {
         console.log('Error obteniendo todas las modalidades por tipo de contrato', e.error.mensaje, 'error');
         return throwError(e);
@@ -110,9 +110,14 @@ export class ContractService {
     return result;
   }
 
-  public update(contract: Contract): Observable<Response> {
+  async  update(contract: Contract): Promise<boolean> {
+    var result = false;
     const body = JSON.stringify(contract);
-   return this.httpClient.patch<Response>(this.urlAPI , body, this.httpHeader);
+    this.httpClient.patch<boolean>(this.urlAPI + "/", body, this.httpHeader).subscribe((response) => {
+      result = response;
+    });
+    await new Promise(f => setTimeout(f, 1000));
+    return result;
   }
 
   private selectedContractId: number | null = null;

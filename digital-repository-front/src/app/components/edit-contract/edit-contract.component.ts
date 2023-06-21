@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Contract } from 'src/app/class/contract';
 import { ContractService } from 'src/app/services/contract.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { responseDocument } from 'src/app/class/models/responseDocument';
 
 @Component({
   selector: 'app-edit-contract',
@@ -30,7 +31,17 @@ export class EditContractComponent {
       idVendor: [{value: ''}, Validators.required],
       DateExp: [{value: '',}, Validators.required],
       DateEnd: [{value: ''}, Validators.required],
+      Subject:[{value: ''}, Validators.required],
       
+      ncVendor: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^[0-9]+$/),
+        ]),
+      ],
+      ncSubject: ['', Validators.required],
+      ncInitialDate: ['', Validators.required],
     });
     //
     if(this.isChecked){
@@ -87,13 +98,47 @@ console.log(this.todayWithPipe)
       radicado: this.contract.reference, 
       idVendor: this.contract.vendor,
       DateExp: this.todayWithPipe,
+      Subject: this.contract.subject
     });
+    if(this.contract.status=='ACTIVO'){
+      this.isChecked=true;
+
+    }else{
+      this.isChecked=false;
+    }
   }
 
-  public llenarEntidad(){
-    this.contract.reference = this.myForm.value.radicado;
-    this.contract.vendor = this.myForm.value.vendor;
+  public fillContract(){
+    //this.contract.reference = this.myForm.value.radicado;
+    this.contract.vendor = this.myForm.value.idVendor;
+   
     this.contract.finalDate=this.myForm.value.DateEnd;
     this.contract.initialDate=this.myForm.value.DateExp;
+    this.contract.subject=this.myForm.value.Subject;
+    if(this.isChecked){
+      this.contract.status= 'ACTVIO'
+    }else{
+      this.contract.status= 'INACTIVO'
+    }
+    console.log('estado contrato' + this.contract.status);
   }
+
+  async submitFormulario() {
+    this.fillContract();
+      //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
+      await new Promise(f => setTimeout(f, 1000));
+    console.log(this.contract);
+    var response:any;
+    response=this.contractService.update(this.contract);
+   console.log(response)
+
+    if (!this.contractService.update(this.contract)) {
+      alert('Peticion actualizar  correctamente');
+     
+    } else {
+      
+      alert('No se pudo actualizar la peticion');
+    }
+  }
+
 }

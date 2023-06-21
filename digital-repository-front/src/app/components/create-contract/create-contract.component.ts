@@ -1,11 +1,4 @@
-
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit,  ElementRef, ViewChild } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -21,20 +14,23 @@ import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
+import { MatStepper } from '@angular/material/stepper';
+import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
+  @ViewChild(MatStepper) stepper!: MatStepper;
+  filas: any[] = [];
   acordeonAbierto = false;
-  filas: Fila[] = [];
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
 
-
+  
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
@@ -50,15 +46,11 @@ export class CreateContractComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private contrSv: ContractService
+    private contrSv: ContractService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
-    this.filaService.obtenerFilas().subscribe((fila) => {
-      this.filas = fila;
-      console.log(this.filas);
-    });
-
     this.loadContractType();
     this.loadModalityType();
     //this.loadRadicado()
@@ -66,24 +58,10 @@ export class CreateContractComponent implements OnInit {
       //ncRadicado: ['', Validators.required],
       ncInitialDate: ['', Validators.required],
       //(/^\w+$/)             Expresion regular que permite numeros y letras sin espacios
-      ncNroContract: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/),
-          Validators.max(9999),
-          Validators.min(1),
-        ]),
-      ],
+      ncNroContract: ['',Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/),Validators.max(9999),Validators.min(1)])],
       ncContractType: ['', Validators.required],
       ncModalityType: ['', Validators.required],
-      ncVendor: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/),
-        ]),
-      ],
+      ncVendor: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
       ncSubject: ['', Validators.required],
     });
 
@@ -92,9 +70,18 @@ export class CreateContractComponent implements OnInit {
     this.newContract = new Contract();
     //this.modality = new Modality();
   }
+  pdfUrl='./assets/pdf/resume.pdf';
+  openPdfViewerDialog(i:number) {
 
+    const dialogRef = this.dialog.open(PdfViewerDialogComponent, {
+      width: '800px',
+      height: '600px',
+      data: { pdfUrl: this.pdfUrl }
+    });
+  }
   public loadModalityContractType() {
-    this.contrSv.getModalityContractType().subscribe((response) => {
+    this.contrSv.getModalityContractType(
+      this.newContract.contractTypeId,this.newContract.modalityId ).subscribe((response) => {
       console.log('Del servicio ', response);
       this.modalityContractType = response.data.data as modalityContractType[];
     });
@@ -132,14 +119,28 @@ export class CreateContractComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'Si') {
-        console.log(this.filas);
         for (let i = 0; i < this.filas.length; i++) {
           const fila = this.filas[i];
+          this.eliminarItem(fila);
         }
       }
     });
+  }
+
+  agregarFila() {
+    const nuevaFila = {
+      documento: 'Documento',
+      invitacion: 'Invitación',
+      fecha: 'Fecha',
+    };
+    this.filas.push(nuevaFila);
+    this.acordeonAbierto = false;
+    setTimeout(() => {
+      this.acordeonAbierto = true;
+    }, 0);
   }
 
   eliminarItem(index: number): void {
@@ -154,9 +155,9 @@ export class CreateContractComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      console.log('Diálogo cerrado', result);
-      this.filas.push(result);
-      console.log('filas ', this.filas);
+      console.log('Diálogo cerrado',result);
+      this.filas.push(result)
+      console.log("filas ",this.filas)
     });
   }
 
@@ -172,47 +173,30 @@ export class CreateContractComponent implements OnInit {
   }
 
   //Validación de campos del formulario
-  get ncNroContractInvalid() {
-    return (
-      this.myForm.get('ncNroContract')?.invalid &&
-      this.myForm.get('ncNroContract')?.touched
-    );
+  get ncNroContractInvalid(){
+    return (this.myForm.get('ncNroContract')?.invalid && this.myForm.get('ncNroContract')?.touched);
   }
 
-  get ncInitialDateInvalid() {
-    return (
-      this.myForm.get('ncInitialDate')?.invalid &&
-      this.myForm.get('ncInitialDate')?.touched
-    );
+  get ncInitialDateInvalid(){
+    return this.myForm.get('ncInitialDate')?.invalid && this.myForm.get('ncInitialDate')?.touched;
   }
 
-  get ncContractTypeInvalid() {
-    return (
-      this.myForm.get('ncContractType')?.invalid &&
-      this.myForm.get('ncContractType')?.touched
-    );
+  get ncContractTypeInvalid(){
+    return this.myForm.get('ncContractType')?.invalid && this.myForm.get('ncContractType')?.touched;
   }
 
-  get ncModalityTypeInvalid() {
-    return (
-      this.myForm.get('ncModalityType')?.invalid &&
-      this.myForm.get('ncModalityType')?.touched
-    );
+  get ncModalityTypeInvalid(){
+    return this.myForm.get('ncModalityType')?.invalid && this.myForm.get('ncModalityType')?.touched;
   }
 
-  get ncVendorInvalid() {
-    return (
-      this.myForm.get('ncVendor')?.invalid &&
-      this.myForm.get('ncVendor')?.touched
-    );
+  get ncVendorInvalid(){
+    return this.myForm.get('ncVendor')?.invalid && this.myForm.get('ncVendor')?.touched;
   }
 
-  get ncSubjectInvalid() {
-    return (
-      this.myForm.get('ncSubject')?.invalid &&
-      this.myForm.get('ncSubject')?.touched
-    );
+  get ncSubjectInvalid(){
+    return this.myForm.get('ncSubject')?.invalid && this.myForm.get('ncSubject')?.touched;
   }
+
 
   public fillContract() {
     this.date = new Date();
@@ -238,12 +222,7 @@ export class CreateContractComponent implements OnInit {
     this.stepper.next();
   }
 
-  public submitFormulario() {
-    this.fillContract();
-    console.log('Nuevo Contrato reference' + this.newContract.reference);
-    console.log('Nuevo Contrato reference' + this.newContract.singinDate);
-    console.log('Nuevo Contrato reference' + this.newContract.initialDate);
-    this.contrSv.addContract(this.newContract);
+  public async submitFormulario() {
 
     if (this.myForm.invalid) {
       return Object.values(this.myForm.controls).forEach((control) => {
@@ -263,6 +242,7 @@ export class CreateContractComponent implements OnInit {
       alert('Peticion agregada correctamente');
     }
   }
+
 }
 
 

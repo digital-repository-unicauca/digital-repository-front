@@ -26,8 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-
-
+import { PdfViewerModule } from 'ng2-pdf-viewer'; 
 import {
   LucideAngularModule,
   Home,
@@ -46,7 +45,7 @@ import {
   FileDown,
   FilePlus,
   FolderDown,
-  Pencil,
+  Pencil,FileText,FileX,
 } from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
@@ -59,6 +58,7 @@ import { EditContractComponent } from './components/edit-contract/edit-contract.
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 import { FilaService } from './services/fila.service';
+import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +74,7 @@ import { FilaService } from './services/fila.service';
     DialogEditComponent,
     EditContractComponent,
     DialogComponent,
+    PdfViewerDialogComponent,
   ],
   imports: [
     MatStepperModule,
@@ -96,7 +97,7 @@ import { FilaService } from './services/fila.service';
     SharedModuleModule,
     MatDividerModule,
     MatListModule,
-
+    PdfViewerModule,
     LucideAngularModule.pick({
       Home,
       Search,
@@ -114,7 +115,7 @@ import { FilaService } from './services/fila.service';
       FileDown,
       FilePlus,
       Pencil,
-      FolderDown,
+      FolderDown,FileText,FileX,
     }),
 
     BrowserAnimationsModule,

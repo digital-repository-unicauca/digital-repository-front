@@ -91,7 +91,7 @@ export class DialogComponent {
     this.myForm = this.fb.group({
       type: [''],
       name: [''],
-      date: [''],
+      expeditionDate: [''],
       file: [''],
     });
 

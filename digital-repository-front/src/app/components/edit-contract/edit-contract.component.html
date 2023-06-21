@@ -18,29 +18,31 @@
                     <br>
                     ID Contratista
                     <input  formControlName="idVendor" class="form-control" type="text" style="background-color:transparent" name="IDContratista"
-                        placeholder="ID Contratista">
+                     placeholder="ID Contratista">
                 </div>
                 <div>
                     <br>
                     <p>Fecha de Expedición</p>
-                    <input formControlName="DateExp" class="form-control" type="date" style="background-color:transparent" name="fecha"  [value]="todayWithPipe">
+                    <input formControlName="DateExp" class="form-control"  type="date" style="background-color:transparent" name="fecha"  [value]="todayWithPipe">
+                    
                 </div>
 
                 <div class="grid">
                     <br>
                     <p>Fecha de Terminacion</p>
-                    <input formControlName="DateEnd" class="form-control" type="date" style="background-color:transparent" name="fecha">
+                    <input formControlName="DateEnd" class="form-control"  type="date" style="background-color:transparent" name="fecha">
+
                 </div>
                 <div>
                     <br>
                     <p>Objeto del Contrato</p>
-                    <textarea name="textarea" rows="6" cols="80"
+                    <textarea formControlName="Subject" name="textarea" rows="6" cols="80"
                         placeholder="Objeto o Finalidad del Contrato"></textarea>
                 </div>
                 <br>
             </div>
         </form>
-        <button class="float-center">Editar</button>
+        <button class="float-center" [routerLink]="['/searchCont']" (click)="submitFormulario()" type="submit">Editar</button>
     </div>
    
 </div>
