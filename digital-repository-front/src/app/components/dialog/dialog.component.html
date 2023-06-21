@@ -1,22 +1,22 @@
 <div class="custom-dialog-wrapper">
   <h2 id="tituloEdit" mat-dialog-title>Nuevo Documento</h2>
   <mat-dialog-content>
-    <form class="form-doc">
+    <form class="form-doc" [formGroup]="myForm">
       <h2>Tipo de Documento</h2>
       <input
-        formControlName="tipo"
+        formControlName="type"
         class="form-control"
         type="text"
-        id="tipo"
-        placeholder="Tipo"
+        id="type"
+        placeholder="Type"
       />
       <h2>Nombre del Documento:</h2>
       <input
-        formControlName="nombre"
+        formControlName="name"
         class="form-control"
         type="text"
-        id="nombre"
-        placeholder="Nombre"
+        id="name"
+        placeholder="name"
       />
       <h2>Fecha de Expedición:</h2>
       <label
@@ -25,9 +25,9 @@
         style="color: rgb(249, 247, 247); margin-top: 0"
       ></label>
       <input
-        formControlName="pqrFechaAdmision"
+        formControlName="expeditionDate"
         class="bg-light form-control d-md-flex align-items-md-start"
-        id="pqrFecha"
+        id="date"
         type="date"
         required=""
         (change)="SendDataonChange($event)"
@@ -35,9 +35,10 @@
       <h2>Subir Archivo:</h2>
       <div class="mat-form-field">
         <input
+        formControlName="file"
           class="file-input"
           type="file"
-          name="archivoSeleccionado"
+          name="file"
           (change)="onFileSelected($event)"
           required
         />
@@ -47,7 +48,7 @@
 
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-raised-button (click)="openDialog('0ms', '0ms')">
+    <button mat-raised-button (click)="openDialog('0ms', '0ms');">
       Guardar
     </button>
   </mat-dialog-actions>

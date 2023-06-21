@@ -26,7 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-
+import { PdfViewerModule } from 'ng2-pdf-viewer'; 
 import {
   LucideAngularModule,
   Home,
@@ -45,7 +45,7 @@ import {
   FileDown,
   FilePlus,
   FolderDown,
-  Pencil,
+  Pencil,FileText,FileX,
 } from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
@@ -57,6 +57,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
+import { FilaService } from './services/fila.service';
+import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     DialogEditComponent,
     EditContractComponent,
     DialogComponent,
+    PdfViewerDialogComponent,
   ],
   imports: [
     MatStepperModule,
@@ -94,7 +97,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     SharedModuleModule,
     MatDividerModule,
     MatListModule,
-
+    PdfViewerModule,
     LucideAngularModule.pick({
       Home,
       Search,
@@ -112,7 +115,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
       FileDown,
       FilePlus,
       Pencil,
-      FolderDown,
+      FolderDown,FileText,FileX,
     }),
 
     BrowserAnimationsModule,
@@ -130,6 +133,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     },
+    FilaService
   ],
   bootstrap: [AppComponent],
 })

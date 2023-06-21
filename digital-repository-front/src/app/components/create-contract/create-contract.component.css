@@ -5,6 +5,7 @@
     width: 65%;
     height: 100%;
     position: relative;
+    padding: 5px;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected {
@@ -36,9 +37,11 @@
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
-    font-size: 10px;
+    font-size: 14px;
     color: white;
     opacity: 0.8;
+    padding-top: 2px;
+    margin-right: 8px;
 }
 
 .grid-radicado {
@@ -88,6 +91,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .boxContainerForm {
+    padding: 20px;
     color: white;
     top: 30px;
     width: 580px;
@@ -359,10 +363,10 @@ button {
   }
 
   .boton-crear {
-    background-color: #AFE68D;
+    background-color: #9eeef7;
     justify-content: center;
     align-items: center;
-    color:#0E750C;
+    color:#016cd1;
   }
   
   .boton-editar {

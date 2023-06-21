@@ -21,7 +21,7 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angul
 export class ListContractComponent {
 
   contracts:PeriodicElement[]=[];
-  displayedColumns: string[] = ['Id', 'Modality', 'ContractType', 'Reference','Vendor', 'SigningYear'];
+  displayedColumns: string[] = ['Id','Reference', 'Modality', 'ContractType', 'Vendor', 'SigningYear'];
   totalElements:number=0;
   totalPages:number=1;
   pageSize:number=5;
@@ -131,7 +131,6 @@ export class ListContractComponent {
     }
 
   }
-
   /**
    * obtiene valores del filtro
    * @returns retorna el array de opciones para los vlaores del filtro
