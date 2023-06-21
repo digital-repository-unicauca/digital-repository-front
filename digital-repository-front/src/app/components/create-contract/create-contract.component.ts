@@ -1,3 +1,4 @@
+
 import {
   Component,
   EventEmitter,
@@ -20,27 +21,19 @@ import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
-import { FilaService } from 'src/app/services/fila.service';
-import { Fila } from 'src/app/class/models/Fila';
-import { DocumentsService } from 'src/app/services/documents.service';
-
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
-  @Output() nuevaFilaEvent: EventEmitter<any[]> = new EventEmitter<any[]>();
-
-  @ViewChild('dialog', { static: false }) dialogComponent!: DialogComponent;
-  //filas: any[] = [];
   acordeonAbierto = false;
   filas: Fila[] = [];
-
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
+
 
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
@@ -57,9 +50,7 @@ export class CreateContractComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private contrSv: ContractService,
-    private filaService: FilaService,
-    private documentService: DocumentsService
+    private contrSv: ContractService
   ) {}
 
   ngOnInit() {
@@ -226,7 +217,7 @@ export class CreateContractComponent implements OnInit {
   public fillContract() {
     this.date = new Date();
     this.initialDate = new Date(this.myForm.value.ncInitialDate);
-    console.log('Nuevo Signing date FIILLL CONTRACR' + this.initialDate);
+    //console.log('Nuevo Signing date FIILLL CONTRACR' + this.initialDate);
     //this.newContract.id = this.myForm.value.id;
     this.newContract.reference = this.loadRadicado();
     //this.newContract.singinDate = this.date;
@@ -242,15 +233,9 @@ export class CreateContractComponent implements OnInit {
     this.newContract.modalityId = this.myForm.value.ncModalityType;
     this.newContract.contractTypeId = this.myForm.value.ncContractType;
   }
-
-  public fillDocument() {
-    for (let i = 0; i < this.filas.length; i++) {
-      this.filas[i].collectionId = i;
-      this.filas[i].description = '';
-      this.filas[i].ordering = i;
-      this.filas[i].consecutive = i;
-      this.filas[i].isException = false;
-    }
+//Mostrar el siguiente formulario
+  moveToNextStep() {
+    this.stepper.next();
   }
 
   public submitFormulario() {
@@ -268,7 +253,9 @@ export class CreateContractComponent implements OnInit {
 
     this.fillContract();
 
-    this.contrSv.addContract(this.newContract);
+    if(await this.contrSv.addContract(this.newContract)){
+      this.moveToNextStep();
+    }
 
     if (!this.contrSv.addContract(this.newContract)) {
       alert('No se pudo agregar la peticion');
@@ -276,28 +263,9 @@ export class CreateContractComponent implements OnInit {
       alert('Peticion agregada correctamente');
     }
   }
-
-  public submitDocument() {
-    this.fillDocument();
-    this.documentService.addDocuments(this.filas);
-
-    if (this.myForm.invalid) {
-      return Object.values(this.myForm.controls).forEach((control) => {
-        control.markAllAsTouched();
-      });
-    }
-
-    this.fillDocument();
-
-    this.documentService.addDocuments(this.filas);
-
-    if (!this.documentService.addDocuments(this.filas)) {
-      alert('No fue posible guardar');
-    } else {
-      alert('Guardado correctamente');
-    }
-  }
 }
+
+
 
 @Component({
   selector: 'dialog-animations-example-dialog',
