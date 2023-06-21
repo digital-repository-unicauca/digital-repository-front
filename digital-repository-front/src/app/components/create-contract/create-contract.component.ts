@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ElementRef, ViewChild } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -14,12 +14,14 @@ import { ContractService } from 'src/app/services/contract.service';
 import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
+import { MatStepper } from '@angular/material/stepper';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
   styleUrls: ['./create-contract.component.css'],
 })
 export class CreateContractComponent implements OnInit {
+  @ViewChild(MatStepper) stepper!: MatStepper;
   filas: any[] = [];
   acordeonAbierto = false;
   myForm: FormGroup = new FormGroup({});
@@ -43,7 +45,8 @@ export class CreateContractComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
-    private contrSv: ContractService
+    private contrSv: ContractService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit() {
@@ -186,7 +189,7 @@ export class CreateContractComponent implements OnInit {
   public fillContract() {
     this.date = new Date();
     this.initialDate = new Date(this.myForm.value.ncInitialDate);
-    console.log('Nuevo Signing date FIILLL CONTRACR' + this.initialDate);
+    //console.log('Nuevo Signing date FIILLL CONTRACR' + this.initialDate);
     //this.newContract.id = this.myForm.value.id;
     this.newContract.reference = this.loadRadicado();
     //this.newContract.singinDate = this.date;
@@ -202,13 +205,12 @@ export class CreateContractComponent implements OnInit {
     this.newContract.modalityId = this.myForm.value.ncModalityType;
     this.newContract.contractTypeId = this.myForm.value.ncContractType;
   }
+//Mostrar el siguiente formulario
+  moveToNextStep() {
+    this.stepper.next();
+  }
 
-  public submitFormulario() {
-    this.fillContract();
-    console.log('Nuevo Contrato reference' + this.newContract.reference);
-    console.log('Nuevo Contrato reference' + this.newContract.singinDate);
-    console.log('Nuevo Contrato reference' + this.newContract.initialDate);
-    this.contrSv.addContract(this.newContract);
+  public async submitFormulario() {
 
     if (this.myForm.invalid) {
       return Object.values(this.myForm.controls).forEach((control) => {
@@ -218,7 +220,9 @@ export class CreateContractComponent implements OnInit {
 
     this.fillContract();
 
-    this.contrSv.addContract(this.newContract);
+    if(await this.contrSv.addContract(this.newContract)){
+      this.moveToNextStep();
+    }
 
     if (!this.contrSv.addContract(this.newContract)) {
       alert('No se pudo agregar la peticion');
@@ -226,7 +230,10 @@ export class CreateContractComponent implements OnInit {
       alert('Peticion agregada correctamente');
     }
   }
+
 }
+
+
 
 @Component({
   selector: 'dialog-animations-example-dialog',
