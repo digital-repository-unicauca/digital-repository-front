@@ -104,7 +104,7 @@ export class ListContractComponent {
 
       })
     }else if(this.isSearchApplied){
-      const selectedFilter = "TYPE"
+      const selectedFilter = "REFERENCE"
 
       this.selectedFilter = selectedFilter
       this.selectedFilterValue = this.searchValue
