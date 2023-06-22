@@ -76,7 +76,7 @@ export class DialogComponent {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      type: ['', Validators.required],
+      type: [{ value: '', disabled: true }, Validators.required],
       name: ['', Validators.required],
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],

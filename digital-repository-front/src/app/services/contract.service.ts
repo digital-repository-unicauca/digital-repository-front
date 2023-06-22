@@ -114,6 +114,7 @@ export class ContractService {
 
    update(contract: UpdateContract): Observable<responseDocument> {
     const body = JSON.stringify(contract);
+    console.log(body)
     return this.httpClient.patch<responseDocument>(this.urlAPI, body , this.httpHeader)
   }
 

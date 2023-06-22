@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation,Inject } from '@angular/core';
+import { Component, ViewEncapsulation, Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
@@ -17,9 +17,9 @@ import { Fila } from 'src/app/class/models/Fila';
   encapsulation: ViewEncapsulation.None, // Desactivar la encapsulación de estilos
 })
 export class DialogEditComponent {
-  
+
   myForm!: FormGroup;
-  doc:Fila=new Fila();
+  doc: Fila = new Fila();
   //Fechas
   today: Date = new Date();
   pipe = new DatePipe('en-US');
@@ -27,9 +27,9 @@ export class DialogEditComponent {
 
   constructor(private fb: FormBuilder, public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
-   ) {
-    this.doc=data;
-   }
+  ) {
+    this.doc = data;
+  }
 
 
   openDialog(
@@ -50,20 +50,23 @@ export class DialogEditComponent {
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
     });
-    console.log(this.doc)
+    console.log(this.doc);
+
     this.rellenarForm();
 
     //this.pqr = new PQRSF();
   }
 
-  public async rellenarForm() {
+  async rellenarForm() {
+    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
+    await new Promise(f => setTimeout(f, 1000));
     //Llena los campos del formulario
     this.todayWithPipe = this.pipe.transform(this.doc.expeditionDate, 'yyyy-MM-dd');
     this.myForm.patchValue({ expeditionDate: this.todayWithPipe });
     this.myForm.patchValue({
-     type: this.doc.type, 
-     name: this.doc.name,
-     file: this.doc.url,
+      type: this.doc.type,
+      name: this.doc.name,
+      file: this.doc.url,
     });
   }
 
@@ -72,7 +75,7 @@ export class DialogEditComponent {
     return this.myForm.controls;
   }
 
-  SendDataonChange(event: any) {}
+  SendDataonChange(event: any) { }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -87,5 +90,5 @@ export class DialogEditComponent {
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>) { }
 }

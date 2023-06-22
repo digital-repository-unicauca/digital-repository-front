@@ -52,7 +52,8 @@ import { SettingSystemComponent } from './components/setting-system/setting-syst
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
 import { SideInformationComponent } from './components/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableModule } from './modules/table/table.module';
+//import { TableModule} from './modules/table/table.module';
+import { TableModule } from '@coreui/angular';
 import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';

@@ -1,4 +1,4 @@
-import { Component, OnInit,  ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
 import {
@@ -25,14 +25,14 @@ import { Fila } from 'src/app/class/models/Fila';
 export class CreateContractComponent implements OnInit {
   @ViewChild(MatStepper) stepper!: MatStepper;
   filas: any[] = [];
-  doc:Fila=new Fila();
+  doc: Fila = new Fila();
   acordeonAbierto = false;
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
 
-  
+
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
@@ -50,7 +50,7 @@ export class CreateContractComponent implements OnInit {
     private fb: FormBuilder,
     private contrSv: ContractService,
     private elementRef: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadContractType();
@@ -60,7 +60,7 @@ export class CreateContractComponent implements OnInit {
       //ncRadicado: ['', Validators.required],
       ncInitialDate: ['', Validators.required],
       //(/^\w+$/)             Expresion regular que permite numeros y letras sin espacios
-      ncNroContract: ['',Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/),Validators.max(9999),Validators.min(1)])],
+      ncNroContract: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/), Validators.max(9999), Validators.min(1)])],
       ncContractType: ['', Validators.required],
       ncModalityType: ['', Validators.required],
       ncVendor: ['', Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
@@ -72,9 +72,12 @@ export class CreateContractComponent implements OnInit {
     this.newContract = new Contract();
     //this.modality = new Modality();
   }
-  pdfUrl='';
-  openPdfViewerDialog(i:number) {
-    this.pdfUrl=this.filas[i].url
+
+
+  // method to preview pdf-----------------------
+  pdfUrl = '';
+  openPdfViewerDialog(i: number) {
+    this.pdfUrl = this.filas[i].url
     console.log(this.pdfUrl)
     const dialogRef = this.dialog.open(PdfViewerDialogComponent, {
       width: '800px',
@@ -82,27 +85,30 @@ export class CreateContractComponent implements OnInit {
       data: { pdfUrl: this.pdfUrl }
     });
   }
+
+  //method return 1 ModalityContractType
   public loadModalityContractType() {
     this.contrSv.getModalityContractType(
-      this.newContract.contractTypeId,this.newContract.modalityId ).subscribe((response) => {
-      console.log('Del servicio ', response);
-      this.modalityContractType = response.data.data as modalityContractType[];
-    });
+      this.newContract.contractTypeId, this.newContract.modalityId).subscribe((response) => {
+        console.log('Del servicio ', response);
+        this.modalityContractType = response.data.data as modalityContractType[];
+      });
   }
-
+  //method return 1 Modality
   public loadModalityType() {
     this.contrSv.getModalityType().subscribe((response) => {
       console.log('Del servicio ', response);
       this.modalityType = response.data.data as Modality[];
     });
   }
-
+  //method return 1 ContractType
   public loadContractType() {
     this.contrSv.getContractType().subscribe((response) => {
       console.log('Del servicio ', response);
       this.contractsType = response.data.data as ContractType[];
     });
   }
+
 
   public loadRadicado() {
     return (this.radicado =
@@ -112,33 +118,29 @@ export class CreateContractComponent implements OnInit {
       this.myForm.value.ncNroContract);
     console.log('Numero de referencia ' + this.newContract.reference);
   }
-
+  //Dialog delete document
   openDialog(
-    enterAnimationDuration: string,
-    exitAnimationDuration: string
+ i:number
   ): void {
     const dialogRef = this.dialog.open(DialogAnimation, {
       width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'Si') {
-        for (let i = 0; i < this.filas.length; i++) {
           const fila = this.filas[i];
           this.eliminarItem(fila);
-        }
       }
     });
   }
+
 
   agregarFila() {
     const nuevaFila = {
       documento: 'Documento',
       invitacion: 'Invitación',
       fecha: 'Fecha',
-      
+
     };
     this.filas.push(nuevaFila);
     this.acordeonAbierto = false;
@@ -151,22 +153,25 @@ export class CreateContractComponent implements OnInit {
     this.filas.splice(index, 1);
   }
 
+
+  //dialog create document
   abrirVentanaEmergente() {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '800px', // Especifica el ancho deseado
-      height: '600px', // Especifica la altura deseada
+      width: '800px',
+      height: '600px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
       //console.log('Diálogo cerrado',result);
-     this.doc=result;
+      this.doc = result;
       this.filas.push(this.doc)
-      console.log("filas ",this.filas)
+      console.log("filas ", this.filas)
     });
   }
 
-  abrirVentanaEmergenteEdit(i:number) {
+//Dialog Edit Document
+  abrirVentanaEmergenteEdit(i: number) {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
@@ -180,32 +185,32 @@ export class CreateContractComponent implements OnInit {
     });
   }
 
-  //Validación de campos del formulario
-  get ncNroContractInvalid(){
+  //Form field validation create contract
+  get ncNroContractInvalid() {
     return (this.myForm.get('ncNroContract')?.invalid && this.myForm.get('ncNroContract')?.touched);
   }
 
-  get ncInitialDateInvalid(){
+  get ncInitialDateInvalid() {
     return this.myForm.get('ncInitialDate')?.invalid && this.myForm.get('ncInitialDate')?.touched;
   }
 
-  get ncContractTypeInvalid(){
+  get ncContractTypeInvalid() {
     return this.myForm.get('ncContractType')?.invalid && this.myForm.get('ncContractType')?.touched;
   }
 
-  get ncModalityTypeInvalid(){
+  get ncModalityTypeInvalid() {
     return this.myForm.get('ncModalityType')?.invalid && this.myForm.get('ncModalityType')?.touched;
   }
 
-  get ncVendorInvalid(){
+  get ncVendorInvalid() {
     return this.myForm.get('ncVendor')?.invalid && this.myForm.get('ncVendor')?.touched;
   }
 
-  get ncSubjectInvalid(){
+  get ncSubjectInvalid() {
     return this.myForm.get('ncSubject')?.invalid && this.myForm.get('ncSubject')?.touched;
   }
 
-
+//fill contract
   public fillContract() {
     this.date = new Date();
     this.initialDate = new Date(this.myForm.value.ncInitialDate);
@@ -225,11 +230,11 @@ export class CreateContractComponent implements OnInit {
     this.newContract.modalityId = this.myForm.value.ncModalityType;
     this.newContract.contractTypeId = this.myForm.value.ncContractType;
   }
-//Mostrar el siguiente formulario
+  //Mostrar el siguiente formulario
   moveToNextStep() {
     this.stepper.next();
   }
-
+//send request create contract
   public async submitFormulario() {
 
     if (this.myForm.invalid) {
@@ -240,7 +245,7 @@ export class CreateContractComponent implements OnInit {
 
     this.fillContract();
 
-    if(await this.contrSv.addContract(this.newContract)){
+    if (await this.contrSv.addContract(this.newContract)) {
       this.moveToNextStep();
     }
 
@@ -262,5 +267,5 @@ export class CreateContractComponent implements OnInit {
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>) { }
 }
