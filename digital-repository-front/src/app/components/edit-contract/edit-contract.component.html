@@ -6,31 +6,36 @@
             <p>Radicado</p>
             <div class="grid-radicado">
                 <div>
-                    <input formControlName="radicado" class="radicado" type="text" name="NroContrato" style="background-color:transparent"
-                        placeholder="Radicado">
+                    <input formControlName="radicado" class="radicado" type="text" name="NroContrato"
+                        style="background-color:transparent" placeholder="Radicado">
                 </div>
-                
+
             </div>
-            &nbsp; &nbsp; <mat-slide-toggle color="primary" class="mat-lg-slide-toggle" [checked]="isChecked" (change)="onToggleChange($event)"><h3>&nbsp;   Estado del contrato : {{status}}</h3></mat-slide-toggle>
+            &nbsp; &nbsp; <mat-slide-toggle color="primary" class="mat-lg-slide-toggle" [checked]="isChecked"
+                (change)="onToggleChange($event)">
+                <h3>&nbsp; Estado del contrato : {{status}}</h3>
+            </mat-slide-toggle>
             <br>
             <div class="grid-contratista">
-                <div>
+            <!--<div>
                     <br>
                     ID Contratista
                     <input  formControlName="idVendor" class="form-control" type="text" style="background-color:transparent" name="IDContratista"
                      placeholder="ID Contratista">
-                </div>
+                </div>-->
                 <div>
                     <br>
                     <p>Fecha de Expedición</p>
-                    <input formControlName="DateExp" class="form-control"  type="date" style="background-color:transparent" name="fecha"  [value]="todayWithPipe">
-                    
+                    <input formControlName="DateExp" class="form-control" type="date"
+                        style="background-color:transparent" name="fecha" [value]="todayWithPipe">
+
                 </div>
 
                 <div class="grid">
                     <br>
                     <p>Fecha de Terminacion</p>
-                    <input formControlName="DateEnd" class="form-control"  type="date" style="background-color:transparent" name="fecha">
+                    <input formControlName="DateEnd" class="form-control" type="date"
+                        style="background-color:transparent" name="fecha">
 
                 </div>
                 <div>
@@ -42,7 +47,8 @@
                 <br>
             </div>
         </form>
-        <button class="float-center" [routerLink]="['/searchCont']" (click)="submitFormulario()" type="submit">Editar</button>
+        <button class="float-center" [routerLink]="['/searchCont']" (click)="submitFormulario()"
+            type="submit">Editar</button>
     </div>
-   
+
 </div>

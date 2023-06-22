@@ -1,32 +1,28 @@
 <div class="custom-dialog-wrapper">
-  <h2 id="tituloEdit" mat-dialog-title>Editar Información</h2>
+  
   <mat-dialog-content>
-    <form class="form-doc">
+    <form class="form-doc"  [formGroup]="myForm">
+      <h2>Editar Información</h2>
+      <br>
+      <br>
       <h2>Tipo de Documento:</h2>
       <input
-        formControlName="tipo"
+        formControlName="type"
         class="form-control"
         type="text"
-        id="tipo"
-        placeholder="Tipo"
+        placeholder="Type"
       />
       <h2>Nombre del Documento:</h2>
       <input
-        formControlName="nombre"
+        formControlName="name"
         class="form-control"
         type="text"
-        id="nombre"
-        placeholder="Nombre"
+        placeholder="name"
       />
       <h2>Fecha de Expedición:</h2>
-      <label
-        for="exampleFormControlInput1"
-        class="form-label"
-        style="color: rgb(249, 247, 247); margin-top: 0"
-      ></label>
       <input
         formControlName="pqrFechaAdmision"
-        class="bg-light form-control d-md-flex align-items-md-start"
+        class="form-control"
         id="pqrFecha"
         type="date"
         required=""
@@ -35,6 +31,7 @@
       <h2>Subir Archivo:</h2>
       <div class="mat-form-field">
         <input
+        formControlName="file"
           class="file-input"
           type="file"
           name="archivoSeleccionado"

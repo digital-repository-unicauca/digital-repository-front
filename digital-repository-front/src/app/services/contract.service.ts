@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response} from 'src/app/class/response';
 import { Observable, catchError, throwError, BehaviorSubject } from 'rxjs';
 import { Contract } from '../class/contract';
+import { responseDocument } from '../class/models/responseDocument';
+import { UpdateContract } from '../class/models/UpdateContract';
 @Injectable({
   providedIn: 'root'
 })
@@ -110,16 +112,12 @@ export class ContractService {
     return result;
   }
 
-  async  update(contract: Contract): Promise<boolean> {
-    var result = false;
+   update(contract: UpdateContract): Observable<responseDocument> {
     const body = JSON.stringify(contract);
-    this.httpClient.patch<boolean>(this.urlAPI + "/", body, this.httpHeader).subscribe((response) => {
-      result = response;
-    });
-    await new Promise(f => setTimeout(f, 1000));
-    return result;
+    return this.httpClient.patch<responseDocument>(this.urlAPI, body , this.httpHeader)
   }
 
+  
   private selectedContractId: number | null = null;
 
   setSelectedContractId(contractId: number) {

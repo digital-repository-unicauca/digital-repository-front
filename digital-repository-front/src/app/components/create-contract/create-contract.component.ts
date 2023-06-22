@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { MatStepper } from '@angular/material/stepper';
 import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
+import { Fila } from 'src/app/class/models/Fila';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
@@ -24,6 +25,7 @@ import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog
 export class CreateContractComponent implements OnInit {
   @ViewChild(MatStepper) stepper!: MatStepper;
   filas: any[] = [];
+  doc:Fila=new Fila();
   acordeonAbierto = false;
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
@@ -70,9 +72,10 @@ export class CreateContractComponent implements OnInit {
     this.newContract = new Contract();
     //this.modality = new Modality();
   }
-  pdfUrl='./assets/pdf/resume.pdf';
+  pdfUrl='';
   openPdfViewerDialog(i:number) {
-
+    this.pdfUrl=this.filas[i].url
+    console.log(this.pdfUrl)
     const dialogRef = this.dialog.open(PdfViewerDialogComponent, {
       width: '800px',
       height: '600px',
@@ -135,6 +138,7 @@ export class CreateContractComponent implements OnInit {
       documento: 'Documento',
       invitacion: 'Invitación',
       fecha: 'Fecha',
+      
     };
     this.filas.push(nuevaFila);
     this.acordeonAbierto = false;
@@ -155,17 +159,21 @@ export class CreateContractComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      console.log('Diálogo cerrado',result);
-      this.filas.push(result)
+      //console.log('Diálogo cerrado',result);
+     this.doc=result;
+      this.filas.push(this.doc)
       console.log("filas ",this.filas)
     });
   }
 
-  abrirVentanaEmergenteEdit() {
+  abrirVentanaEmergenteEdit(i:number) {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
-    });
+      data: {
+        Object: this.filas[i],
+      },
+    },);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('Diálogo cerrado');

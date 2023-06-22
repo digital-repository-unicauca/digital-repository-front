@@ -1,12 +1,14 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation,Inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
   MatDialog,
   MatDialogRef,
   MatDialogModule,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { Fila } from 'src/app/class/models/Fila';
 
 @Component({
   selector: 'app-dialog-edit',
@@ -15,14 +17,20 @@ import { MatButtonModule } from '@angular/material/button';
   encapsulation: ViewEncapsulation.None, // Desactivar la encapsulación de estilos
 })
 export class DialogEditComponent {
+  
   myForm!: FormGroup;
-
+  doc:Fila=new Fila();
   //Fechas
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
 
-  constructor(private fb: FormBuilder, public dialog: MatDialog) {}
+  constructor(private fb: FormBuilder, public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: any
+   ) {
+    this.doc=data;
+   }
+
 
   openDialog(
     enterAnimationDuration: string,
@@ -37,30 +45,26 @@ export class DialogEditComponent {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      tipoDocumento: [''],
-      nombreDocumento: [''],
-      fechaExpedicion: [''],
-      archivoSeleccionado: [''],
+      type: ['', Validators.required],
+      name: ['', Validators.required],
+      expeditionDate: ['', Validators.required],
+      file: ['', Validators.required],
     });
-
-    //this.rellenarForm();
+    console.log(this.doc)
+    this.rellenarForm();
 
     //this.pqr = new PQRSF();
   }
 
   public async rellenarForm() {
-    var id = JSON.parse(localStorage.getItem('id') || '3');
-    //(await this.pqrSv.getPqr(id)).subscribe((data) => (
-    //this.pqr = data)
-    //);
-    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
-    await new Promise((f) => setTimeout(f, 1000));
-
     //Llena los campos del formulario
-
-    //Llena los campos del formulario de fechas
-    //this.todayWithPipe = this.pipe.transform(this.pqr.fechaExpedicion, 'yyyy-MM-dd');
-    this.myForm.patchValue({ fechaExpedicion: this.todayWithPipe });
+    this.todayWithPipe = this.pipe.transform(this.doc.expeditionDate, 'yyyy-MM-dd');
+    this.myForm.patchValue({ expeditionDate: this.todayWithPipe });
+    this.myForm.patchValue({
+     type: this.doc.type, 
+     name: this.doc.name,
+     file: this.doc.url,
+    });
   }
 
   //Accesor para los campos del formulario

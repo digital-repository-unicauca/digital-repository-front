@@ -1,5 +1,4 @@
 export interface PeriodicElement {
-
   contractType:string;
   id:number;
   modality:string;

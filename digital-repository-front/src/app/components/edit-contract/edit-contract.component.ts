@@ -5,6 +5,7 @@ import { Contract } from 'src/app/class/contract';
 import { ContractService } from 'src/app/services/contract.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { responseDocument } from 'src/app/class/models/responseDocument';
+import { UpdateContract } from 'src/app/class/models/UpdateContract';
 
 @Component({
   selector: 'app-edit-contract',
@@ -12,8 +13,11 @@ import { responseDocument } from 'src/app/class/models/responseDocument';
   styleUrls: ['./edit-contract.component.css']
 })
 export class EditContractComponent {
-  
-  contract:Contract= new Contract()
+  initialDate:Date = new Date();
+  endDate:Date = new Date();
+  contract:Contract= new Contract();
+  updateContract:UpdateContract= new UpdateContract();
+  response:responseDocument=new responseDocument();
   idContract:number=1
   activeMenu = false;
   myForm!: FormGroup;
@@ -77,9 +81,9 @@ export class EditContractComponent {
 
     //var id = JSON.parse(localStorage.getItem('id') || '1');
     this.contractService.getContract(this.idContract).subscribe((response) => {;
-      console.log(response)
+      //console.log(response)
       this.contract= response.data;
-      console.log(this.idContract,this.contract)
+      //console.log(this.idContract,this.contract)
       
     });
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
@@ -109,34 +113,39 @@ console.log(this.todayWithPipe)
   }
 
   public fillContract(){
-    //this.contract.reference = this.myForm.value.radicado;
-    this.contract.vendor = this.myForm.value.idVendor;
-   
-    this.contract.finalDate=this.myForm.value.DateEnd;
-    this.contract.initialDate=this.myForm.value.DateExp;
-    this.contract.subject=this.myForm.value.Subject;
+    this.updateContract.reference = this.contract.reference;
+    //this.contract.vendor = null;
+    this.updateContract.id=this.contract.id;
+    this.initialDate = new Date(this.myForm.value.DateExp);
+    this.endDate=new Date(this.myForm.value.DateEnd);
+    this.updateContract.finalDate=this.endDate;
+    this.updateContract.initialDate=this.initialDate;
+    this.updateContract.subject=this.myForm.value.Subject;
     if(this.isChecked){
-      this.contract.status= 'ACTVIO'
+      this.updateContract.status= 'ACTVIO'
     }else{
-      this.contract.status= 'INACTIVO'
+      this.updateContract.status= 'INACTIVO'
     }
-    console.log('estado contrato' + this.contract.status);
+    //console.log('estado contrato' + this. updateContract.status);
   }
 
   async submitFormulario() {
     this.fillContract();
       //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
-      await new Promise(f => setTimeout(f, 1000));
-    console.log(this.contract);
-    var response:any;
-    response=this.contractService.update(this.contract);
-   console.log(response)
+   await new Promise(f => setTimeout(f, 1000));
+    console.log(this.updateContract);
 
-    if (!this.contractService.update(this.contract)) {
+  this.contractService.update(this.updateContract).subscribe((res) => {
+    console.log(res);
+    this.response.status=res.status;
+    this.response.data=res.data;
+    }
+  );
+   console.log(this.response.status)
+
+    if (this.response.status==200) {
       alert('Peticion actualizar  correctamente');
-     
     } else {
-      
       alert('No se pudo actualizar la peticion');
     }
   }
