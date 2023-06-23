@@ -17,6 +17,8 @@ import { modalityContractType } from 'src/app/class/models/ModalityContractType'
 import { MatStepper } from '@angular/material/stepper';
 import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
 import { Fila } from 'src/app/class/models/Fila';
+import { ToastrService } from 'ngx-toastr';
+import { responseDocument } from 'src/app/class/models/responseDocument';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
@@ -32,6 +34,8 @@ export class CreateContractComponent implements OnInit {
   radicado!: String;
   rad!: String;
 
+  idContract: number = 1
+
 
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
@@ -40,16 +44,18 @@ export class CreateContractComponent implements OnInit {
   contractType: ContractType = new ContractType();
   modality: Modality = new Modality();
   newContract: Contract = new Contract();
+  response: responseDocument = new responseDocument();
   date: Date = new Date();
   initialDate: Date = new Date();
-
   textoDeInput!: string;
+
 
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private toastrSvc:ToastrService
   ) { }
 
   ngOnInit() {
@@ -71,6 +77,9 @@ export class CreateContractComponent implements OnInit {
 
     this.newContract = new Contract();
     //this.modality = new Modality();
+    this.contrSv.cart$.subscribe(idContract => {
+      this.idContract = idContract;
+    })
   }
 
 
@@ -133,7 +142,6 @@ export class CreateContractComponent implements OnInit {
       }
     });
   }
-
 
   agregarFila() {
     const nuevaFila = {
@@ -245,14 +253,24 @@ export class CreateContractComponent implements OnInit {
 
     this.fillContract();
 
-    if (await this.contrSv.addContract(this.newContract)) {
-      this.moveToNextStep();
+    this.contrSv.addContract(this.newContract).subscribe((res) => {
+      console.log(res);
+      this.response.status = res.status;
+      this.response.data = res.data;
+      console.log(this.response.status);
     }
+    );
 
-    if (!this.contrSv.addContract(this.newContract)) {
-      alert('No se pudo agregar la peticion');
+    await new Promise(f => setTimeout(f, 1000));
+
+    console.log("ESTADO"+this.response.status)
+    if (this.response.status == 200) {
+      //alert('Peticion actualizar  correctamente');
+      this.toastrSvc.success('Contrato agregado Correctamente', '');
+      this.moveToNextStep();
     } else {
-      alert('Peticion agregada correctamente');
+      this.toastrSvc.error(`Error al guardar en la base de datos`);
+      //alert('No se pudo actualizar la peticion');
     }
   }
 

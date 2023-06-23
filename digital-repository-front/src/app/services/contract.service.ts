@@ -101,15 +101,10 @@ export class ContractService {
     )
   }
   
-  async addContract(contract: Contract): Promise<boolean>{
-    console.log("En addContracts, boton")
+  addContract(contract: Contract): Observable<responseDocument>{
     var result = false;
     const body = JSON.stringify(contract);
-    this.httpClient.post<boolean>(this.urlAPI, body, this.httpHeader).subscribe((response) => {
-      result = response;
-    });
-    await new Promise(f => setTimeout(f, 1000));
-    return result;
+    return this.httpClient.post<responseDocument>(this.urlAPI, body, this.httpHeader);
   }
 
    update(contract: UpdateContract): Observable<responseDocument> {

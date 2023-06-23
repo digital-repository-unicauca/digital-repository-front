@@ -7,3 +7,4 @@ Instalacion de dependencias npm
 # Iconos: npm install lucide-angular
 # css: npm install -D tailwindcss postcss autoprefixer
 #       npx tailwindcss init
+#       npm install @coreui/icons-angular

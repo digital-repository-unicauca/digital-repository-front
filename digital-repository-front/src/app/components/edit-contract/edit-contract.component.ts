@@ -7,6 +7,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { responseDocument } from 'src/app/class/models/responseDocument';
 import { UpdateContract } from 'src/app/class/models/UpdateContract';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-contract',
@@ -27,26 +28,16 @@ export class EditContractComponent {
   isChecked = true;
   status!: string;
   constructor(
-    private contractService: ContractService, private fb: FormBuilder,private router: Router
+    private toastrSvc:ToastrService, private contractService: ContractService, private fb: FormBuilder,private router: Router
   ) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
       radicado: [{ value: '', disabled: true }, Validators.required],
-      idVendor: [{ value: '' }, Validators.required],
+      idVendor: [{ value: '' }, Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])], 
       DateExp: [{ value: '', }, Validators.required],
       DateEnd: [{ value: '' }, Validators.required],
       Subject: [{ value: '' }, Validators.required],
-
-      ncVendor: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[0-9]+$/),
-        ]),
-      ],
-      ncSubject: ['', Validators.required],
-      ncInitialDate: ['', Validators.required],
     });
     //
     console.log(this.myForm.controls)
@@ -109,6 +100,22 @@ export class EditContractComponent {
     }
   }
 
+  get dateExpInvalid() {
+    return this.myForm.get('DateExp')?.invalid && this.myForm.get('DateExp')?.touched;
+  }
+
+  get dateEndInvalid() {
+    return this.myForm.get('DateEnd')?.invalid && this.myForm.get('DateEnd')?.touched;
+  }
+
+  get idVendorInvalid() {
+    return this.myForm.get('idVendor')?.invalid && this.myForm.get('idVendor')?.touched;
+  }
+
+  get subjectInvalid() {
+    return this.myForm.get('Subject')?.invalid && this.myForm.get('Subject')?.touched;
+  }
+
   public fillContract() {
 
     this.updateContract.reference = this.contract.reference;
@@ -127,6 +134,11 @@ export class EditContractComponent {
     //console.log('estado contrato' + this. updateContract.status);
   }
   public async submitFormulario() {
+    if (this.myForm.invalid) {
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }
     this.fillContract();
     //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
     console.log(this.updateContract);
@@ -141,10 +153,12 @@ export class EditContractComponent {
     await new Promise(f => setTimeout(f, 1000));
 
     if (this.response.status == 200) {
-      alert('Peticion actualizar  correctamente');
+      //alert('Peticion actualizar  correctamente');
+      this.toastrSvc.success('Actualización de contrato exitosa', '');
       this.router.navigate(['/searchCont']);
     } else {
-      alert('No se pudo actualizar la peticion');
+      this.toastrSvc.error(`Error al actualizar el contrato`);
+      //alert('No se pudo actualizar la peticion');
     }
   }
 

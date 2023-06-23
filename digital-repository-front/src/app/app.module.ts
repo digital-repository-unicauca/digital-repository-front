@@ -52,6 +52,7 @@ import { SettingSystemComponent } from './components/setting-system/setting-syst
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
 import { SideInformationComponent } from './components/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 //import { TableModule} from './modules/table/table.module';
 import { TableModule } from '@coreui/angular';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -99,6 +100,7 @@ import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-vie
     MatDividerModule,
     MatListModule,
     PdfViewerModule,
+    ToastrModule.forRoot(),
     LucideAngularModule.pick({
       Home,
       Search,
