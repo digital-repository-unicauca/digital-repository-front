@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Fila } from '../class/models/Fila';
 import { responseDocument } from '../class/models/responseDocument';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentsService {
   private urlAPI = 'http://localhost:8081/api/document';
+  private urlChecklist =
+    'http://localhost:8081/api/modalityContractType/check-list';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -24,6 +26,19 @@ export class DocumentsService {
       this.urlAPI,
       body,
       this.httpHeader
+    );
+  }
+
+  getCheckList(id: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlChecklist + '/' + id).pipe(
+      catchError((e) => {
+        console.log(
+          'Error obteniendo toda la checkList',
+          e.error.mensaje,
+          'error'
+        );
+        return throwError(e);
+      })
     );
   }
 }
