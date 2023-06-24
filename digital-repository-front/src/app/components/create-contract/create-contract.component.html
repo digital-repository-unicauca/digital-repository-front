@@ -1,9 +1,15 @@
 <div class="form-contract">
-  <mat-stepper class="flex flex-col start-menu-bg px-20 py-10 border-blue items-center">
+  <mat-stepper
+    class="flex flex-col start-menu-bg px-20 py-10 border-blue items-center"
+  >
     <mat-step label="Datos del contrato">
       <div>
         <div class="boxContainerForm">
-          <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro">
+          <form
+            [formGroup]="myForm"
+            (ngSubmit)="submitFormulario()"
+            id="formregistro"
+          >
             <p>
               Complete la información del nuevo contrato que desea digitalizar
             </p>
@@ -15,20 +21,37 @@
                 <h1>{{ radicado }}</h1>
               </div>
               <div>
-                <select class="form-control" formControlName="ncContractType" (change)="loadRadicado()"
-                  [class.is-invalid]="ncContractTypeInvalid">
+                <select
+                  class="form-control"
+                  formControlName="ncContractType"
+                  (change)="loadRadicado()"
+                  [class.is-invalid]="ncContractTypeInvalid"
+                >
                   <option selected disabled>Tipo de Contrato...</option>
-                  <option *ngFor="let contractsType of contractsType" [value]="contractsType.id">
+                  <option
+                    *ngFor="let contractsType of contractsType"
+                    [value]="contractsType.id"
+                  >
                     {{ contractsType.name }}
                   </option>
                 </select>
-                <small *ngIf="ncContractTypeInvalid">Tipo de Contrato Invalido</small>
+                <small *ngIf="ncContractTypeInvalid"
+                  >Tipo de Contrato Invalido</small
+                >
               </div>
               <div>
-                <input class="form-control" (input)="loadRadicado()" formControlName="ncNroContract"
-                  name="ncNroContract" [class.is-invalid]="ncNroContractInvalid" placeholder="Número de Contrato"
-                  style="background-color: transparent" />
-                <small *ngIf="ncNroContractInvalid">Número de Contrato Invalido</small>
+                <input
+                  class="form-control"
+                  (input)="loadRadicado()"
+                  formControlName="ncNroContract"
+                  name="ncNroContract"
+                  [class.is-invalid]="ncNroContractInvalid"
+                  placeholder="Número de Contrato"
+                  style="background-color: transparent"
+                />
+                <small *ngIf="ncNroContractInvalid"
+                  >Número de Contrato Invalido</small
+                >
               </div>
             </div>
             <br />
@@ -36,38 +59,71 @@
               <div>
                 <br />
                 ID Contratista
-                <input class="form-control" type="text" style="background-color: transparent" formControlName="ncVendor"
-                  [class.is-invalid]="ncVendorInvalid" placeholder="ID Contratista" />
-                <small *ngIf="ncVendorInvalid">ID de contratista Invalido</small>
+                <input
+                  class="form-control"
+                  type="text"
+                  style="background-color: transparent"
+                  formControlName="ncVendor"
+                  [class.is-invalid]="ncVendorInvalid"
+                  placeholder="ID Contratista"
+                />
+                <small *ngIf="ncVendorInvalid"
+                  >ID de contratista Invalido</small
+                >
               </div>
               <div>
                 <br />
                 <p>Fecha de Expedición</p>
-                <input class="form-control" type="date" [class.is-invalid]="ncInitialDateInvalid"
-                  style="background-color: transparent" formControlName="ncInitialDate" placeholder="Día/Mes/Año" />
-                <small *ngIf="ncInitialDateInvalid">No ha seleccionado una fecha</small>
+                <input
+                  class="form-control"
+                  type="date"
+                  [class.is-invalid]="ncInitialDateInvalid"
+                  style="background-color: transparent"
+                  formControlName="ncInitialDate"
+                  placeholder="Día/Mes/Año"
+                />
+                <small *ngIf="ncInitialDateInvalid"
+                  >No ha seleccionado una fecha</small
+                >
               </div>
 
               <div class="grid">
                 <br />
                 <p>Modalidad</p>
-                <select class="" class="form-control" formControlName="ncModalityType"
-                  [class.is-invalid]="ncModalityTypeInvalid">
+                <select
+                  class=""
+                  class="form-control"
+                  formControlName="ncModalityType"
+                  [class.is-invalid]="ncModalityTypeInvalid"
+                >
                   <option selected disabled>Modalidad...</option>
                   ncModalityTypeInvalid
-                  <option *ngFor="let modalityType of modalityType" [value]="modalityType.id">
+                  <option
+                    *ngFor="let modalityType of modalityType"
+                    [value]="modalityType.id"
+                  >
                     {{ modalityType.name }}
                   </option>
                 </select>
-                <small *ngIf="ncModalityTypeInvalid">No ha seleccionado la modalidad</small>
+                <small *ngIf="ncModalityTypeInvalid"
+                  >No ha seleccionado la modalidad</small
+                >
               </div>
               <div>
                 <br />
                 <p>Objeto del Contrato</p>
 
-                <textarea class="form-control" formControlName="ncSubject" rows="6" cols="80"
-                  placeholder="Objeto o Finalidad del Contrato" [class.is-invalid]="ncSubjectInvalid"></textarea>
-                <small *ngIf="ncSubjectInvalid">No ha seleccionado la modalidad</small>
+                <textarea
+                  class="form-control"
+                  formControlName="ncSubject"
+                  rows="6"
+                  cols="80"
+                  placeholder="Objeto o Finalidad del Contrato"
+                  [class.is-invalid]="ncSubjectInvalid"
+                ></textarea>
+                <small *ngIf="ncSubjectInvalid"
+                  >No ha seleccionado la modalidad</small
+                >
               </div>
               <br />
             </div>
@@ -95,25 +151,44 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-panel-description>
-              <mat-accordion [multi]="true" class="acordeonEtapaPrecontractual" #acordeon>
-                <mat-expansion-panel class="linea-blanca-panel" [expanded]="acordeonAbierto"
-                  *ngFor="let c1 of subdirectory1">
+              <mat-accordion
+                [multi]="true"
+                class="acordeonEtapaPrecontractual"
+                #acordeon
+              >
+                <mat-expansion-panel
+                  class="linea-blanca-panel"
+                  [expanded]="acordeonAbierto"
+                  *ngFor="let c1 of subdirectory1"
+                >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <div class="barraInvitacion">
                         <span class="etiqueta">{{
                           c1.contractualDocumentType.name
-                          }}</span>
+                        }}</span>
                       </div>
                     </mat-panel-title>
-                    <button mat-icon-button color="primary" class="add-button" (click)="
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      class="add-button"
+                      (click)="
                         $event.stopPropagation(); abrirVentanaEmergente()
-                      ">
+                      "
+                    >
                       <i-lucide name="FilePlus"></i-lucide>
                     </button>
                   </mat-expansion-panel-header>
-                  <mat-panel-description #dialog class="acordeonIC" *ngIf="filas.length > 0">
-                    <mat-panel-title class="lineaDocumentos" *ngFor="let fila of filas; let i = index">
+                  <mat-panel-description
+                    #dialog
+                    class="acordeonIC"
+                    *ngIf="filas.length > 0"
+                  >
+                    <mat-panel-title
+                      class="lineaDocumentos"
+                      *ngFor="let fila of filas; let i = index"
+                    >
                       <div class="barraDocumentos">
                         <div class="columnaDocs">
                           {{ fila.name }}
@@ -132,9 +207,16 @@
                         <div class="columnaDocs">{{ fila[i].date }}</div> -->
                         <div class="botones-container">
                           <button class="boton-crear">
-                            <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(i)"></i-lucide>
+                            <i-lucide
+                              class="custom-icon"
+                              name="FileText"
+                              (click)="openPdfViewerDialog(i)"
+                            ></i-lucide>
                           </button>
-                          <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(i)">
+                          <button
+                            class="boton-editar"
+                            (click)="abrirVentanaEmergenteEdit(i)"
+                          >
                             <i-lucide name="FileEdit"></i-lucide>
                           </button>
                           <button class="boton-borrar" (click)="openDialog(i)">
@@ -157,25 +239,44 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-panel-description>
-              <mat-accordion [multi]="true" class="acordeonEtapaContractual" #acordeon>
-                <mat-expansion-panel class="linea-blanca-panel" [expanded]="acordeonAbierto"
-                  *ngFor="let c2 of subdirectory2">
+              <mat-accordion
+                [multi]="true"
+                class="acordeonEtapaContractual"
+                #acordeon
+              >
+                <mat-expansion-panel
+                  class="linea-blanca-panel"
+                  [expanded]="acordeonAbierto"
+                  *ngFor="let c2 of subdirectory2"
+                >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <div class="barraInvitacion">
                         <span class="etiqueta">{{
                           c2.contractualDocumentType.name
-                          }}</span>
+                        }}</span>
                       </div>
                     </mat-panel-title>
-                    <button mat-icon-button color="primary" class="add-button" (click)="
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      class="add-button"
+                      (click)="
                         $event.stopPropagation(); abrirVentanaEmergente()
-                      ">
+                      "
+                    >
                       <i-lucide name="FilePlus"></i-lucide>
                     </button>
                   </mat-expansion-panel-header>
-                  <mat-panel-description #dialog class="acordeonIC" *ngIf="filas.length > 0">
-                    <mat-panel-title class="lineaDocumentos" *ngFor="let fila of filas; let i = index">
+                  <mat-panel-description
+                    #dialog
+                    class="acordeonIC"
+                    *ngIf="filas.length > 0"
+                  >
+                    <mat-panel-title
+                      class="lineaDocumentos"
+                      *ngFor="let fila of filas; let i = index"
+                    >
                       <div class="barraDocumentos">
                         <div class="columnaDocs">
                           {{ fila.name }}
@@ -194,9 +295,16 @@
                         <div class="columnaDocs">{{ fila[i].date }}</div> -->
                         <div class="botones-container">
                           <button class="boton-crear">
-                            <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(i)"></i-lucide>
+                            <i-lucide
+                              class="custom-icon"
+                              name="FileText"
+                              (click)="openPdfViewerDialog(i)"
+                            ></i-lucide>
                           </button>
-                          <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(i)">
+                          <button
+                            class="boton-editar"
+                            (click)="abrirVentanaEmergenteEdit(i)"
+                          >
                             <i-lucide name="FileEdit"></i-lucide>
                           </button>
                           <button class="boton-borrar" (click)="openDialog(i)">
@@ -212,7 +320,6 @@
             </mat-panel-description>
           </mat-expansion-panel>
 
-
           <mat-expansion-panel class="linea-blanca-panel">
             <mat-expansion-panel-header>
               <mat-panel-title class="titulo-acordeon">
@@ -220,25 +327,44 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-panel-description>
-              <mat-accordion [multi]="true" class="acordeonEtapaPostcontractual" #acordeon>
-                <mat-expansion-panel class="linea-blanca-panel" [expanded]="acordeonAbierto"
-                  *ngFor="let c3 of subdirectory3">
+              <mat-accordion
+                [multi]="true"
+                class="acordeonEtapaPostcontractual"
+                #acordeon
+              >
+                <mat-expansion-panel
+                  class="linea-blanca-panel"
+                  [expanded]="acordeonAbierto"
+                  *ngFor="let c3 of subdirectory3"
+                >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <div class="barraInvitacion">
                         <span class="etiqueta">{{
                           c3.contractualDocumentType.name
-                          }}</span>
+                        }}</span>
                       </div>
                     </mat-panel-title>
-                    <button mat-icon-button color="primary" class="add-button" (click)="
+                    <button
+                      mat-icon-button
+                      color="primary"
+                      class="add-button"
+                      (click)="
                         $event.stopPropagation(); abrirVentanaEmergente()
-                      ">
+                      "
+                    >
                       <i-lucide name="FilePlus"></i-lucide>
                     </button>
                   </mat-expansion-panel-header>
-                  <mat-panel-description #dialog class="acordeonIC" *ngIf="filas.length > 0">
-                    <mat-panel-title class="lineaDocumentos" *ngFor="let fila of filas; let i = index">
+                  <mat-panel-description
+                    #dialog
+                    class="acordeonIC"
+                    *ngIf="filas.length > 0"
+                  >
+                    <mat-panel-title
+                      class="lineaDocumentos"
+                      *ngFor="let fila of filas; let i = index"
+                    >
                       <div class="barraDocumentos">
                         <div class="columnaDocs">
                           {{ fila.name }}
@@ -257,9 +383,16 @@
                         <div class="columnaDocs">{{ fila[i].date }}</div> -->
                         <div class="botones-container">
                           <button class="boton-crear">
-                            <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(i)"></i-lucide>
+                            <i-lucide
+                              class="custom-icon"
+                              name="FileText"
+                              (click)="openPdfViewerDialog(i)"
+                            ></i-lucide>
                           </button>
-                          <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(i)">
+                          <button
+                            class="boton-editar"
+                            (click)="abrirVentanaEmergenteEdit(i)"
+                          >
                             <i-lucide name="FileEdit"></i-lucide>
                           </button>
                           <button class="boton-borrar" (click)="openDialog(i)">
