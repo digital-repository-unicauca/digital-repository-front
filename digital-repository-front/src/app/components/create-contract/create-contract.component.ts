@@ -43,6 +43,10 @@ export class CreateContractComponent implements OnInit {
   radicado!: String;
   rad!: String;
   subs: directorys[] = [];
+  subdirectory1: CheckList[] = [];
+  subdirectory2: CheckList[] = [];
+  subdirectory3: CheckList[] = [];
+
 
   idContract: number = 1;
 
@@ -71,7 +75,7 @@ export class CreateContractComponent implements OnInit {
     this.loadContractType();
     this.loadModalityType();
     this.loadCheckList();
-
+    
     //this.loadRadicado()
     this.myForm = this.fb.group({
       //ncRadicado: ['', Validators.required],
@@ -131,7 +135,7 @@ export class CreateContractComponent implements OnInit {
       });
     await new Promise((f) => setTimeout(f, 1000));
     console.log(this.checkList);
-    //this.LoadSubdirectorys();
+    this.LoadSubdirectorys();
   }
 
   //method return 1 ModalityContractType
@@ -275,19 +279,23 @@ export class CreateContractComponent implements OnInit {
     );
   }
 
-  //función para identificar los subdirectorios
-  /*
+
   public LoadSubdirectorys() {
-    console.log('dsfdfsdfsdfsdfsdssss');
-    var i = 0;
-    this.checkList.forEach((element) => {
-      this.subs[i].subdirectory = element.subdirectory;
-      this.subs[i].name = element.contractualDocumentType.name;
-      i++;
-    });
-    console.log(this.checkList);
+    for (const item of this.checkList) {
+      const subdirectory = item.subdirectory;
+    
+      
+      if (subdirectory === '0') {
+        this.subdirectory1.push(item);
+      } else if (subdirectory === '1') {
+        this.subdirectory2.push(item);
+      } else if (subdirectory === '2') {
+        this.subdirectory3.push(item);
+      }
+    }
+
   }
-*/
+
 
   //fill contract
   public fillContract() {
