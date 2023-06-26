@@ -26,8 +26,27 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-import { LucideAngularModule, Home, Search, Settings, FolderPlus, Check, X, 
-CalendarDays, ChevronRight, ChevronLeft, ScrollText, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus,FolderDown,Pencil } from 'lucide-angular';
+import { PdfViewerModule } from 'ng2-pdf-viewer'; 
+import {
+  LucideAngularModule,
+  Home,
+  Search,
+  Settings,
+  FolderPlus,
+  Check,
+  X,
+  CalendarDays,
+  ChevronRight,
+  ChevronLeft,
+  ScrollText,
+  SlidersHorizontal,
+  FileUp,
+  FileEdit,
+  FileDown,
+  FilePlus,
+  FolderDown,
+  Pencil,FileText,FileX,
+} from 'lucide-angular';
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 import { SettingSystemComponent } from './components/setting-system/setting-system.component';
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
@@ -38,6 +57,8 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
+import { FilaService } from './services/fila.service';
+import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,9 +70,11 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     SideInformationComponent,
     CreateContractComponent,
     LayoutComponent,
+
     DialogEditComponent,
     EditContractComponent,
-    DialogComponent
+    DialogComponent,
+    PdfViewerDialogComponent,
   ],
   imports: [
     MatStepperModule,
@@ -74,8 +97,27 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     SharedModuleModule,
     MatDividerModule,
     MatListModule,
-    LucideAngularModule.pick({ Home, Search, Settings, Check, X, FolderPlus, 
-    CalendarDays, ChevronRight, ScrollText, ChevronLeft, SlidersHorizontal,FileUp,FileEdit,FileDown,FilePlus,Pencil,FolderDown }),
+    PdfViewerModule,
+    LucideAngularModule.pick({
+      Home,
+      Search,
+      Settings,
+      Check,
+      X,
+      FolderPlus,
+      CalendarDays,
+      ChevronRight,
+      ScrollText,
+      ChevronLeft,
+      SlidersHorizontal,
+      FileUp,
+      FileEdit,
+      FileDown,
+      FilePlus,
+      Pencil,
+      FolderDown,FileText,FileX,
+    }),
+
     BrowserAnimationsModule,
     MatTableModule,
     CommonModule,
@@ -83,7 +125,7 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
     MatPaginatorModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     IconSetService,
@@ -91,7 +133,8 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: { displayDefaultIndicatorType: false },
     },
+    FilaService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

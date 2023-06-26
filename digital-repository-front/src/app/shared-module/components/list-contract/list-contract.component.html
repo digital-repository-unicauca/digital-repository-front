@@ -92,13 +92,13 @@
             </ng-container>
           </td>
           <td>{{ item.id }}</td>
+          <td>{{ item.reference }}</td>
           <td>{{ item.modality }}</td>
           <td>{{ item.contractType }}</td>
-          <td>{{ item.reference }}</td>
           <td>{{ item.vendor}} </td>
           <td>{{ item.signingYear }}</td>
           <td><a ><div class="circle" ><i-lucide name="FolderDown"></i-lucide></div></a></td>
-          <td><a [routerLink]="['/editCont']" ><div   class="circle"><i-lucide name="Pencil"></i-lucide></div></a></td>
+          <td><a [routerLink]="['/editCont']" (click)="setIdContract(item.id)"><div   class="circle"><i-lucide name="Pencil"></i-lucide></div></a></td>
 
           <!-- <ng-container *ngIf="item.contractType.toLowerCase().includes(searchValue)">
 

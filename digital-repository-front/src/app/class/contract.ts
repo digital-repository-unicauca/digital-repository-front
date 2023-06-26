@@ -1,7 +1,12 @@
 export class Contract {
     id!: number;
     reference!: String;
-    initialDate!:String; 
-    finalDate!:String;
-    vendor!: String;
+    singinDate!: Date | null;
+    initialDate!: Date | null;
+    finalDate!: Date | null;
+    status!: String;
+    subject !: String;
+    vendor: String = "";
+    modalityId !: number;
+    contractTypeId !: number;
 }

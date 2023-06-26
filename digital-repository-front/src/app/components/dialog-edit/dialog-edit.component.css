@@ -8,6 +8,10 @@
       color: white;
     }
 
+    button {
+      margin-right: 8px;
+    }
+
     .form-doc{
       display: flex;
      align-content: center;
