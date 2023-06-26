@@ -16,6 +16,8 @@ import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { MatStepper } from '@angular/material/stepper';
 import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
+import {Collection } from 'src/app/class/collection';
+import { CollectionService } from 'src/app/services/collection.service';
 @Component({
   selector: 'app-create-contract',
   templateUrl: './create-contract.component.html',
@@ -30,7 +32,7 @@ export class CreateContractComponent implements OnInit {
   radicado!: String;
   rad!: String;
 
-  
+
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
@@ -42,12 +44,13 @@ export class CreateContractComponent implements OnInit {
   initialDate: Date = new Date();
 
   textoDeInput!: string;
-
+  //precontractualCollection :Collection = new Collection();
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService,
-    private elementRef: ElementRef
+    private elementRef: ElementRef ,
+     private collectionService : CollectionService
   ) {}
 
   ngOnInit() {
@@ -89,14 +92,14 @@ export class CreateContractComponent implements OnInit {
 
   public loadModalityType() {
     this.contrSv.getModalityType().subscribe((response) => {
-      console.log('Del servicio ', response);
+      console.log('Del servicio tipos modalidad ', response);
       this.modalityType = response.data.data as Modality[];
     });
   }
 
   public loadContractType() {
     this.contrSv.getContractType().subscribe((response) => {
-      console.log('Del servicio ', response);
+      console.log('Del servicio tipos contracto', response);
       this.contractsType = response.data.data as ContractType[];
     });
   }
@@ -234,16 +237,21 @@ export class CreateContractComponent implements OnInit {
 
     if(await this.contrSv.addContract(this.newContract)){
       this.moveToNextStep();
-    }
-
-    if (!this.contrSv.addContract(this.newContract)) {
-      alert('No se pudo agregar la peticion');
-    } else {
       alert('Peticion agregada correctamente');
+    }else {
+      alert('No se pudo agregar la peticion');
     }
   }
 
+   enviarCollection(){
+    this.collectionService.createCollection(this.filas).subscribe(()=> {
+
+    })
+  }
+
 }
+
+
 
 
 
