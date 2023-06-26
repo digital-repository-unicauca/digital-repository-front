@@ -73,11 +73,11 @@
         </div>
         <div>
           <button (click)="submitFormulario()" type="submit">Continuar<i-lucide name="ChevronRight"></i-lucide></button>
-        
+
           <pre>
             Estado Formulario:{{myForm.valid}}
           </pre>
-        
+
           <pre>
           Status:{{ myForm.status }}
         </pre>
@@ -260,6 +260,9 @@
         </button>
         <button class="next-button" matStepperNext>
           Continuar<i-lucide name="ChevronRight"></i-lucide>
+        </button>
+        <button class="next-button" matStepperNext (click)="enviarCollection()">
+          Enviar<i-lucide name="ChevronRight"></i-lucide>
         </button>
       </div>
     </mat-step>
