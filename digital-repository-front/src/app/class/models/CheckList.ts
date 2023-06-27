@@ -1,3 +1,5 @@
+import { Fila } from "./Fila";
+
 export class CheckList {
   id!: number;
   description!: string;
@@ -14,4 +16,6 @@ export class CheckList {
     createUser: string;
   };
   modalityContractType!: number;
+  filas: Fila[]= [];
+
 }

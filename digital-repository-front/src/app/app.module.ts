@@ -61,6 +61,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 import { FilaService } from './services/fila.service';
 import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
+import { DocumentsCreateContractComponent } from './components/documents-create-contract/documents-create-contract.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-vie
     EditContractComponent,
     DialogComponent,
     PdfViewerDialogComponent,
+    DocumentsCreateContractComponent,
   ],
   imports: [
     MatStepperModule,

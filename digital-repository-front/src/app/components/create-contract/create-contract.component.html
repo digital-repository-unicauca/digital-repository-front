@@ -130,293 +130,31 @@
           </form>
         </div>
         <div>
-          <button (click)="submitFormulario()" type="submit">
-            Continuar<i-lucide name="ChevronRight"></i-lucide>
+          <button (click)="submitFormulario()" type="submit" >
+            Continuar
+            <i-lucide name="ChevronRight"></i-lucide>
           </button>
         </div>
       </div>
     </mat-step>
+
     <mat-step label="Subir Documentos">
-      <div class="barra">
-        <div class="columna">Nombre</div>
-        <div class="columna">Tipo de documento</div>
-        <div class="columna">Fecha de expedición</div>
-      </div>
-      <div class="contenedor-acordeon">
-        <mat-accordion [multi]="true">
-          <mat-expansion-panel class="linea-blanca-panel">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="titulo-acordeon">
-                <span class="etiqueta">Etapa precontractual</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-panel-description>
-              <mat-accordion
-                [multi]="true"
-                class="acordeonEtapaPrecontractual"
-                #acordeon
-              >
-                <mat-expansion-panel
-                  class="linea-blanca-panel"
-                  [expanded]="acordeonAbierto"
-                  *ngFor="let c1 of subdirectory1"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <div class="barraInvitacion">
-                        <span class="etiqueta">{{
-                          c1.contractualDocumentType.name
-                        }}</span>
-                      </div>
-                    </mat-panel-title>
-                    <button
-                      mat-icon-button
-                      color="primary"
-                      class="add-button"
-                      (click)="
-                        $event.stopPropagation(); abrirVentanaEmergente()
-                      "
-                    >
-                      <i-lucide name="FilePlus"></i-lucide>
-                    </button>
-                  </mat-expansion-panel-header>
-                  <mat-panel-description
-                    #dialog
-                    class="acordeonIC"
-                    *ngIf="filas.length > 0"
-                  >
-                    <mat-panel-title
-                      class="lineaDocumentos"
-                      *ngFor="let fila of filas; let i = index"
-                    >
-                      <div class="barraDocumentos">
-                        <div class="columnaDocs">
-                          {{ fila.name }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.type }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.expeditionDate }}
-                        </div>
+      <!-- <div *ngIf="myForm.valid ;else errorForm">
 
-                        <!-- <div class="columnaDocs">
-                          {{ fila[i].name }}
-                        </div>
-                        <div class="columnaDocs">{{ fila[i].type }}</div>
-                        <div class="columnaDocs">{{ fila[i].date }}</div> -->
-                        <div class="botones-container">
-                          <button class="boton-crear">
-                            <i-lucide
-                              class="custom-icon"
-                              name="FileText"
-                              (click)="openPdfViewerDialog(i)"
-                            ></i-lucide>
-                          </button>
-                          <button
-                            class="boton-editar"
-                            (click)="abrirVentanaEmergenteEdit(i)"
-                          >
-                            <i-lucide name="FileEdit"></i-lucide>
-                          </button>
-                          <button class="boton-borrar" (click)="openDialog(i)">
-                            <i-lucide name="FileX"></i-lucide>
-                          </button>
-                        </div>
-                      </div>
-                    </mat-panel-title>
-                  </mat-panel-description>
-                </mat-expansion-panel>
-                <br />
-              </mat-accordion>
-            </mat-panel-description>
-          </mat-expansion-panel>
+      </div> -->
 
-          <mat-expansion-panel class="linea-blanca-panel">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="titulo-acordeon">
-                <span class="etiqueta">Etapa Contractual</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-panel-description>
-              <mat-accordion
-                [multi]="true"
-                class="acordeonEtapaContractual"
-                #acordeon
-              >
-                <mat-expansion-panel
-                  class="linea-blanca-panel"
-                  [expanded]="acordeonAbierto"
-                  *ngFor="let c2 of subdirectory2"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <div class="barraInvitacion">
-                        <span class="etiqueta">{{
-                          c2.contractualDocumentType.name
-                        }}</span>
-                      </div>
-                    </mat-panel-title>
-                    <button
-                      mat-icon-button
-                      color="primary"
-                      class="add-button"
-                      (click)="
-                        $event.stopPropagation(); abrirVentanaEmergente()
-                      "
-                    >
-                      <i-lucide name="FilePlus"></i-lucide>
-                    </button>
-                  </mat-expansion-panel-header>
-                  <mat-panel-description
-                    #dialog
-                    class="acordeonIC"
-                    *ngIf="filas.length > 0"
-                  >
-                    <mat-panel-title
-                      class="lineaDocumentos"
-                      *ngFor="let fila of filas; let i = index"
-                    >
-                      <div class="barraDocumentos">
-                        <div class="columnaDocs">
-                          {{ fila.name }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.type }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.expeditionDate }}
-                        </div>
+      <!-- Componente para mostrar los documentos  -->
+      <app-documents-create-contract>
 
-                        <!-- <div class="columnaDocs">
-                          {{ fila[i].name }}
-                        </div>
-                        <div class="columnaDocs">{{ fila[i].type }}</div>
-                        <div class="columnaDocs">{{ fila[i].date }}</div> -->
-                        <div class="botones-container">
-                          <button class="boton-crear">
-                            <i-lucide
-                              class="custom-icon"
-                              name="FileText"
-                              (click)="openPdfViewerDialog(i)"
-                            ></i-lucide>
-                          </button>
-                          <button
-                            class="boton-editar"
-                            (click)="abrirVentanaEmergenteEdit(i)"
-                          >
-                            <i-lucide name="FileEdit"></i-lucide>
-                          </button>
-                          <button class="boton-borrar" (click)="openDialog(i)">
-                            <i-lucide name="FileX"></i-lucide>
-                          </button>
-                        </div>
-                      </div>
-                    </mat-panel-title>
-                  </mat-panel-description>
-                </mat-expansion-panel>
-                <br />
-              </mat-accordion>
-            </mat-panel-description>
-          </mat-expansion-panel>
+      </app-documents-create-contract>
 
-          <mat-expansion-panel class="linea-blanca-panel">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="titulo-acordeon">
-                <span class="etiqueta">Etapa Postcontractual</span>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-panel-description>
-              <mat-accordion
-                [multi]="true"
-                class="acordeonEtapaPostcontractual"
-                #acordeon
-              >
-                <mat-expansion-panel
-                  class="linea-blanca-panel"
-                  [expanded]="acordeonAbierto"
-                  *ngFor="let c3 of subdirectory3"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      <div class="barraInvitacion">
-                        <span class="etiqueta">{{
-                          c3.contractualDocumentType.name
-                        }}</span>
-                      </div>
-                    </mat-panel-title>
-                    <button
-                      mat-icon-button
-                      color="primary"
-                      class="add-button"
-                      (click)="
-                        $event.stopPropagation(); abrirVentanaEmergente()
-                      "
-                    >
-                      <i-lucide name="FilePlus"></i-lucide>
-                    </button>
-                  </mat-expansion-panel-header>
-                  <mat-panel-description
-                    #dialog
-                    class="acordeonIC"
-                    *ngIf="filas.length > 0"
-                  >
-                    <mat-panel-title
-                      class="lineaDocumentos"
-                      *ngFor="let fila of filas; let i = index"
-                    >
-                      <div class="barraDocumentos">
-                        <div class="columnaDocs">
-                          {{ fila.name }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.type }}
-                        </div>
-                        <div class="columnaDocs">
-                          {{ fila.expeditionDate }}
-                        </div>
+      <ng-template #errorForm>
 
-                        <!-- <div class="columnaDocs">
-                          {{ fila[i].name }}
-                        </div>
-                        <div class="columnaDocs">{{ fila[i].type }}</div>
-                        <div class="columnaDocs">{{ fila[i].date }}</div> -->
-                        <div class="botones-container">
-                          <button class="boton-crear">
-                            <i-lucide
-                              class="custom-icon"
-                              name="FileText"
-                              (click)="openPdfViewerDialog(i)"
-                            ></i-lucide>
-                          </button>
-                          <button
-                            class="boton-editar"
-                            (click)="abrirVentanaEmergenteEdit(i)"
-                          >
-                            <i-lucide name="FileEdit"></i-lucide>
-                          </button>
-                          <button class="boton-borrar" (click)="openDialog(i)">
-                            <i-lucide name="FileX"></i-lucide>
-                          </button>
-                        </div>
-                      </div>
-                    </mat-panel-title>
-                  </mat-panel-description>
-                </mat-expansion-panel>
-                <br />
-              </mat-accordion>
-            </mat-panel-description>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </div>
-      <div class="uniButton">
-        <button class="back-button" matStepperPrevious>
-          <i-lucide name="ChevronLeft"></i-lucide>Regresar
-        </button>
-        <button class="next-button" matStepperNext>
-          Continuar<i-lucide name="ChevronRight"></i-lucide>
-        </button>
-      </div>
+
+        <h1 style="color:white;">Completa la informacion del contrato </h1>
+      </ng-template>
     </mat-step>
+
+
   </mat-stepper>
 </div>

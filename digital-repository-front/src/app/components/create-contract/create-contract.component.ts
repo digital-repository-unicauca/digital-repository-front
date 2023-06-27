@@ -37,15 +37,15 @@ export class CreateContractComponent implements OnInit {
   filas: any[] = [];
   doc: Fila = new Fila();
   checkList: CheckList[] = [];
-  acordeonAbierto = false;
+  //acordeonAbierto = false;
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
   subs: directorys[] = [];
-  subdirectory1: CheckList[] = [];
-  subdirectory2: CheckList[] = [];
-  subdirectory3: CheckList[] = [];
+  // subdirectory1: CheckList[] = [];
+  // subdirectory2: CheckList[] = [];
+  // subdirectory3: CheckList[] = [];
 
 
   idContract: number = 1;
@@ -74,8 +74,8 @@ export class CreateContractComponent implements OnInit {
   ngOnInit() {
     this.loadContractType();
     this.loadModalityType();
-    this.loadCheckList();
-    
+    //this.loadCheckList();
+
     //this.loadRadicado()
     this.myForm = this.fb.group({
       //ncRadicado: ['', Validators.required],
@@ -124,19 +124,20 @@ export class CreateContractComponent implements OnInit {
   }
 
   //method return all checkList
-  async loadCheckList() {
-    this.documentSv
-      //.getCheckList(this.modalityContractType[0].id)
-      .getCheckList(1) // after to delete la linea anterior
-      .subscribe((response) => {
-        console.log('Del servicio ', response);
+  // async loadCheckList() {
+  //   this.documentSv
 
-        this.checkList = response.data as CheckList[];
-      });
-    await new Promise((f) => setTimeout(f, 1000));
-    console.log(this.checkList);
-    this.LoadSubdirectorys();
-  }
+  //     .getCheckList(1) // after to delete la linea anterior
+  //     .subscribe((response) => {
+  //       console.log('Del servicio ', response);
+
+  //       this.checkList = response.data as CheckList[];
+  //       console.log(this.checkList);
+  //       this.LoadSubdirectorys();
+  //     });
+  //   await new Promise((f) => setTimeout(f, 1000));
+
+  // }
 
   //method return 1 ModalityContractType
   public loadModalityContractType() {
@@ -188,18 +189,18 @@ export class CreateContractComponent implements OnInit {
     });
   }
 
-  agregarFila() {
-    const nuevaFila = {
-      documento: 'Documento',
-      invitacion: 'Invitación',
-      fecha: 'Fecha',
-    };
-    this.filas.push(nuevaFila);
-    this.acordeonAbierto = false;
-    setTimeout(() => {
-      this.acordeonAbierto = true;
-    }, 0);
-  }
+  // agregarFila() {
+  //   const nuevaFila = {
+  //     documento: 'Documento',
+  //     invitacion: 'Invitación',
+  //     fecha: 'Fecha',
+  //   };
+  //   this.filas.push(nuevaFila);
+  //   this.acordeonAbierto = false;
+  //   setTimeout(() => {
+  //     this.acordeonAbierto = true;
+  //   }, 0);
+  // }
 
   eliminarItem(index: number): void {
     this.filas.splice(index, 1);
@@ -280,21 +281,21 @@ export class CreateContractComponent implements OnInit {
   }
 
 
-  public LoadSubdirectorys() {
-    for (const item of this.checkList) {
-      const subdirectory = item.subdirectory;
-    
-      
-      if (subdirectory === '0') {
-        this.subdirectory1.push(item);
-      } else if (subdirectory === '1') {
-        this.subdirectory2.push(item);
-      } else if (subdirectory === '2') {
-        this.subdirectory3.push(item);
-      }
-    }
+  // public LoadSubdirectorys() {
+  //   for (const item of this.checkList) {
+  //     const subdirectory = item.subdirectory;
 
-  }
+
+  //     if (subdirectory === '0') {
+  //       this.subdirectory1.push(item);
+  //     } else if (subdirectory === '1') {
+  //       this.subdirectory2.push(item);
+  //     } else if (subdirectory === '2') {
+  //       this.subdirectory3.push(item);
+  //     }
+  //   }
+
+  // }
 
 
   //fill contract
@@ -326,32 +327,40 @@ export class CreateContractComponent implements OnInit {
   //send request create contract
   public async submitFormulario() {
     if (this.myForm.invalid) {
+      this.toastError("Formulario de contrato Incompleto ")
       return Object.values(this.myForm.controls).forEach((control) => {
         control.markAllAsTouched();
       });
+
     }
 
     this.fillContract();
 
     this.contrSv.addContract(this.newContract).subscribe((res) => {
       console.log(res);
-      this.response.status = res.status;
-      this.response.data = res.data;
+      this.response= res
       console.log(this.response.status);
+
     });
 
-    await new Promise((f) => setTimeout(f, 1000));
+
 
     console.log('ESTADO' + this.response.status);
     if (this.response.status == 200) {
-      //alert('Peticion actualizar  correctamente');
+
       this.toastrSvc.success('Contrato agregado Correctamente', '');
       this.moveToNextStep();
     } else {
-      this.toastrSvc.error(`Error al guardar en la base de datos`);
-      //alert('No se pudo actualizar la peticion');
+      this.toastrSvc.error(`Error al guardar en la base de datos ${this.response.data} `);
+
     }
   }
+
+  toastError(mensaje:string){
+    this.toastrSvc.error(mensaje);
+  }
+
+
 }
 
 @Component({
