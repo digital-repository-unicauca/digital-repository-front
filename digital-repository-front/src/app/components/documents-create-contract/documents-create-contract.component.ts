@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CheckList } from 'src/app/class/models/CheckList';
 
-import { DocumentsService } from 'src/app/services/documents.service';
+import { DocumentService } from 'src/app/services/document.service';
 import { ContractService } from 'src/app/services/contract.service';
 import { ToastrService } from 'ngx-toastr';
 import { responseDocument } from 'src/app/class/models/responseDocument';
@@ -32,7 +32,7 @@ export class DocumentsCreateContractComponent {
   doc: Fila = new Fila();
   checkList: CheckList[] = [];
 
-  //cehcklist etapa precontractual
+
   subdirectory1: CheckList[] = [];
   subdirectory2: CheckList[] = [];
   subdirectory3: CheckList[] = [];
@@ -41,7 +41,7 @@ export class DocumentsCreateContractComponent {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService,
-    private documentSv: DocumentsService,
+    private documentService: DocumentService,
     private elementRef: ElementRef,
     private toastrSvc: ToastrService
   ) {}
@@ -56,7 +56,7 @@ export class DocumentsCreateContractComponent {
 
   }
   async loadCheckList() {
-    this.documentSv.getCheckList(1) // after to delete la linea anterior
+    this.documentService.getCheckList(1) // after to delete la linea anterior
       .subscribe((response) => {
         console.log('Del servicio ', response);
 

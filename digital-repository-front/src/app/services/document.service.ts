@@ -5,9 +5,10 @@ import { responseDocument } from '../class/models/responseDocument';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class DocumentsService {
+export class DocumentService {
+
   private urlAPI = 'http://localhost:8081/api/document';
   private urlChecklist =
     'http://localhost:8081/api/modalityContractType/check-list';

@@ -18,7 +18,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
 import { Fila } from 'src/app/class/models/Fila';
 import { CheckList } from 'src/app/class/models/CheckList';
-import { DocumentsService } from 'src/app/services/documents.service';
+
 import { ToastrService } from 'ngx-toastr';
 import { responseDocument } from 'src/app/class/models/responseDocument';
 
@@ -42,14 +42,8 @@ export class CreateContractComponent implements OnInit {
   Spqr: string | undefined;
   radicado!: String;
   rad!: String;
-  subs: directorys[] = [];
-  // subdirectory1: CheckList[] = [];
-  // subdirectory2: CheckList[] = [];
-  // subdirectory3: CheckList[] = [];
-
 
   idContract: number = 1;
-
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
@@ -61,12 +55,11 @@ export class CreateContractComponent implements OnInit {
   date: Date = new Date();
   initialDate: Date = new Date();
   textoDeInput!: string;
-  //precontractualCollection :Collection = new Collection();
+
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
     private contrSv: ContractService,
-    private documentSv: DocumentsService,
     private elementRef: ElementRef,
     private toastrSvc: ToastrService
   ) {}

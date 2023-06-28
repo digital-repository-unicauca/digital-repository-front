@@ -139,20 +139,18 @@
     </mat-step>
 
     <mat-step label="Subir Documentos">
-      <!-- <div *ngIf="myForm.valid ;else errorForm">
+      <div *ngIf="myForm.valid ;else errorForm">
 
-      </div> -->
+         <!-- Componente para mostrar los documentos  -->
+        <app-documents-create-contract>
 
-      <!-- Componente para mostrar los documentos  -->
-      <app-documents-create-contract>
-
-      </app-documents-create-contract>
+        </app-documents-create-contract>
+      </div>
 
       <ng-template #errorForm>
-
-
         <h1 style="color:white;">Completa la informacion del contrato </h1>
       </ng-template>
+
     </mat-step>
 
 
