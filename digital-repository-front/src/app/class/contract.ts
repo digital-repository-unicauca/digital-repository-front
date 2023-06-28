@@ -9,4 +9,9 @@ export class Contract {
     vendor: String = "";
     modalityId !: number;
     contractTypeId !: number;
+
+    constructor(idContract :number){
+      this.id=idContract;
+    }
+    
 }

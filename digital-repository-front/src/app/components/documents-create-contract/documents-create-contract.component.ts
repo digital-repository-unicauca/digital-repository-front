@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { CheckList } from 'src/app/class/models/CheckList';
 
 import { DocumentService } from 'src/app/services/document.service';
@@ -37,6 +37,9 @@ export class DocumentsCreateContractComponent {
   subdirectory2: CheckList[] = [];
   subdirectory3: CheckList[] = [];
   pdfUrl = '';
+  @Input() contractId: number=0
+
+  contract :Contract= new Contract(0);
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -105,8 +108,7 @@ export class DocumentsCreateContractComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      let elementoChecklist;
+
       this.doc = result;
       if (subdirectory === 0) {
         console.log("Añadiendo doc a ",this.subdirectory1[indice].contractualDocumentType.name)
@@ -118,8 +120,6 @@ export class DocumentsCreateContractComponent {
       }
 
 
-      //this.filas.push(this.doc);
-      console.log('filas ', this.filas);
     });
   }
 

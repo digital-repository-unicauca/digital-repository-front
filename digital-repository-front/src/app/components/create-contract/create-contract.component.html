@@ -139,10 +139,10 @@
     </mat-step>
 
     <mat-step label="Subir Documentos">
-      <div *ngIf="myForm.valid ;else errorForm">
+      <div *ngIf="myForm.valid && newContract.id!=0 ;else errorForm">
 
          <!-- Componente para mostrar los documentos  -->
-        <app-documents-create-contract>
+        <app-documents-create-contract [contractId]="newContract.id">
 
         </app-documents-create-contract>
       </div>

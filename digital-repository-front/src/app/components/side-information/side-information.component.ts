@@ -14,7 +14,7 @@ import { ContractService } from 'src/app/services/contract.service';
 export class SideInformationComponent implements OnInit {
   panelOpenState = false;
   // contract:Contract[] =[];
-  contract:Contract= new Contract()
+  contract:Contract= new Contract(0)
   idContract:number=1
   activeMenu = false;
   constructor(

@@ -119,11 +119,19 @@ export class ContractService {
       })
     )
   }
-  
+
   addContract(contract: Contract): Observable<responseDocument>{
     var result = false;
     const body = JSON.stringify(contract);
-    return this.httpClient.post<responseDocument>(this.urlAPI, body, this.httpHeader);
+    return this.httpClient.post<responseDocument>(this.urlAPI, body, this.httpHeader).pipe(
+      catchError((e) => {
+
+
+        console.log('Error creando el contrato', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
   }
 
    update(contract: UpdateContract): Observable<responseDocument> {
@@ -132,7 +140,7 @@ export class ContractService {
     return this.httpClient.patch<responseDocument>(this.urlAPI, body , this.httpHeader)
   }
 
-  
+
   private selectedContractId: number | null = null;
 
   setSelectedContractId(contractId: number) {

@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { DialogComponent } from '../dialog/dialog.component';
-import { DialogEditComponent } from '../dialog-edit/dialog-edit.component';
+
 import {
   MatDialog,
   MatDialogRef,
@@ -15,7 +14,6 @@ import { Contract } from 'src/app/class/contract';
 import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { MatStepper } from '@angular/material/stepper';
-import { PdfViewerDialogComponent } from '../pdf-viewer-dialog/pdf-viewer-dialog.component';
 import { Fila } from 'src/app/class/models/Fila';
 import { CheckList } from 'src/app/class/models/CheckList';
 
@@ -43,14 +41,13 @@ export class CreateContractComponent implements OnInit {
   radicado!: String;
   rad!: String;
 
-  idContract: number = 1;
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
   modalityType: Modality[] = [];
   contractType: ContractType = new ContractType();
   modality: Modality = new Modality();
-  newContract: Contract = new Contract();
+  newContract: Contract = new Contract(0);
   response: responseDocument = new responseDocument();
   date: Date = new Date();
   initialDate: Date = new Date();
@@ -72,11 +69,9 @@ export class CreateContractComponent implements OnInit {
 
     this.Spqr = this.myForm.value.traOficioNum;
 
-    this.newContract = new Contract();
+    this.newContract = new Contract(0);
     //this.modality = new Modality();
-    this.contrSv.cart$.subscribe((idContract) => {
-      this.idContract = idContract;
-    });
+
 
   }
 
@@ -219,50 +214,29 @@ export class CreateContractComponent implements OnInit {
     this.stepper.next();
   }
   //send request create contract
-  public async submitFormulario() {
-    if (this.myForm.invalid) {
-      this.toastError("Formulario de contrato Incompleto ")
-      return Object.values(this.myForm.controls).forEach((control) => {
-        control.markAllAsTouched();
-      });
-
-    }
-
+  submitFormulario() {
+    this.myForm.markAllAsTouched()
     this.fillContract();
 
-    this.contrSv.addContract(this.newContract).subscribe((res) => {
-      console.log(res);
-      this.response= res
-      console.log(this.response.status);
+    this.contrSv.addContract(this.newContract).subscribe(
+      (res) => {
+        console.log(res);
+        if (res.status == 200) {
+          this.newContract.id= res.data.id
+          console.log(this.newContract)
+          this.toastrSvc.success('Contrato agregado Correctamente', '');
+          this.moveToNextStep();
+        }
+      },
+      (error) => {
+        //console.error(error);
+        this.toastrSvc.error(`Error en la llamada al servicio ${error.userMessage}`);
+      }
+    );
 
-    });
-
-
-
-    console.log('ESTADO' + this.response.status);
-    if (this.response.status == 200) {
-
-      this.toastrSvc.success('Contrato agregado Correctamente', '');
-      this.moveToNextStep();
-    } else {
-      this.toastrSvc.error(`Error al guardar en la base de datos ${this.response.data} `);
-
-    }
   }
 
   toastError(mensaje:string){
     this.toastrSvc.error(mensaje);
   }
-
-
-}
-
-@Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: 'dialog-animation.html',
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
-export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
 }

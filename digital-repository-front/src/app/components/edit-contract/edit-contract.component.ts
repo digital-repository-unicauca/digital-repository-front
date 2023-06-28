@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EditContractComponent {
   initialDate: Date = new Date();
   endDate: Date = new Date();
-  contract: Contract = new Contract();
+  contract: Contract = new Contract(0);
   updateContract: UpdateContract = new UpdateContract();
   response: responseDocument = new responseDocument();
   idContract: number = 1
@@ -34,7 +34,7 @@ export class EditContractComponent {
   ngOnInit(): void {
     this.myForm = this.fb.group({
       radicado: [{ value: '', disabled: true }, Validators.required],
-      idVendor: [{ value: '' }, Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])], 
+      idVendor: [{ value: '' }, Validators.compose([Validators.required, Validators.pattern(/^[0-9]+$/)])],
       DateExp: [{ value: '', }, Validators.required],
       DateEnd: [{ value: '' }, Validators.required],
       Subject: [{ value: '' }, Validators.required],
@@ -149,7 +149,7 @@ export class EditContractComponent {
       console.log(this.response.status);
     }
     );
-    
+
     await new Promise(f => setTimeout(f, 1000));
 
     if (this.response.status == 200) {
