@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { MatStepper } from '@angular/material/stepper';
 import { Fila } from 'src/app/class/models/Fila';
-import { CheckList } from 'src/app/class/models/CheckList';
+import { CheckList } from 'src/app/class/CheckList';
 
 import { ToastrService } from 'ngx-toastr';
 import { responseDocument } from 'src/app/class/models/responseDocument';

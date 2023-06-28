@@ -29,7 +29,7 @@
                     <span class="etiqueta">
 
                       {{c1.contractualDocumentType.name}}
-                      {{i}}
+                      {{c1.contractualDocumentType.id}}
                     </span>
                   </div>
                 </mat-panel-title>
@@ -114,7 +114,7 @@
                   <div class="barraInvitacion">
                     <span class="etiqueta">
                       {{c2.contractualDocumentType.name}}
-                      {{i}}
+                      {{c2.contractualDocumentType.id}}
                     </span>
                   </div>
                 </mat-panel-title>
@@ -199,7 +199,7 @@
                   <div class="barraInvitacion">
                     <span class="etiqueta">
                       {{c3.contractualDocumentType.name}}
-                      {{i}}
+                      {{c3.contractualDocumentType.id}}
                     </span>
                   </div>
                 </mat-panel-title>
@@ -267,7 +267,7 @@
     <button class="back-button" matStepperPrevious>
       <i-lucide name="ChevronLeft"></i-lucide>Regresar
     </button>
-    <button class="next-button" matStepperNext>
+    <button class="next-button" matStepperNext (click)="enviarDocumentos()">
       Enviar <i-lucide name="ChevronRight"></i-lucide>
     </button>
   </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
-import { CheckList } from 'src/app/class/models/CheckList';
+import { CheckList } from 'src/app/class/CheckList';
 
 import { DocumentService } from 'src/app/services/document.service';
 import { ContractService } from 'src/app/services/contract.service';
@@ -17,6 +17,10 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { Fila } from 'src/app/class/models/Fila';
+import { Contract } from 'src/app/class/contract';
+import { modalityContractType } from 'src/app/class/models/ModalityContractType';
+import { CollectionService } from 'src/app/services/collection.service';
+import { switchMap } from 'rxjs';
 
 
 
@@ -42,12 +46,12 @@ export class DocumentsCreateContractComponent {
   contract :Contract= new Contract(0);
   constructor(
     private dialog: MatDialog,
-    private fb: FormBuilder,
-    private contrSv: ContractService,
+    private contratoService: ContractService,
     private documentService: DocumentService,
-    private elementRef: ElementRef,
-    private toastrSvc: ToastrService
-  ) {}
+    private collectionService: CollectionService
+  ) {
+
+  }
 
 
 
@@ -55,7 +59,10 @@ export class DocumentsCreateContractComponent {
   ngOnInit() {
 
     this.loadCheckList();
-
+    console.log("contract Id ", this.contractId)
+    this.contratoService.getContractById(this.contractId).subscribe((response)=>{
+      this.contract = response.data
+    })
 
   }
   async loadCheckList() {
@@ -164,6 +171,30 @@ export class DocumentsCreateContractComponent {
   eliminarItem(index: any,filas:Fila[]): void {
     console.log(index)
     filas.splice(index, 1);
+  }
+
+  recorrerSubs(){
+
+  }
+  idCollection:number=0;
+  enviarDocumentos(){
+
+    //sacar la coleccion con el id de contractualDocumentId y el contrato
+    // this.collectionService.getCollectionByContractAndContractualDocument(
+    //   this.contractId, 1
+
+    // ).pipe(
+    //   switchMap((response) => {
+    //     return response.data.id;
+    //   }),
+    //   switchMap((response) => {
+    //     //convertir fila a document
+    //     return
+    //   }),
+    // )
+
+    //crear document
+    //enviar document para su creacion
   }
 
 

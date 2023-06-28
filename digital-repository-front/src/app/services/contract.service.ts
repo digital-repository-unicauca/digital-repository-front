@@ -139,6 +139,17 @@ export class ContractService {
     console.log(body)
     return this.httpClient.patch<responseDocument>(this.urlAPI, body , this.httpHeader)
   }
+  getContractById(id:number):Observable<responseDocument>{
+    return this.httpClient.get<responseDocument>(`${this.urlAPI}/${id}`).pipe(
+      catchError((e) => {
+
+
+        console.log('Error creando el contrato', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+  }
 
 
   private selectedContractId: number | null = null;

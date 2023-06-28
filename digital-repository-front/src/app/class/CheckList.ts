@@ -1,4 +1,4 @@
-import { Fila } from "./Fila";
+import { Fila } from "./models/Fila";
 
 export class CheckList {
   id!: number;
