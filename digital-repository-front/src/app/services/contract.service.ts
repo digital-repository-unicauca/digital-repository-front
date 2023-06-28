@@ -27,7 +27,7 @@ export class ContractService {
 
   };
 
-  //service to return all contracts
+  //service to return all contracts Paginado
   getAll(page:number, pageSize:number): Observable<Response>{
 
     return this.httpClient.get<Response>(`${this.urlAPI}/contractualFolders?pageNo=${page}&pageSize=${pageSize}` ).pipe(
@@ -40,6 +40,25 @@ export class ContractService {
       })
     )
   }
+
+
+   /**
+    * get all contracts without pagination
+    */
+   getAllWithoutPagination(){
+    return this.httpClient.get<Response>(`${this.urlAPI}/contractualFolders`).pipe(
+      catchError((e) => {
+
+
+        console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+   }
+  /**
+   * get all filtered contracts pageable
+   */
 
   //service getallFiltered Contracts
   getAllFilteredContracts(page:number, pageSize:number,filter:string,search:string): Observable<Response>{

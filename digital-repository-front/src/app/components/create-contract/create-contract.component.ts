@@ -61,7 +61,7 @@ export class CreateContractComponent implements OnInit {
   date: Date = new Date();
   initialDate: Date = new Date();
   textoDeInput!: string;
-
+  //precontractualCollection :Collection = new Collection();
   constructor(
     private dialog: MatDialog,
     private fb: FormBuilder,
@@ -74,8 +74,20 @@ export class CreateContractComponent implements OnInit {
   ngOnInit() {
     this.loadContractType();
     this.loadModalityType();
-    //this.loadCheckList();
 
+    this.buildForm();
+
+    this.Spqr = this.myForm.value.traOficioNum;
+
+    this.newContract = new Contract();
+    //this.modality = new Modality();
+    this.contrSv.cart$.subscribe((idContract) => {
+      this.idContract = idContract;
+    });
+
+  }
+
+  buildForm(){
     //this.loadRadicado()
     this.myForm = this.fb.group({
       //ncRadicado: ['', Validators.required],
@@ -102,42 +114,10 @@ export class CreateContractComponent implements OnInit {
       ncSubject: ['', Validators.required],
     });
 
-    this.Spqr = this.myForm.value.traOficioNum;
 
-    this.newContract = new Contract();
-    //this.modality = new Modality();
-    this.contrSv.cart$.subscribe((idContract) => {
-      this.idContract = idContract;
-    });
   }
 
-  // method to preview pdf-----------------------
-  pdfUrl = '';
-  openPdfViewerDialog(i: number) {
-    this.pdfUrl = this.filas[i].url;
-    console.log(this.pdfUrl);
-    const dialogRef = this.dialog.open(PdfViewerDialogComponent, {
-      width: '800px',
-      height: '600px',
-      data: { pdfUrl: this.pdfUrl },
-    });
-  }
 
-  //method return all checkList
-  // async loadCheckList() {
-  //   this.documentSv
-
-  //     .getCheckList(1) // after to delete la linea anterior
-  //     .subscribe((response) => {
-  //       console.log('Del servicio ', response);
-
-  //       this.checkList = response.data as CheckList[];
-  //       console.log(this.checkList);
-  //       this.LoadSubdirectorys();
-  //     });
-  //   await new Promise((f) => setTimeout(f, 1000));
-
-  // }
 
   //method return 1 ModalityContractType
   public loadModalityContractType() {
@@ -155,14 +135,14 @@ export class CreateContractComponent implements OnInit {
   //method return 1 Modality
   public loadModalityType() {
     this.contrSv.getModalityType().subscribe((response) => {
-      console.log('Del servicio ', response);
+      console.log('Del servicio tipos modalidad ', response);
       this.modalityType = response.data.data as Modality[];
     });
   }
   //method return 1 ContractType
   public loadContractType() {
     this.contrSv.getContractType().subscribe((response) => {
-      console.log('Del servicio ', response);
+      console.log('Del servicio tipos contracto', response);
       this.contractsType = response.data.data as ContractType[];
     });
   }
@@ -173,68 +153,6 @@ export class CreateContractComponent implements OnInit {
       this.myForm.value.ncContractType +
       '/' +
       this.myForm.value.ncNroContract);
-    console.log('Numero de referencia ' + this.newContract.reference);
-  }
-  //Dialog delete document
-  openDialog(i: number): void {
-    const dialogRef = this.dialog.open(DialogAnimation, {
-      width: '250px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'Si') {
-        const fila = this.filas[i];
-        this.eliminarItem(fila);
-      }
-    });
-  }
-
-  // agregarFila() {
-  //   const nuevaFila = {
-  //     documento: 'Documento',
-  //     invitacion: 'Invitación',
-  //     fecha: 'Fecha',
-  //   };
-  //   this.filas.push(nuevaFila);
-  //   this.acordeonAbierto = false;
-  //   setTimeout(() => {
-  //     this.acordeonAbierto = true;
-  //   }, 0);
-  // }
-
-  eliminarItem(index: number): void {
-    this.filas.splice(index, 1);
-  }
-
-  //dialog create document
-  abrirVentanaEmergente() {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '800px',
-      height: '600px',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      // Aquí puedes realizar acciones después de cerrar el diálogo, si es necesario
-      //console.log('Diálogo cerrado',result);
-      this.doc = result;
-      this.filas.push(this.doc);
-      console.log('filas ', this.filas);
-    });
-  }
-
-  //Dialog Edit Document
-  abrirVentanaEmergenteEdit(i: number) {
-    const dialogRef = this.dialog.open(DialogEditComponent, {
-      width: '800px', // ancho deseado
-      height: '600px', // altura deseada
-      data: {
-        Object: this.filas[i],
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('Diálogo cerrado');
-    });
   }
 
   //Form field validation create contract
@@ -279,23 +197,6 @@ export class CreateContractComponent implements OnInit {
       this.myForm.get('ncSubject')?.touched
     );
   }
-
-
-  // public LoadSubdirectorys() {
-  //   for (const item of this.checkList) {
-  //     const subdirectory = item.subdirectory;
-
-
-  //     if (subdirectory === '0') {
-  //       this.subdirectory1.push(item);
-  //     } else if (subdirectory === '1') {
-  //       this.subdirectory2.push(item);
-  //     } else if (subdirectory === '2') {
-  //       this.subdirectory3.push(item);
-  //     }
-  //   }
-
-  // }
 
 
   //fill contract
