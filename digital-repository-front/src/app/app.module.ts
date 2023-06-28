@@ -52,13 +52,16 @@ import { SettingSystemComponent } from './components/setting-system/setting-syst
 import { CreateContractComponent } from './components/create-contract/create-contract.component';
 import { SideInformationComponent } from './components/side-information/side-information.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableModule } from './modules/table/table.module';
+import { ToastrModule } from 'ngx-toastr';
+//import { TableModule} from './modules/table/table.module';
+import { TableModule } from '@coreui/angular';
 import { LayoutComponent } from './components/layout/layout.component';
 import { EditContractComponent } from './components/edit-contract/edit-contract.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { DialogEditComponent } from './components/dialog-edit/dialog-edit.component';
 import { FilaService } from './services/fila.service';
 import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
+import { DocumentsCreateContractComponent } from './components/documents-create-contract/documents-create-contract.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,7 @@ import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-vie
     EditContractComponent,
     DialogComponent,
     PdfViewerDialogComponent,
+    DocumentsCreateContractComponent,
   ],
   imports: [
     MatStepperModule,
@@ -98,6 +102,7 @@ import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-vie
     MatDividerModule,
     MatListModule,
     PdfViewerModule,
+    ToastrModule.forRoot(),
     LucideAngularModule.pick({
       Home,
       Search,

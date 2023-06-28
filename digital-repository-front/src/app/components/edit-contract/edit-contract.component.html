@@ -6,43 +6,51 @@
             <p>Radicado</p>
             <div class="grid-radicado">
                 <div>
-                    <input formControlName="radicado" class="radicado" type="text" name="NroContrato" style="background-color:transparent"
-                        placeholder="Radicado">
+                    <input formControlName="radicado" class="radicado" type="text" name="NroContrato"
+                        style="background-color:transparent" placeholder="Radicado">
                 </div>
-                
+
             </div>
-            &nbsp; &nbsp; <mat-slide-toggle color="primary" class="mat-lg-slide-toggle" [checked]="isChecked" (change)="onToggleChange($event)"><h3>&nbsp;   Estado del contrato : {{status}}</h3></mat-slide-toggle>
+            &nbsp; &nbsp; <mat-slide-toggle color="primary" class="mat-lg-slide-toggle" [checked]="isChecked"
+                (change)="onToggleChange($event)">
+                <h3>&nbsp; Estado del contrato : {{status}}</h3>
+            </mat-slide-toggle>
             <br>
             <div class="grid-contratista">
-                <div>
+            <!--<div>
                     <br>
                     ID Contratista
                     <input  formControlName="idVendor" class="form-control" type="text" style="background-color:transparent" name="IDContratista"
-                     placeholder="ID Contratista">
-                </div>
+                     [class.is-invalid]="idVendorInvalid" placeholder="ID Contratista">
+                     <small *ngIf="idVendorInvalid">ID de contratista Invalido</small>
+                </div>-->
                 <div>
                     <br>
                     <p>Fecha de Expedición</p>
-                    <input formControlName="DateExp" class="form-control"  type="date" style="background-color:transparent" name="fecha"  [value]="todayWithPipe">
-                    
+                    <input formControlName="DateExp" class="form-control" type="date" [class.is-invalid]="dateExpInvalid"
+                        style="background-color:transparent" name="fecha" [value]="todayWithPipe">
+                    <small *ngIf="dateExpInvalid">No ha seleccionado una fecha</small>
                 </div>
 
                 <div class="grid">
                     <br>
                     <p>Fecha de Terminacion</p>
-                    <input formControlName="DateEnd" class="form-control"  type="date" style="background-color:transparent" name="fecha">
-
+                    <input formControlName="DateEnd" class="form-control" type="date" [class.is-invalid]="dateEndInvalid"
+                        style="background-color:transparent" name="fecha">
+                    <small *ngIf="dateEndInvalid">No ha seleccionado una fecha</small>
                 </div>
                 <div>
                     <br>
                     <p>Objeto del Contrato</p>
                     <textarea formControlName="Subject" name="textarea" rows="6" cols="80"
-                        placeholder="Objeto o Finalidad del Contrato"></textarea>
+                        placeholder="Objeto o Finalidad del Contrato" [class.is-invalid]="subjectInvalid"></textarea>
+                    <small *ngIf="subjectInvalid">No ha seleccionado la modalidad</small>
                 </div>
                 <br>
             </div>
         </form>
-        <button class="float-center" [routerLink]="['/searchCont']" (click)="submitFormulario()" type="submit">Editar</button>
+        <button class="float-center"  (click)="submitFormulario()"
+            type="submit">Editar</button>
     </div>
-   
+
 </div>

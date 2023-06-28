@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response} from 'src/app/class/response';
 import { Observable, catchError, throwError, BehaviorSubject } from 'rxjs';
 import { Contract } from '../class/contract';
+import { responseDocument } from '../class/models/responseDocument';
+import { UpdateContract } from '../class/models/UpdateContract';
 @Injectable({
   providedIn: 'root'
 })
@@ -117,27 +119,38 @@ export class ContractService {
       })
     )
   }
-  
-  async addContract(contract: Contract): Promise<boolean>{
-    console.log("En addContracts, boton")
+
+  addContract(contract: Contract): Observable<responseDocument>{
     var result = false;
     const body = JSON.stringify(contract);
-    this.httpClient.post<boolean>(this.urlAPI, body, this.httpHeader).subscribe((response) => {
-      result = response;
-    });
-    await new Promise(f => setTimeout(f, 1000));
-    return result;
+    return this.httpClient.post<responseDocument>(this.urlAPI, body, this.httpHeader).pipe(
+      catchError((e) => {
+
+
+        console.log('Error creando el contrato', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
   }
 
-  async  update(contract: Contract): Promise<boolean> {
-    var result = false;
+   update(contract: UpdateContract): Observable<responseDocument> {
     const body = JSON.stringify(contract);
-    this.httpClient.patch<boolean>(this.urlAPI + "/", body, this.httpHeader).subscribe((response) => {
-      result = response;
-    });
-    await new Promise(f => setTimeout(f, 1000));
-    return result;
+    console.log(body)
+    return this.httpClient.patch<responseDocument>(this.urlAPI, body , this.httpHeader)
   }
+  getContractById(id:number):Observable<responseDocument>{
+    return this.httpClient.get<responseDocument>(`${this.urlAPI}/${id}`).pipe(
+      catchError((e) => {
+
+
+        console.log('Error creando el contrato', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+  }
+
 
   private selectedContractId: number | null = null;
 

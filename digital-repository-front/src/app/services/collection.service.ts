@@ -34,4 +34,16 @@ export class CollectionService {
       })
     )
   }
+
+  getCollectionByContractAndContractualDocument(contractId:number,contractualDocumentId:number):Observable<any>{
+    return this.http.get<any>(`${this.urlAPI}/${contractId}/${contractualDocumentId}`).pipe(
+      catchError((e) => {
+
+
+        console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
+        return throwError(e);
+
+      })
+    )
+  }
 }
