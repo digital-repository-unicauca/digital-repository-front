@@ -26,7 +26,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModuleModule } from './shared-module/shared-module.module';
-import { PdfViewerModule } from 'ng2-pdf-viewer'; 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {
   LucideAngularModule,
   Home,
@@ -62,6 +62,8 @@ import { DialogEditComponent } from './components/dialog-edit/dialog-edit.compon
 import { FilaService } from './services/fila.service';
 import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-viewer-dialog.component';
 import { DocumentsCreateContractComponent } from './components/documents-create-contract/documents-create-contract.component';
+import { SideInformationDocumentsComponent } from './components/side-information-documents/side-information-documents.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,7 @@ import { DocumentsCreateContractComponent } from './components/documents-create-
     DialogComponent,
     PdfViewerDialogComponent,
     DocumentsCreateContractComponent,
+    SideInformationDocumentsComponent,
   ],
   imports: [
     MatStepperModule,
@@ -131,6 +134,7 @@ import { DocumentsCreateContractComponent } from './components/documents-create-
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgScrollbarModule
   ],
   providers: [
     IconSetService,

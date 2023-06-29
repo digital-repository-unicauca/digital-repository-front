@@ -20,20 +20,20 @@ export class CollectionService {
 
   };
 
-  createCollection(filas:any){
-    const body:Collection = new Collection(1,1,true,"Miguel");
+  // createCollection(filas:any){
+  //   const body:Collection = new Collection(1,1,true,"Miguel");
 
 
-    return this.http.post<any>(this.urlAPI,body ,this.httpHeader).pipe(
-      catchError((e) => {
+  //   return this.http.post<any>(this.urlAPI,body ,this.httpHeader).pipe(
+  //     catchError((e) => {
 
 
-        console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
-        return throwError(e);
+  //       console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
+  //       return throwError(e);
 
-      })
-    )
-  }
+  //     })
+  //   )
+  // }
 
   getCollectionByContractAndContractualDocument(contractId:number,contractualDocumentId:number):Observable<any>{
     return this.http.get<any>(`${this.urlAPI}/${contractId}/${contractualDocumentId}`).pipe(

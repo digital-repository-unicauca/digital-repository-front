@@ -68,10 +68,10 @@ export class DocumentsCreateContractComponent {
   async loadCheckList() {
     this.documentService.getCheckList(1) // after to delete la linea anterior
       .subscribe((response) => {
-        console.log('Del servicio ', response);
+        // console.log('Del servicio ', response);
 
         this.checkList = response.data as CheckList[];
-        console.log(this.checkList);
+        // console.log(this.checkList);
         this.LoadSubdirectorys();
       });
 
