@@ -228,4 +228,5 @@ export class CreateContractComponent implements OnInit {
   toastError(mensaje:string){
     this.toastrSvc.error(mensaje);
   }
+
 }

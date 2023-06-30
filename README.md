@@ -18,3 +18,5 @@ Instalacion de dependencias npm
 # npm install ng2-pdf-viewer Para previsualizar el documento
 
 # npm install --save toastr Notificaciones
+
+# npm i ngx-scrollbar 

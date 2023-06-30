@@ -64,6 +64,7 @@ import { PdfViewerDialogComponent } from './components/pdf-viewer-dialog/pdf-vie
 import { DocumentsCreateContractComponent } from './components/documents-create-contract/documents-create-contract.component';
 import { SideInformationDocumentsComponent } from './components/side-information-documents/side-information-documents.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
       Pencil,
       FolderDown,FileText,FileX,
     }),
-
     BrowserAnimationsModule,
     MatTableModule,
     CommonModule,
@@ -134,7 +134,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgScrollbarModule
+    NgScrollbarModule,MatCardModule,
   ],
   providers: [
     IconSetService,

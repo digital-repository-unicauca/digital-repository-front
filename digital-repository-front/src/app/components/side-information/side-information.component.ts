@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component,OnInit } from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { Contact } from 'lucide-angular';
@@ -17,6 +18,9 @@ import { SideInformationDocumentsService } from 'src/app/services/side-informati
 
 export class SideInformationComponent implements OnInit {
   panelOpenState = false;
+  pipe: DatePipe = new DatePipe('en-US');
+  dateIni!:string | null;
+  DateEnd!:string | null;
   contract:Contract= new Contract(0)
   idContract:number=1
   activeMenu = false;
@@ -52,6 +56,8 @@ export class SideInformationComponent implements OnInit {
       this.contract= response.data;
       this.getChecklist(this.contract.modalityContractType)
       console.log("sideInformation",this.idContract,this.contract)
+      this.DateEnd=this.pipe.transform(this.contract.finalDate, 'yyyy-MM-dd');
+      this.dateIni=this.pipe.transform(this.contract.initialDate, 'yyyy-MM-dd');
     });
 
   }

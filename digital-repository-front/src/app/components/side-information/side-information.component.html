@@ -14,10 +14,11 @@
               </mat-expansion-panel-header>
               <mat-list role="list" >
                 <mat-list-item role="listitem"><strong>Id</strong><br>{{contract.id}}</mat-list-item>
-                <mat-list-item role="listitem"><strong>Referencia:</strong><br>{{contract.reference}}</mat-list-item>
-                <mat-list-item role="listitem"><strong>Fecha Inicial:</strong><br>{{contract.initialDate}}</mat-list-item>
-                <mat-list-item role="listitem"><strong>Fecha Final:</strong><br>{{contract.finalDate}}</mat-list-item>
-                <mat-list-item role="listitem"><strong>Proveedor:</strong><br>{{contract.vendor}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Codigo:</strong><br>{{contract.reference}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Fecha Inicial:</strong><br>{{dateIni}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Fecha Final:</strong><br>{{DateEnd}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Contratista:</strong><br>{{contract.vendor}}</mat-list-item>
+                <mat-list-item role="listitem"><strong>Estado de Contrato:</strong><br>{{contract.status}}</mat-list-item>
                 <mat-list-item role="listitem"><strong>Descripción:</strong><br>{{contract.subject}}</mat-list-item>
               </mat-list>
             </mat-expansion-panel>
