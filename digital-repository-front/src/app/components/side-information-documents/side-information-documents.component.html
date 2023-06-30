@@ -1,0 +1,16 @@
+
+  <h4>Documentos Presentes</h4>
+  {{documentosExistentes.length}}
+  <ul class="ListExisting" *ngFor="let documentoExistente of documentosExistentes ">
+
+    <li class="grid"><i-lucide name="Check"></i-lucide>{{documentoExistente.name}} </li>
+
+  </ul>
+
+  <h4>Documentos faltantes</h4>
+  {{documentosFaltantes.length}}
+  <ul class="ListMissing" *ngFor="let documentoFaltante of documentosFaltantes">
+
+    <li class="grid"><i-lucide name="X"></i-lucide>{{documentoFaltante.name}} </li>
+
+  </ul>

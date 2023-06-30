@@ -63,7 +63,12 @@ input {
     font-size: 13px;
     color: white;
 }
-
+.CardMess{
+    font-size: 30px;
+    background: rgba(247, 4, 4, 0.7);
+    text-align: center;
+    color: white;
+}
 textarea {
     background: #7195c300;
     border-radius: 6px;

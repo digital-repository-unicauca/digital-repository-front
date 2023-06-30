@@ -119,7 +119,7 @@ export class EditContractComponent {
   public fillContract() {
 
     this.updateContract.reference = this.contract.reference;
-    //this.contract.vendor = null;
+    this.updateContract.vendor = this.myForm.value.idVendor;
     this.updateContract.id = this.contract.id;
     this.initialDate = new Date(this.myForm.value.DateExp);
     this.endDate = new Date(this.myForm.value.DateEnd);

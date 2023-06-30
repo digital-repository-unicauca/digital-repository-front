@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+
+p{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+h3{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+h4{
+    color:  #0e4185;
+    font-family:source sans pro ;
+    font-weight: bold;
+}
+.ListExisting{
+    margin-top: 10px;
+    background-color: #a6efab;
+    border-radius: 8px;
+}
+.ListExisting li {
+    padding: 10px;
+    padding-right: 30px;
+    color: #037003;
+
+}
+.grid{
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+}
+.ListMissing{
+    margin-top: 10px;
+    background-color: #ea8f8f;
+    border-radius: 8px;
+}
+.ListMissing li{
+    padding: 10px;
+    padding-right: 30px;
+    color: #8f4744;
+}
+

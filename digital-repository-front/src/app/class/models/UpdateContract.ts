@@ -5,4 +5,5 @@ export class UpdateContract {
     finalDate!: Date | null;
     status!: String;
     subject !: String;
+    vendor!:String;
 }

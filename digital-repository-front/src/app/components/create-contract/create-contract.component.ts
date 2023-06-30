@@ -32,10 +32,8 @@ export class directorys {
 })
 export class CreateContractComponent implements OnInit {
   @ViewChild(MatStepper) stepper!: MatStepper;
-  filas: any[] = [];
-  doc: Fila = new Fila();
-  checkList: CheckList[] = [];
-  //acordeonAbierto = false;
+
+
   myForm: FormGroup = new FormGroup({});
   Spqr: string | undefined;
   radicado!: String;
@@ -44,20 +42,14 @@ export class CreateContractComponent implements OnInit {
   pipe = new DatePipe('en-US');
   contractsType: ContractType[] = [];
   modalityContractType: modalityContractType[] = [];
-  modalityType: Modality[] = [];
-  contractType: ContractType = new ContractType();
-  modality: Modality = new Modality();
+  modalityTypes: Modality[] = [];
+
   newContract: Contract = new Contract(0);
   response: responseDocument = new responseDocument();
-  date: Date = new Date();
-  initialDate: Date = new Date();
-  textoDeInput!: string;
 
   constructor(
-    private dialog: MatDialog,
     private fb: FormBuilder,
-    private contrSv: ContractService,
-    private elementRef: ElementRef,
+    private contractService: ContractService,
     private toastrSvc: ToastrService
   ) {}
 
@@ -70,13 +62,10 @@ export class CreateContractComponent implements OnInit {
     this.Spqr = this.myForm.value.traOficioNum;
 
     this.newContract = new Contract(0);
-    //this.modality = new Modality();
-
 
   }
 
   buildForm(){
-    //this.loadRadicado()
     this.myForm = this.fb.group({
       //ncRadicado: ['', Validators.required],
       ncInitialDate: ['', Validators.required],
@@ -107,29 +96,28 @@ export class CreateContractComponent implements OnInit {
 
 
 
-  //method return 1 ModalityContractType
+
   public loadModalityContractType() {
-    this.contrSv
+    this.contractService
       .getModalityContractType(
         this.newContract.contractTypeId,
         this.newContract.modalityId
       )
       .subscribe((response) => {
         console.log('Del servicio ', response);
-        this.modalityContractType = response.data
-          .data as modalityContractType[];
+        this.modalityContractType = response.data.data as modalityContractType[];
       });
   }
   //method return 1 Modality
   public loadModalityType() {
-    this.contrSv.getModalityType().subscribe((response) => {
+    this.contractService.getModalityType().subscribe((response) => {
       console.log('Del servicio tipos modalidad ', response);
-      this.modalityType = response.data.data as Modality[];
+      this.modalityTypes = response.data.data as Modality[];
     });
   }
   //method return 1 ContractType
   public loadContractType() {
-    this.contrSv.getContractType().subscribe((response) => {
+    this.contractService.getContractType().subscribe((response) => {
       console.log('Del servicio tipos contracto', response);
       this.contractsType = response.data.data as ContractType[];
     });
@@ -189,14 +177,10 @@ export class CreateContractComponent implements OnInit {
 
   //fill contract
   public fillContract() {
-    this.date = new Date();
-    this.initialDate = new Date(this.myForm.value.ncInitialDate);
-    //console.log('Nuevo Signing date FIILLL CONTRACR' + this.initialDate);
-    //this.newContract.id = this.myForm.value.id;
     this.newContract.reference = this.loadRadicado();
-    //this.newContract.singinDate = this.date;
-    this.newContract.singinDate = this.date;
-    this.newContract.initialDate = this.initialDate;
+
+    this.newContract.singinDate = new Date();
+    this.newContract.initialDate = new Date(this.myForm.value.ncInitialDate);
 
     this.newContract.finalDate = null;
     this.newContract.status = 'ACTIVO';
@@ -218,19 +202,24 @@ export class CreateContractComponent implements OnInit {
     this.myForm.markAllAsTouched()
     this.fillContract();
 
-    this.contrSv.addContract(this.newContract).subscribe(
-      (res) => {
-        console.log(res);
-        if (res.status == 200) {
-          this.newContract.id= res.data.id
-          console.log(this.newContract)
-          this.toastrSvc.success('Contrato agregado Correctamente', '');
-          this.moveToNextStep();
+    this.contractService.addContract(this.newContract).subscribe(
+      {
+        next: (res)=>{
+          console.log(res)
+          if (res.status == 200) {
+            const id = res.data.id
+            this.newContract.id= id
+            this.contractService.setSelectedContractId(id);
+            console.log(this.newContract)
+            this.toastrSvc.success('Contrato agregado Correctamente', '');
+            this.moveToNextStep();
+          }
+        } ,
+        error: (error)=>{
+           console.error(error);
+           this.toastrSvc.error(`Error :  ${error.error.data.error}`);
         }
-      },
-      (error) => {
-        //console.error(error);
-        this.toastrSvc.error(`Error en la llamada al servicio ${error.userMessage}`);
+
       }
     );
 
@@ -239,4 +228,5 @@ export class CreateContractComponent implements OnInit {
   toastError(mensaje:string){
     this.toastrSvc.error(mensaje);
   }
+
 }

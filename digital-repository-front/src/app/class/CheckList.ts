@@ -1,3 +1,4 @@
+import { ContractualDocumentType } from "./ContractualDocumentType";
 import { Fila } from "./models/Fila";
 
 export class CheckList {
@@ -8,13 +9,7 @@ export class CheckList {
   ordering!: number;
   createTime!: string;
   createUser!: string;
-  contractualDocumentType!: {
-    id: number;
-    name: string;
-    description: string;
-    createTime: string;
-    createUser: string;
-  };
+  contractualDocumentType!: ContractualDocumentType;
   modalityContractType!: number;
   filas: Fila[]= [];
 

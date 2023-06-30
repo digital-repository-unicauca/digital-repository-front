@@ -41,32 +41,12 @@ h3{
     font-family:source sans pro ;
     font-weight: bold;
 }
-h4{
-    color:  #0e4185;
-    font-family:source sans pro ;
-    font-weight: bold;
-}
-.ListExisting{
-    background-color: #a6efab;
-    border-radius: 8px;
-}
-.ListExisting li {
-    padding: 10px;
-    padding-right: 30px;
-    color: #037003;
-
-}
-.grid{
-    display: inline-grid;
-    grid-template-columns: auto auto auto;
-}
-.ListMissing{
-    margin-top: 20px;
-    background-color: #ea8f8f;
-    border-radius: 8px;
-}
-.ListMissing li{
-    padding: 10px;
-    padding-right: 30px;
-    color: #8f4744;
+ ng-scrollbar.virtual-scroll {
+      --scrollbar-size: 8px;
+      --scrollbar-thumb-color: rgb(31, 2, 104);
+      --scrollbar-hover-size: 12px;
+      --scrollbar-track-color: rgb(31, 2, 104);
+      --scrollbar-border-radius: 10px;
+      border-radius: 6px;
+      overflow: hidden;
 }

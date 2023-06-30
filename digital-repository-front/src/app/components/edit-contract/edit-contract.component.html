@@ -3,7 +3,7 @@
         <form [formGroup]="myForm" class="" action="">
             <p>Complete la información del nuevo contrato que desea digitalizar</p>
             <br>
-            <p>Radicado</p>
+            <p>Código</p>
             <div class="grid-radicado">
                 <div>
                     <input formControlName="radicado" class="radicado" type="text" name="NroContrato"
@@ -17,13 +17,13 @@
             </mat-slide-toggle>
             <br>
             <div class="grid-contratista">
-            <!--<div>
+            <div>
                     <br>
                     ID Contratista
                     <input  formControlName="idVendor" class="form-control" type="text" style="background-color:transparent" name="IDContratista"
                      [class.is-invalid]="idVendorInvalid" placeholder="ID Contratista">
                      <small *ngIf="idVendorInvalid">ID de contratista Invalido</small>
-                </div>-->
+                </div>
                 <div>
                     <br>
                     <p>Fecha de Expedición</p>

@@ -1,3 +1,5 @@
+import { Collection } from "./collection";
+
 export class Contract {
     id!: number;
     reference!: String;
@@ -9,9 +11,11 @@ export class Contract {
     vendor: String = "";
     modalityId !: number;
     contractTypeId !: number;
+    modalityContractType!:number;
+    collections!:Collection[] | [];
 
     constructor(idContract :number){
       this.id=idContract;
     }
-    
+
 }
