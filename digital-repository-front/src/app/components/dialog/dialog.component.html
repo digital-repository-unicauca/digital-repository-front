@@ -19,16 +19,18 @@
         type="text"
         id="name"
         placeholder="Nombre del Documento"
-        
+        [class.is-invalid]="nameInvalid"
       />
+      <small *ngIf="nameInvalid">Nombre Invalido</small>
       <h2>Fecha de Expedición:</h2>
       <input
         formControlName="expeditionDate"
         class="form-control"
         id="date"
         type="date"
-        required=""
+        [class.is-invalid]="expeditionDateInvalid"
       />
+      <small *ngIf="expeditionDateInvalid">Seleccione la fecha de Expedición</small>
       <h2>Subir Archivo:</h2>
       <div class="mat-form-field">
         <input
@@ -37,8 +39,9 @@
           type="file"
           name="file"
           (change)="onFileSelected($event)"
-          required
+          [class.is-invalid]="fileInvalid"
         />
+        <small *ngIf="fileInvalid">Seleccione la fecha de Expedición</small>
       </div>
     </form>
   </mat-dialog-content>

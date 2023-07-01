@@ -9,6 +9,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { FilaService } from 'src/app/services/fila.service';
 import { Fila } from 'src/app/class/models/Fila';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dialog',
@@ -28,6 +29,7 @@ export class DialogComponent {
   todayWithPipe!: string | null;
   acordeonAbierto = false;
   constructor(
+    private toastrSvc:ToastrService,
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogComponent>) {
@@ -71,7 +73,19 @@ export class DialogComponent {
     //     }
     //   }
     // });
-    this.dialogRef.close(this.nuevaFila);
+    if (this.myForm.invalid) {
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }
+    if(this.nuevaFila.url!=null){
+      this.toastrSvc.success('Documento creado exitosamente.', '');
+      this.dialogRef.close(this.nuevaFila);
+
+    }else{
+      this.toastrSvc.error(`Debe seleccionar un documento.`);
+    }
+    
   }
 
   ngOnInit() {
@@ -83,6 +97,16 @@ export class DialogComponent {
     });
   
 
+  }
+  
+  get nameInvalid() {
+    return this.myForm.get('name')?.invalid && this.myForm.get('name')?.touched;
+  }
+  get expeditionDateInvalid() {
+    return this.myForm.get('expeditionDate')?.invalid && this.myForm.get('expeditionDate')?.touched;
+  }
+  get fileInvalid() {
+    return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
   }
   fillDocument(){
     this.nuevaFila.name=this.myForm.value.name;

@@ -41,6 +41,12 @@ export class DialogEditComponent {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+    if (this.myForm.invalid) {
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }
+    
   }
 
   ngOnInit() {
@@ -55,6 +61,16 @@ export class DialogEditComponent {
     this.rellenarForm();
 
     //this.pqr = new PQRSF();
+  }
+
+  get nameInvalid() {
+    return this.myForm.get('name')?.invalid && this.myForm.get('name')?.touched;
+  }
+  get expeditionDateInvalid() {
+    return this.myForm.get('expeditionDate')?.invalid && this.myForm.get('expeditionDate')?.touched;
+  }
+  get fileInvalid() {
+    return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
   }
 
   async rellenarForm() {
@@ -80,6 +96,7 @@ export class DialogEditComponent {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     // Aquí puedes realizar acciones con el archivo seleccionado, como subirlo a un servidor, procesarlo, etc.
+    
   }
 }
 

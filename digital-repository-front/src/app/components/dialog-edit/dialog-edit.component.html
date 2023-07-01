@@ -18,16 +18,19 @@
         class="form-control"
         type="text"
         placeholder="Nombre del Documento"
+        [class.is-invalid]="nameInvalid"
       />
+      <small *ngIf="nameInvalid">Nombre Invalido</small>
       <h2>Fecha de Expedición:</h2>
       <input
-        formControlName="pqrFechaAdmision"
+        formControlName="expeditionDate"
         class="form-control"
         id="pqrFecha"
         type="date"
-        required=""
+        [class.is-invalid]="expeditionDateInvalid"
         (change)="SendDataonChange($event)"
       />
+      <small *ngIf="expeditionDateInvalid">Seleccione la fecha de Expedición</small>
       <h2>Subir Archivo:</h2>
       <div class="mat-form-field">
         <input
