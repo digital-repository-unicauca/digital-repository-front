@@ -37,7 +37,7 @@
                     <p>Fecha de Terminacion</p>
                     <input formControlName="DateEnd" class="form-control" type="date" [class.is-invalid]="dateEndInvalid"
                         style="background-color:transparent" name="fecha">
-                    <small *ngIf="dateEndInvalid">No ha seleccionado una fecha</small>
+                    <small  *ngIf="dateEndInvalid">La fecha de terminacion no puede ser menor a la de expedición</small >
                 </div>
                 <div>
                     <br>
@@ -49,8 +49,12 @@
                 <br>
             </div>
         </form>
-        <button class="float-center"  (click)="submitFormulario()"
-            type="submit">Editar</button>
+        <div>
+            <button class="float-center mr-1.5"  [routerLink]="['/searchCont']" >Cancelar</button>
+            <button class="float-center"  (click)="submitFormulario()"
+                type="submit">Editar</button>
+        </div>
+
     </div>
 
 </div>

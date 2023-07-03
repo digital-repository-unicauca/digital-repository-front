@@ -1,10 +1,11 @@
-import { Component, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import {
   MatDialog,
   MatDialogRef,
   MatDialogModule,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FilaService } from 'src/app/services/fila.service';
@@ -19,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DialogComponent {
   pdfUrl = '';
+  s='';
   myForm!: FormGroup;
   nuevaFila:Fila=new Fila();
   filas: any[] = [];
@@ -28,11 +30,14 @@ export class DialogComponent {
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
   acordeonAbierto = false;
+  selectedFile: File | undefined;
   constructor(
     private toastrSvc:ToastrService,
     private fb: FormBuilder,
     public dialog: MatDialog,
-    public dialogRef: MatDialogRef<DialogComponent>) {
+    public dialogRef: MatDialogRef<DialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any ) {
+      this.s=data;
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string,): void {
@@ -95,10 +100,13 @@ export class DialogComponent {
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
     });
-  
-
+    this.fillForm;
   }
   
+  fillForm(){
+    console.log('objjjjjjj',this.s)
+    this.myForm.patchValue({type:this.s})
+  }
   get nameInvalid() {
     return this.myForm.get('name')?.invalid && this.myForm.get('name')?.touched;
   }
@@ -106,7 +114,12 @@ export class DialogComponent {
     return this.myForm.get('expeditionDate')?.invalid && this.myForm.get('expeditionDate')?.touched;
   }
   get fileInvalid() {
-    return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
+   if (this.selectedFile && this.selectedFile.type === 'application/pdf') {
+      return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
+    } else {
+      console.log('Archivo inválido. Se requiere un archivo PDF.');
+      return true;
+    } 
   }
   fillDocument(){
     this.nuevaFila.name=this.myForm.value.name;
@@ -117,13 +130,15 @@ export class DialogComponent {
   }
 
   onFileSelected(event: any) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.pdfUrl = URL.createObjectURL(file);
+    this.selectedFile = (event.target as HTMLInputElement).files?.[0];
+    if (this.selectedFile) {
+      this.pdfUrl = URL.createObjectURL(this.selectedFile);
       console.log(this.pdfUrl)
     }
+
     this.fillDocument();
   }
+
 }
 
 

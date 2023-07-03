@@ -107,11 +107,13 @@ export class DocumentsCreateContractComponent {
     console.log(this.subdirectory1)
   }
 
-  abrirVentanaEmergente(subdirectory:number,indice:number) {
-
+  abrirVentanaEmergente(s:String,subdirectory:number,indice:number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '800px',
       height: '600px',
+      data: {
+        Object: s,
+      }
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -131,17 +133,27 @@ export class DocumentsCreateContractComponent {
   }
 
   //Dialog Edit Document
-  abrirVentanaEmergenteEdit(i: number) {
+  abrirVentanaEmergenteEdit(subdirectory:number,indice:number,j:number) {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
       data: {
-        Object: this.filas[i],
+        Object: this.filas[j],
       },
     });
-
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Diálogo cerrado');
+      this.doc = result;
+      console.log('esteeeee es ',result)
+      if (subdirectory === 0) {
+        console.log("Añadiendo doc a ",this.subdirectory1[indice].contractualDocumentType.name)
+        this.subdirectory1[indice].filas[j]=this.doc;
+      } else if (subdirectory === 1) {
+        this.subdirectory2[indice].filas[j]=this.doc;
+      } else if (subdirectory === 2) {
+        this.subdirectory3[indice].filas[j]=this.doc;
+      }
+
+
     });
   }
 

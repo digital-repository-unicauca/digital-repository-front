@@ -38,7 +38,7 @@
                   color="primary"
                   class="add-button"
                   (click)="
-                    $event.stopPropagation(); abrirVentanaEmergente(0,i)
+                    $event.stopPropagation(); abrirVentanaEmergente(c1.contractualDocumentType.name||'',0,i)
                   "
                 >
                   <i-lucide name="FilePlus"></i-lucide>
@@ -51,7 +51,7 @@
               >
                 <mat-panel-title
                   class="lineaDocumentos"
-                  *ngFor="let fila of c1.filas; let i = index"
+                  *ngFor="let fila of c1.filas; let j = index"
                 >
                   <div class="barraDocumentos">
                     <div class="columnaDocs">
@@ -75,11 +75,11 @@
                       </button>
                       <button
                         class="boton-editar"
-                        (click)="abrirVentanaEmergenteEdit(i)"
+                        (click)="abrirVentanaEmergenteEdit(0,i,j)"
                       >
                         <i-lucide name="FileEdit"></i-lucide>
                       </button>
-                      <button class="boton-borrar" (click)="openDialog(i,c1.filas)">
+                      <button class="boton-borrar" (click)="openDialog(j,c1.filas)">
                         <i-lucide name="FileX"></i-lucide>
                       </button>
                     </div>
@@ -123,7 +123,7 @@
                   color="primary"
                   class="add-button"
                   (click)="
-                    $event.stopPropagation(); abrirVentanaEmergente(1,i)
+                    $event.stopPropagation(); abrirVentanaEmergente(c2.contractualDocumentType.name||'',1,i)
                   "
                 >
                   <i-lucide name="FilePlus"></i-lucide>
@@ -136,7 +136,7 @@
               >
                 <mat-panel-title
                   class="lineaDocumentos"
-                  *ngFor="let fila of c2.filas; let i = index"
+                  *ngFor="let fila of c2.filas; let j = index"
                 >
                   <div class="barraDocumentos">
                     <div class="columnaDocs">
@@ -160,11 +160,11 @@
                       </button>
                       <button
                         class="boton-editar"
-                        (click)="abrirVentanaEmergenteEdit(i)"
+                        (click)="abrirVentanaEmergenteEdit(0,i,j)"
                       >
                         <i-lucide name="FileEdit"></i-lucide>
                       </button>
-                      <button class="boton-borrar" (click)="openDialog(i,c2.filas)">
+                      <button class="boton-borrar" (click)="openDialog(j,c2.filas)">
                         <i-lucide name="FileX"></i-lucide>
                       </button>
                     </div>
@@ -208,7 +208,7 @@
                   color="primary"
                   class="add-button"
                   (click)="
-                    $event.stopPropagation(); abrirVentanaEmergente(2,i)
+                    $event.stopPropagation(); abrirVentanaEmergente(c3.contractualDocumentType.name||'',2,i)
                   "
                 >
                   <i-lucide name="FilePlus"></i-lucide>
@@ -221,7 +221,7 @@
               >
                 <mat-panel-title
                   class="lineaDocumentos"
-                  *ngFor="let fila of c3.filas; let i = index"
+                  *ngFor="let fila of c3.filas; let j = index"
                 >
                   <div class="barraDocumentos">
                     <div class="columnaDocs">
@@ -245,11 +245,11 @@
                       </button>
                       <button
                         class="boton-editar"
-                        (click)="abrirVentanaEmergenteEdit(i)"
+                        (click)="abrirVentanaEmergenteEdit(3,i,j)"
                       >
                         <i-lucide name="FileEdit"></i-lucide>
                       </button>
-                      <button class="boton-borrar" (click)="openDialog(i,c3.filas)">
+                      <button class="boton-borrar" (click)="openDialog(j,c3.filas)">
                         <i-lucide name="FileX"></i-lucide>
                       </button>
                     </div>

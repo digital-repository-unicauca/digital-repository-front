@@ -41,7 +41,10 @@
           (change)="onFileSelected($event)"
           [class.is-invalid]="fileInvalid"
         />
-        <small *ngIf="fileInvalid">Seleccione la fecha de Expedición</small>
+        <div>
+          <small *ngIf="fileInvalid" style="font-size:12;color:red"> *Seleccione Documento pdf</small>
+        </div>
+       
       </div>
     </form>
   </mat-dialog-content>

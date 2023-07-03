@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Contract } from 'src/app/class/contract';
 import { ContractService } from 'src/app/services/contract.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -105,6 +105,13 @@ export class EditContractComponent {
   }
 
   get dateEndInvalid() {
+    const dateIni = this.myForm.value.DateExp; 
+    const dateEnd = this.myForm.value.DateEnd;
+  
+    if (dateEnd < dateIni) {
+      return true ;
+    }
+  
     return this.myForm.get('DateEnd')?.invalid && this.myForm.get('DateEnd')?.touched;
   }
 
