@@ -38,6 +38,7 @@ export class DialogComponent {
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any ) {
       this.s=data;
+      this.dialogRef.disableClose = true;
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string,): void {
