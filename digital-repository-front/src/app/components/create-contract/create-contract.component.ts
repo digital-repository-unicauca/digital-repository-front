@@ -199,7 +199,12 @@ export class CreateContractComponent implements OnInit {
   }
   //send request create contract
   submitFormulario() {
-    this.myForm.markAllAsTouched()
+    if (this.myForm.invalid) {
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }
+    
     this.fillContract();
 
     this.contractService.addContract(this.newContract).subscribe(

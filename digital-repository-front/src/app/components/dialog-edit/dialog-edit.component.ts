@@ -33,8 +33,8 @@ export class DialogEditComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<DialogComponent>
   ) {
     this.doc = data;
+    this.dialogRef.disableClose = true;
  
-
   }
 
 
@@ -42,21 +42,25 @@ export class DialogEditComponent {
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.dialog.open(DialogAnimation, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-
-    this.dialogRef.close(this.nuevaFila);
     
+
     if (this.myForm.invalid) {
       return Object.values(this.myForm.controls).forEach((control) => {
         control.markAllAsTouched();
       });
+    }else{
+      const dialogRef = this.dialog.open(DialogAnimation, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'Si') {
+            this.dialogRef.close(this.nuevaFila);
+        }
+      });
     }
-  
-    
   }
 
   ngOnInit() {
