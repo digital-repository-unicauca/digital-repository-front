@@ -57,7 +57,7 @@
 
     <br>
     <c-callout class="info-box" color="info" *ngIf="selectedFirstFilter && selectedSecondFilter">
-      Filtrando los datos por : {{ selectedFirstFilter }} | {{selectedSecondFilter}}
+      Filtrando los datos por : {{ selectedFirstFilter }} &nbsp;&nbsp;&nbsp;Valor: {{selectedSecondFilter}} &nbsp;&nbsp;&nbsp; Contratos Encontrados: {{totalElements}}
     </c-callout>
     <br>
 
@@ -124,6 +124,4 @@
     <app-paginador [totalElements]="totalElements" [pageSize]="pageSize" [totalPages]="totalPages"
       (pageChanged)="loadTableContracts($event)"></app-paginador>
 
-
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
   </div>
