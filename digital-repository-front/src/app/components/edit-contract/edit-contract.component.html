@@ -36,7 +36,7 @@
                     <br>
                     <p>Fecha de Terminacion</p>
                     <input formControlName="DateEnd" class="form-control" type="date" [class.is-invalid]="dateEndInvalid"
-                        style="background-color:transparent" name="fecha">
+                        style="background-color:transparent" name="fecha" [min]="minDate">
                     <small  *ngIf="dateEndInvalid">La fecha de terminacion no puede ser menor a la de expedición</small >
                 </div>
                 <div>

@@ -138,7 +138,7 @@ export class DocumentsCreateContractComponent {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
       data: {
-        Object: this.filas[j],
+        Object: this.subdirectory1[indice].filas[j],
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

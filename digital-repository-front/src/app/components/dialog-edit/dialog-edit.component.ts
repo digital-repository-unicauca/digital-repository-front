@@ -33,6 +33,8 @@ export class DialogEditComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<DialogComponent>
   ) {
     this.doc = data;
+ 
+
   }
 
 
@@ -47,7 +49,6 @@ export class DialogEditComponent {
     });
 
     this.dialogRef.close(this.nuevaFila);
-
     
     if (this.myForm.invalid) {
       return Object.values(this.myForm.controls).forEach((control) => {
@@ -59,15 +60,16 @@ export class DialogEditComponent {
   }
 
   ngOnInit() {
+  
     this.myForm = this.fb.group({
       type: ['', Validators.required],
       name: ['', Validators.required],
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
     });
-    console.log(this.doc);
-
-    this.rellenarForm();
+   
+    this.fillForm();
+  
 
   }
 
@@ -81,17 +83,18 @@ export class DialogEditComponent {
     return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
   }
 
-  async rellenarForm() {
-    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
-    await new Promise(f => setTimeout(f, 1000));
+  public async fillForm() {
     //Llena los campos del formulario
-    this.todayWithPipe = this.pipe.transform(this.doc.expeditionDate, 'yyyy-MM-dd');
+    
+    this.nuevaFila=this.doc
+    console.log('documento   ',this.nuevaFila);
+    this.todayWithPipe = this.pipe.transform(this.nuevaFila.expeditionDate, 'yyyy-MM-dd');
     this.myForm.patchValue({ expeditionDate: this.todayWithPipe });
     this.myForm.patchValue({
-      type: this.doc.type,
-      name: this.doc.name,
-      file: this.doc.url,
+      type: this.nuevaFila.type,
+      name: this.nuevaFila.name,
     });
+    await new Promise(f => setTimeout(f, 1000));
   }
 
   //Accesor para los campos del formulario
