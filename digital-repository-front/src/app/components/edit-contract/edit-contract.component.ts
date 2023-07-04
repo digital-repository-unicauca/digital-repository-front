@@ -161,6 +161,10 @@ export class EditContractComponent {
     if (this.response.status == 200) {
       //alert('Peticion actualizar  correctamente');
       this.toastrSvc.success('Actualización de contrato exitosa', '');
+      if (this.updateContract.status == 'INACTIVO') {
+        this.toastrSvc.warning('Estado del contrato Inactivo','Advertencia')
+      }
+      
       this.router.navigate(['/searchCont']);
     } else {
       this.toastrSvc.error(`Error al actualizar el contrato`);
