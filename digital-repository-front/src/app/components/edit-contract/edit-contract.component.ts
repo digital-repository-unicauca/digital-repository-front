@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Contract } from 'src/app/class/contract';
 import { ContractService } from 'src/app/services/contract.service';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -27,9 +27,13 @@ export class EditContractComponent {
   todayWithPipe!: string | null;
   isChecked = true;
   status!: string;
+  minDate!: Date;
   constructor(
     private toastrSvc:ToastrService, private contractService: ContractService, private fb: FormBuilder,private router: Router
-  ) { }
+  ) { 
+
+ 
+  }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -98,6 +102,7 @@ export class EditContractComponent {
       this.isChecked = false;
       this.status = "Inactivo"
     }
+    this.minDate=this.myForm.value.DateExp;
   }
 
   get dateExpInvalid() {
@@ -134,6 +139,7 @@ export class EditContractComponent {
     //console.log('estado contrato' + this. updateContract.status);
   }
   public async submitFormulario() {
+
     if (this.myForm.invalid) {
       return Object.values(this.myForm.controls).forEach((control) => {
         control.markAllAsTouched();
@@ -163,3 +169,7 @@ export class EditContractComponent {
   }
 
 }
+function moment(arg0: Date) {
+  throw new Error('Function not implemented.');
+}
+

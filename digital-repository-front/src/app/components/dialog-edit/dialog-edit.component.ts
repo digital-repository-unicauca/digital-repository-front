@@ -9,26 +9,34 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { Fila } from 'src/app/class/models/Fila';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-dialog-edit',
   templateUrl: './dialog-edit.component.html',
   styleUrls: ['./dialog-edit.component.css'],
-  encapsulation: ViewEncapsulation.None, // Desactivar la encapsulación de estilos
+  encapsulation: ViewEncapsulation.None, //
 })
 export class DialogEditComponent {
 
+  pdfUrl = '';
   myForm!: FormGroup;
-  doc: Fila = new Fila();
-  //Fechas
+  doc: Fila=new Fila();
+  nuevaFila:Fila=new Fila();
+  selectedFile: File | undefined;
+  //Date
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
+  toastrSvc: any;
 
   constructor(private fb: FormBuilder, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: Fila,public dialogRef: MatDialogRef<DialogComponent>
   ) {
     this.doc = data;
+    console.log(data);
+    this.dialogRef.disableClose = true;
+ 
   }
 
 
@@ -36,38 +44,75 @@ export class DialogEditComponent {
     enterAnimationDuration: string,
     exitAnimationDuration: string
   ): void {
-    this.dialog.open(DialogAnimation, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
+    
 
+    if (this.myForm.invalid) {
+      this.toastrSvc.warning('Complete la informacion.', '');
+      return Object.values(this.myForm.controls).forEach((control) => {
+        control.markAllAsTouched();
+      });
+    }else{
+      const dialogRef = this.dialog.open(DialogAnimation, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === 'Si') {
+            this.fillDocument();
+            this.dialogRef.close(this.nuevaFila);
+        }else{
+          this.dialogRef.close(this.nuevaFila);
+        }
+      });
+    }
+  }
   ngOnInit() {
+  
     this.myForm = this.fb.group({
-      type: ['', Validators.required],
+      type: [{ value: '', disabled: true }, Validators.required],
       name: ['', Validators.required],
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
     });
-    console.log(this.doc);
+   
+    this.fillForm();
+  
 
-    this.rellenarForm();
-
-    //this.pqr = new PQRSF();
   }
 
-  async rellenarForm() {
-    //Dormir el hilo principal sino el pendejo se pasa de vrga y pasa derecho
-    await new Promise(f => setTimeout(f, 1000));
+  closeDialog(){
+    this.dialogRef.close(this.nuevaFila);
+  }
+  get nameInvalid() {
+    return this.myForm.get('name')?.invalid && this.myForm.get('name')?.touched;
+  }
+  get expeditionDateInvalid() {
+    return this.myForm.get('expeditionDate')?.invalid && this.myForm.get('expeditionDate')?.touched;
+  }
+  get fileInvalid() {
+    if (this.selectedFile && this.selectedFile.type === 'application/pdf') {
+      this.myForm.get('file')?.setErrors(null);
+      return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
+    } else {
+      //console.log('Archivo inválido. Se requiere un archivo PDF.');
+      this.myForm.get('file')?.setErrors({ 'invalid': true })
+      return true ;
+    } 
+  }
+
+  public async fillForm() {
     //Llena los campos del formulario
-    this.todayWithPipe = this.pipe.transform(this.doc.expeditionDate, 'yyyy-MM-dd');
+    this.nuevaFila=this.doc;
+    //console.log(this.nuevaFila);
+    this.todayWithPipe = this.pipe.transform(this.nuevaFila.expeditionDate, 'yyyy-MM-dd');
     this.myForm.patchValue({ expeditionDate: this.todayWithPipe });
     this.myForm.patchValue({
-      type: this.doc.type,
-      name: this.doc.name,
-      file: this.doc.url,
+      type: this.nuevaFila.type,
+      name: this.nuevaFila.name,
     });
+    await new Promise(f => setTimeout(f, 1000));
   }
 
   //Accesor para los campos del formulario
@@ -77,9 +122,20 @@ export class DialogEditComponent {
 
   SendDataonChange(event: any) { }
 
+
+  fillDocument(){
+    this.nuevaFila.name=this.myForm.value.name;
+    this.nuevaFila.url=this.pdfUrl;
+    //this.nuevaFila.type=this.myForm.value.type;
+    this.nuevaFila.expeditionDate=this.myForm.value.expeditionDate;
+  }
+
   onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    // Aquí puedes realizar acciones con el archivo seleccionado, como subirlo a un servidor, procesarlo, etc.
+    this.selectedFile = (event.target as HTMLInputElement).files?.[0];
+    if (this.selectedFile) {
+      this.pdfUrl = URL.createObjectURL(this.selectedFile);
+      console.log(this.pdfUrl)
+    }
   }
 }
 

@@ -34,7 +34,7 @@ export class ListContractComponent {
   // checkbox selection
   selection = new SelectionModel<PeriodicElement>(true, []);
   filterOptions = [ 'Modalidad', 'Tipo de Contrato', 'Contratista', 'Año'];
-  yearOptions = ["2021", "2022", "2023"];
+  yearOptions = [""];
   modalityOptions =[''];
   contractTypeOptions= [''];
   vendorOptions = ['1061']
@@ -76,8 +76,12 @@ export class ListContractComponent {
     this.loadModalityType();
     this.loadTableContracts([0, 5]);
     this.fillContractType();
-
+    const currentYear = new Date().getFullYear();
+    const startYear = 2010;
+    for (let year = currentYear; year >= startYear; year--) {
+      this. yearOptions.push(year.toString());
   }
+}
   //method return 1 Modality
   public loadModalityType() {
     this.contractService.getModalityType().subscribe((response) => {
@@ -102,7 +106,6 @@ export class ListContractComponent {
 
   }
   fillContractType() {
-    console.log('aqui toy');
     for (const c of this.contractsType) {
       this.contractTypeOptions.push(c.name);
   
