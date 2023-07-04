@@ -22,7 +22,6 @@
 
 button {
   display: flex;
-  justify-content: flex-end;
   margin-top: 35px;
   padding-top: 0.3em;
   padding-left: 0.4em;
@@ -73,9 +72,24 @@ button {
 }
 
 .mat-panel-title {
-  display: flex;
+  display: block;
+  width: 100%;
   align-items: center;
+  margin-bottom: 10px;
 }
+
+.acordeonIC {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.mat-panel-title.lineaDocumentos {
+  display: block;
+  margin-bottom: 10px; 
+}
+
 
 .mat-accordion {
   width: 100%;
@@ -106,13 +120,13 @@ button {
 }
 
 .mat-panel-title {
-  display: flex;
+  display: block;
   width: 100%;
   align-items: center;
 }
 
 .mat-panel-description {
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
   margin-block-end: 5px;
@@ -167,7 +181,6 @@ button {
   flex-grow: 0;
   margin-bottom: 35px;
   margin-right: 5px;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;

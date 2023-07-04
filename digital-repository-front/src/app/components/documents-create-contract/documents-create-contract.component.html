@@ -32,33 +32,33 @@
               </button>
             </mat-expansion-panel-header>
             <mat-panel-description #dialog class="acordeonIC" *ngIf="c1.filas.length > 0">
-              <mat-panel-title class="lineaDocumentos" *ngFor="let fila of c1.filas; let j = index">
-                <div class="barraDocumentos">
-                  <div class="columnaDocs">
-                    {{ fila.name }}
+              <ng-container *ngFor="let fila of c1.filas; let j = index">
+                <mat-panel-title class="lineaDocumentos">
+                  <div class="barraDocumentos">
+                    <div class="columnaDocs">
+                      {{ fila.name }}
+                    </div>
+                    <div class="columnaDocs">
+                      {{ fila.type }}
+                    </div>
+                    <div class="columnaDocs">
+                      {{ fila.expeditionDate }}
+                    </div>
+                    <div class="botones-container">
+                      <button class="boton-crear">
+                        <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(fila)"></i-lucide>
+                      </button>
+                      <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(0,i,j)">
+                        <i-lucide name="FileEdit"></i-lucide>
+                      </button>
+                      <button class="boton-borrar" (click)="openDialog(j,c1.filas)">
+                        <i-lucide name="FileX"></i-lucide>
+                      </button>
+                    </div>
                   </div>
-                  <div class="columnaDocs">
-                    {{ fila.type }}
-                  </div>
-                  <div class="columnaDocs">
-                    {{ fila.expeditionDate }}
-                  </div>
-
-
-                  <div class="botones-container">
-                    <button class="boton-crear">
-                      <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(fila)"></i-lucide>
-                    </button>
-                    <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(0,i,j)">
-                      <i-lucide name="FileEdit"></i-lucide>
-                    </button>
-                    <button class="boton-borrar" (click)="openDialog(j,c1.filas)">
-                      <i-lucide name="FileX"></i-lucide>
-                    </button>
-                  </div>
-                </div>
-              </mat-panel-title>
-            </mat-panel-description>
+                </mat-panel-title>
+              </ng-container>
+            </mat-panel-description>            
           </mat-expansion-panel>
           <br />
         </mat-accordion>
