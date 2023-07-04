@@ -36,8 +36,9 @@ export class DialogComponent {
     private fb: FormBuilder,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any ) {
+    @Inject(MAT_DIALOG_DATA) public data: string ) {
       this.s=data;
+      console.log(this.s)
       this.dialogRef.disableClose = true;
   }
 
@@ -80,8 +81,10 @@ export class DialogComponent {
     //   }
     // });
     if (this.myForm.invalid) {
+      this.toastrSvc.warning('Complete la informacion.', '');
       return Object.values(this.myForm.controls).forEach((control) => {
         control.markAllAsTouched();
+
       });
     }
     if(this.nuevaFila.url!=null){
@@ -101,11 +104,10 @@ export class DialogComponent {
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
     });
-    this.fillForm;
+    this.fillForm();
   }
   
   fillForm(){
-    console.log('objjjjjjj',this.s)
     this.myForm.patchValue({type:this.s})
   }
   get nameInvalid() {
@@ -116,16 +118,18 @@ export class DialogComponent {
   }
   get fileInvalid() {
    if (this.selectedFile && this.selectedFile.type === 'application/pdf') {
+      this.myForm.get('file')?.setErrors(null);
       return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
     } else {
       console.log('Archivo inválido. Se requiere un archivo PDF.');
-      return true;
+      this.myForm.get('file')?.setErrors({ 'invalid': true })
+      return true ;
     } 
   }
   fillDocument(){
     this.nuevaFila.name=this.myForm.value.name;
     this.nuevaFila.url=this.pdfUrl;
-    this.nuevaFila.type=this.myForm.value.type;
+    this.nuevaFila.type=this.s;
     this.nuevaFila.expeditionDate=this.myForm.value.expeditionDate;
     console.log(this.nuevaFila)
   }

@@ -15,24 +15,26 @@ import { DialogComponent } from '../dialog/dialog.component';
   selector: 'app-dialog-edit',
   templateUrl: './dialog-edit.component.html',
   styleUrls: ['./dialog-edit.component.css'],
-  encapsulation: ViewEncapsulation.None, // Desactivar la encapsulación de estilos
+  encapsulation: ViewEncapsulation.None, //
 })
 export class DialogEditComponent {
 
   pdfUrl = '';
   myForm!: FormGroup;
-  doc: Fila = new Fila();
+  doc: Fila=new Fila();
   nuevaFila:Fila=new Fila();
   selectedFile: File | undefined;
-  //Fechas
+  //Date
   today: Date = new Date();
   pipe = new DatePipe('en-US');
   todayWithPipe!: string | null;
+  toastrSvc: any;
 
   constructor(private fb: FormBuilder, public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<DialogComponent>
+    @Inject(MAT_DIALOG_DATA) public data: Fila,public dialogRef: MatDialogRef<DialogComponent>
   ) {
     this.doc = data;
+    console.log(data);
     this.dialogRef.disableClose = true;
  
   }
@@ -45,6 +47,7 @@ export class DialogEditComponent {
     
 
     if (this.myForm.invalid) {
+      this.toastrSvc.warning('Complete la informacion.', '');
       return Object.values(this.myForm.controls).forEach((control) => {
         control.markAllAsTouched();
       });
@@ -57,7 +60,10 @@ export class DialogEditComponent {
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result === 'Si') {
+            this.fillDocument();
             this.dialogRef.close(this.nuevaFila);
+        }else{
+          this.dialogRef.close(this.nuevaFila);
         }
       });
     }
@@ -66,7 +72,7 @@ export class DialogEditComponent {
   ngOnInit() {
   
     this.myForm = this.fb.group({
-      type: ['', Validators.required],
+      type: [{ value: '', disabled: true }, Validators.required],
       name: ['', Validators.required],
       expeditionDate: ['', Validators.required],
       file: ['', Validators.required],
@@ -77,6 +83,9 @@ export class DialogEditComponent {
 
   }
 
+  closeDialog(){
+    this.dialogRef.close(this.nuevaFila);
+  }
   get nameInvalid() {
     return this.myForm.get('name')?.invalid && this.myForm.get('name')?.touched;
   }
@@ -84,14 +93,20 @@ export class DialogEditComponent {
     return this.myForm.get('expeditionDate')?.invalid && this.myForm.get('expeditionDate')?.touched;
   }
   get fileInvalid() {
-    return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
+    if (this.selectedFile && this.selectedFile.type === 'application/pdf') {
+      this.myForm.get('file')?.setErrors(null);
+      return this.myForm.get('file')?.invalid && this.myForm.get('file')?.touched;
+    } else {
+      //console.log('Archivo inválido. Se requiere un archivo PDF.');
+      this.myForm.get('file')?.setErrors({ 'invalid': true })
+      return true ;
+    } 
   }
 
   public async fillForm() {
     //Llena los campos del formulario
-    
-    this.nuevaFila=this.doc
-    console.log('documento   ',this.nuevaFila);
+    this.nuevaFila=this.doc;
+    //console.log(this.nuevaFila);
     this.todayWithPipe = this.pipe.transform(this.nuevaFila.expeditionDate, 'yyyy-MM-dd');
     this.myForm.patchValue({ expeditionDate: this.todayWithPipe });
     this.myForm.patchValue({
@@ -112,17 +127,16 @@ export class DialogEditComponent {
   fillDocument(){
     this.nuevaFila.name=this.myForm.value.name;
     this.nuevaFila.url=this.pdfUrl;
-    this.nuevaFila.type=this.myForm.value.type;
+    //this.nuevaFila.type=this.myForm.value.type;
     this.nuevaFila.expeditionDate=this.myForm.value.expeditionDate;
   }
+
   onFileSelected(event: any) {
     this.selectedFile = (event.target as HTMLInputElement).files?.[0];
     if (this.selectedFile) {
       this.pdfUrl = URL.createObjectURL(this.selectedFile);
       console.log(this.pdfUrl)
     }
-
-    this.fillDocument();
   }
 }
 

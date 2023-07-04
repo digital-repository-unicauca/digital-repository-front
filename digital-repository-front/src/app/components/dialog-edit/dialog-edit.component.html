@@ -41,12 +41,15 @@
           (change)="onFileSelected($event)"
           required
         />
+        <div>
+          <small *ngIf="fileInvalid" style="font-size:12;color:red"> *Seleccione Documento pdf</small>
+        </div>
       </div>
     </form>
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button  (click)="closeDialog">Cancelar</button>
     <button mat-raised-button (click)="openDialog('0ms', '0ms')">
       Guardar
     </button>

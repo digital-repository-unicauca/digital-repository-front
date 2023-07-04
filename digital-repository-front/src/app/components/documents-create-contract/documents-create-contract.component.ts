@@ -35,7 +35,7 @@ export class DocumentsCreateContractComponent {
   filas: any[] = [];
   doc: Fila = new Fila();
   checkList: CheckList[] = [];
-
+  fil:Fila = new Fila();
 
   subdirectory1: CheckList[] = [];
   subdirectory2: CheckList[] = [];
@@ -111,9 +111,7 @@ export class DocumentsCreateContractComponent {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '800px',
       height: '600px',
-      data: {
-        Object: s,
-      }
+      data: s,
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -137,9 +135,7 @@ export class DocumentsCreateContractComponent {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
-      data: {
-        Object: this.subdirectory1[indice].filas[j],
-      },
+      data: this.subdirectory1[indice].filas[j],
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.doc = result;
