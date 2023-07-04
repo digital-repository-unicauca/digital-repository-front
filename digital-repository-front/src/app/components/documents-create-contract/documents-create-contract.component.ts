@@ -35,15 +35,15 @@ export class DocumentsCreateContractComponent {
   filas: any[] = [];
   doc: Fila = new Fila();
   checkList: CheckList[] = [];
-  fil:Fila = new Fila();
+  fil: Fila = new Fila();
 
   subdirectory1: CheckList[] = [];
   subdirectory2: CheckList[] = [];
   subdirectory3: CheckList[] = [];
   pdfUrl = '';
-  @Input() contractId: number=0
+  @Input() contractId: number = 0
 
-  contract :Contract= new Contract(0);
+  contract: Contract = new Contract(0);
   constructor(
     private dialog: MatDialog,
     private contratoService: ContractService,
@@ -60,7 +60,7 @@ export class DocumentsCreateContractComponent {
 
     this.loadCheckList();
     console.log("contract Id ", this.contractId)
-    this.contratoService.getContractById(this.contractId).subscribe((response)=>{
+    this.contratoService.getContractById(this.contractId).subscribe((response) => {
       this.contract = response.data
     })
 
@@ -107,7 +107,7 @@ export class DocumentsCreateContractComponent {
     console.log(this.subdirectory1)
   }
 
-  abrirVentanaEmergente(s:String,subdirectory:number,indice:number) {
+  abrirVentanaEmergente(s: String, subdirectory: number, indice: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '800px',
       height: '600px',
@@ -115,23 +115,23 @@ export class DocumentsCreateContractComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-
       this.doc = result;
-      if (subdirectory === 0) {
-        console.log("Añadiendo doc a ",this.subdirectory1[indice].contractualDocumentType.name)
-        this.subdirectory1[indice].filas.push(this.doc);
-      } else if (subdirectory === 1) {
-        this.subdirectory2[indice].filas.push(this.doc);
-      } else if (subdirectory === 2) {
-        this.subdirectory3[indice].filas.push(this.doc);
+      if (this.doc && Object.keys(this.doc).length > 0) {
+        if (subdirectory === 0) {
+          console.log("Añadiendo doc a ", this.subdirectory1[indice].contractualDocumentType.name)
+          this.subdirectory1[indice].filas.push(this.doc);
+        } else if (subdirectory === 1) {
+          this.subdirectory2[indice].filas.push(this.doc);
+        } else if (subdirectory === 2) {
+          this.subdirectory3[indice].filas.push(this.doc);
+        }
       }
-
 
     });
   }
 
   //Dialog Edit Document
-  abrirVentanaEmergenteEdit(subdirectory:number,indice:number,j:number) {
+  abrirVentanaEmergenteEdit(subdirectory: number, indice: number, j: number) {
     const dialogRef = this.dialog.open(DialogEditComponent, {
       width: '800px', // ancho deseado
       height: '600px', // altura deseada
@@ -139,17 +139,16 @@ export class DocumentsCreateContractComponent {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.doc = result;
-      console.log('esteeeee es ',result)
-      if (subdirectory === 0) {
-        console.log("Añadiendo doc a ",this.subdirectory1[indice].contractualDocumentType.name)
-        this.subdirectory1[indice].filas[j]=this.doc;
-      } else if (subdirectory === 1) {
-        this.subdirectory2[indice].filas[j]=this.doc;
-      } else if (subdirectory === 2) {
-        this.subdirectory3[indice].filas[j]=this.doc;
+      if (this.doc && Object.keys(this.doc).length > 0) {
+        if (subdirectory === 0) {
+          console.log("Añadiendo doc a ", this.subdirectory1[indice].contractualDocumentType.name)
+          this.subdirectory1[indice].filas[j] = this.doc;
+        } else if (subdirectory === 1) {
+          this.subdirectory2[indice].filas[j] = this.doc;
+        } else if (subdirectory === 2) {
+          this.subdirectory3[indice].filas[j] = this.doc;
+        }
       }
-
-
     });
   }
 
@@ -164,7 +163,7 @@ export class DocumentsCreateContractComponent {
     });
   }
 
-  openDialog(indice: number, filas:Fila[]): void {
+  openDialog(indice: number, filas: Fila[]): void {
     const dialogRef = this.dialog.open(DialogAnimation, {
       width: '250px',
     });
@@ -176,16 +175,16 @@ export class DocumentsCreateContractComponent {
       }
     });
   }
-  eliminarItem(index: any,filas:Fila[]): void {
+  eliminarItem(index: any, filas: Fila[]): void {
     console.log(index)
     filas.splice(index, 1);
   }
 
-  recorrerSubs(){
+  recorrerSubs() {
 
   }
-  idCollection:number=0;
-  enviarDocumentos(){
+  idCollection: number = 0;
+  enviarDocumentos() {
 
     //sacar la coleccion con el id de contractualDocumentId y el contrato
     // this.collectionService.getCollectionByContractAndContractualDocument(
@@ -215,6 +214,6 @@ export class DocumentsCreateContractComponent {
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogAnimation {
-  constructor(public dialogRef: MatDialogRef<DialogAnimation>) {}
+  constructor(public dialogRef: MatDialogRef<DialogAnimation>) { }
 }
 
