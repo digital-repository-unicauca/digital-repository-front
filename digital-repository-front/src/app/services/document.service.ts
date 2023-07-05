@@ -24,7 +24,7 @@ export class DocumentService {
   public addDocuments(listdocument: Fila[]): Observable<responseDocument> {
     const body = JSON.stringify(listdocument);
     return this.httpClient.post<responseDocument>(
-      this.urlAPI,
+      this.urlAPI+'/all',
       body,
       this.httpHeader
     );

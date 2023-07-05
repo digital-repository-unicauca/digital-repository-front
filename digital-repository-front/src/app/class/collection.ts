@@ -1,11 +1,12 @@
 import { ContractualDocumentType } from "./ContractualDocumentType";
+import { Fila } from "./models/Fila";
 
 export class Collection {
   contractId !:number| null ;
   contractualDocumentId !:number | null;
   createTime !: Date | null;
   createUser !: string | null;
-  documents !: string[] | [];
+  documents !: Fila[] ;
   id !: number;
   localRequerid !: boolean;
   updateTime !: Date | null

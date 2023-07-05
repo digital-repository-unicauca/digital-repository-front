@@ -127,7 +127,7 @@ export class DialogEditComponent {
     this.nuevaFila.name=this.myForm.value.name;
     this.nuevaFila.url=this.pdfUrl;
     //this.nuevaFila.type=this.myForm.value.type;
-    this.nuevaFila.expeditionDate=this.myForm.value.expeditionDate;
+    this.nuevaFila.expeditionDate=new Date(this.myForm.value.expeditionDate);
   }
 
   onFileSelected(event: any) {

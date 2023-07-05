@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Collection } from 'src/app/class/collection';
+import { Collection } from 'src/app/class/collection';
 import { Observable, catchError, throwError, BehaviorSubject } from 'rxjs';
+import { responseDocument } from '../class/models/responseDocument';
+import { Fila } from '../class/models/Fila';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,22 +22,18 @@ export class CollectionService {
 
   };
 
-  // createCollection(filas:any){
-  //   const body:Collection = new Collection(1,1,true,"Miguel");
+  createCollection(coll: Collection []):Observable<responseDocument> {
+    const body=JSON.stringify(coll);
+    return this.http.post<responseDocument>(this.urlAPI+'/all', body, this.httpHeader).pipe(
+      catchError((e) => {
+        console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
+        return throwError(e);
 
+      })
+    )
+  }
 
-  //   return this.http.post<any>(this.urlAPI,body ,this.httpHeader).pipe(
-  //     catchError((e) => {
-
-
-  //       console.log('Error obteniendo todos los contratos', e.error.mensaje, 'error');
-  //       return throwError(e);
-
-  //     })
-  //   )
-  // }
-
-  getCollectionByContractAndContractualDocument(contractId:number,contractualDocumentId:number):Observable<any>{
+  getCollectionByContractAndContractualDocument(contractId: number, contractualDocumentId: number): Observable<any> {
     return this.http.get<any>(`${this.urlAPI}/${contractId}/${contractualDocumentId}`).pipe(
       catchError((e) => {
 
