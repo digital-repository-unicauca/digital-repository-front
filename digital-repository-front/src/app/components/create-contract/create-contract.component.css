@@ -18,8 +18,7 @@
 }
 
 ::placeholder {
-    color: white;
-    /**font-size: 15px;*/
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .radicado {
@@ -33,7 +32,6 @@
     border-radius: 6px;
     font-size: 14px;
     color: white;
-    opacity: 0.8;
 }
 
 .grid-radicado {
@@ -44,13 +42,13 @@
 
 select,
 input {
-    background:rgba(255, 255, 255, 0.3);
+    background:transparent;
+    color: rgba(255, 255, 255, 0.7);
     border-radius: 6px;
     border: 1px solid #bfd4ef;
     height: 40px;
     border-radius: 6px;
     font-size: 13px;
-    color: white;
 }
 
 select{
@@ -61,8 +59,17 @@ select{
     appearance: none;
     cursor: pointer;
 }
+
+select option {
+    margin: 40px;
+    background: white;
+    color: #0e4185;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  }
+
 select:focus,
 input:focus {
+    background: rgba(255, 255, 255, 0.2) no-repeat 100% 50%;
     color: white;
 }
 
@@ -81,11 +88,12 @@ textarea {
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
     font-size: 13px;
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     resize: none;
 }
 
 textarea:focus {
+    background: rgba(255, 255, 255, 0.2);
     color: white;
 }
 
@@ -104,12 +112,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .form-card {
     color: white;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     background: linear-gradient(112.47deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%);
     border-radius: 20px;
     justify-content: center;
     width: fit-content;
-    padding: 2vh 9vw 2vh 9vw;
+    padding: 1.1vh 9vw 1.1vh 9vw;
 }
 
 .boxContainerFormUD {
@@ -158,13 +166,18 @@ button {
     margin-top: 35px;
     padding: 0.5em;
     cursor: pointer;
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 6px;
-    border: 1px solid #bfd4ef;
+    border: 1px solid white;
     height: 50px;
     width: 10em;
     font-size: 14px;
     color: #0e4185;
     grid-template-columns: auto auto auto;
+}
+
+button:hover{
+    background: #0e4185;
+    color: white;
 }
 

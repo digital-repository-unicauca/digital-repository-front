@@ -4,12 +4,13 @@
     <div class="form-card w-full">
       <mat-stepper>
         <mat-step label="Datos del contrato">
+          <div class="flex justify-center items-center w-full">
           <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro">
-            <p class="mb-4">
+            <p class="mb-3">
               Complete la información del nuevo contrato que desea digitalizar
             </p>
             <p>Código</p>
-            <div class="mb-4">
+            <div class="mb-3">
               <div class="grid grid-flow-col justify-stretch">
                 <div class="flex items-center px-2 mr-2 gap-2 radicado">
                   <i-lucide name="ScrollText"></i-lucide>
@@ -29,31 +30,30 @@
 
                 <div class="ml-1">
                   <input class="form-control" (input)="loadRadicado()" formControlName="ncNroContract"
-                    name="ncNroContract" [class.is-invalid]="ncNroContractInvalid" placeholder="Número de Contrato"
-                    style="background-color: transparent" />
+                    name="ncNroContract" [class.is-invalid]="ncNroContractInvalid" placeholder="Número de Contrato"/>
                   <small *ngIf="ncNroContractInvalid">Número de Contrato Invalido</small>
                 </div>
 
               </div>
             </div>
             <div class="grid-contratista">
-              <div class="mb-4">
+              <div class="mb-3">
                 ID Contratista
-                <input class="form-control" type="text" style="background-color: transparent" formControlName="ncVendor"
+                <input class="form-control" formControlName="ncVendor"
                   [class.is-invalid]="ncVendorInvalid" placeholder="ID Contratista" />
                 <small *ngIf="ncVendorInvalid">ID de contratista Invalido</small>
               </div>
-              <div class="mb-4">
+              <div class="mb-3">
                 <p>Fecha de Expedición</p>
                 <input class="form-control" data-format="dd/MM/yyyy" type="date"
-                  [class.is-invalid]="ncInitialDateInvalid" style="background-color: transparent"
+                  [class.is-invalid]="ncInitialDateInvalid"
                   formControlName="ncInitialDate" placeholder="Día/Mes/Año" />
                 <small *ngIf="ncInitialDateInvalid">No ha seleccionado una fecha</small>
               </div>
 
-              <div class="mb-4 grid">
+              <div class="mb-3 grid">
                 <p>Modalidad</p>
-                <select class="" class="form-control" formControlName="ncModalityType"
+                <select class="" class="form-select" formControlName="ncModalityType"
                   [class.is-invalid]="ncModalityTypeInvalid">
                   <option value="" disabled selected>Modalidad del Contrato</option>
                   ncModalityTypeInvalid
@@ -63,7 +63,7 @@
                 </select>
                 <small *ngIf="ncModalityTypeInvalid">No ha seleccionado la modalidad</small>
               </div>
-              <div class="mb-4">
+              <div class="mb-2">
                 <p>Objeto del Contrato</p>
 
                 <textarea class="form-control" formControlName="ncSubject" rows="6" cols="80"
@@ -72,6 +72,7 @@
               </div>
             </div>
           </form>
+        </div>
           <div class="flex justify-end">
             <button (click)="submitFormulario()" type="submit">
               Continuar
