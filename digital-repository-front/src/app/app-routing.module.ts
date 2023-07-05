@@ -14,12 +14,12 @@ import { EditContractComponent } from './components/edit-contract/edit-contract.
 const routes: Routes = [
   // {path:'',component:HomeComponent},
   { path: 'home', component: HomeComponent },
+  { path: 'createCont', component: CreateContractComponent },
   {
     path: '',
     component: LayoutComponent,
     children: [
       { path: 'searchCont', component: SearcContractsComponent },
-      { path: 'createCont', component: CreateContractComponent },
       { path: 'settingSyst', component: SettingSystemComponent },
       { path: 'listCont', component: ListContractComponent },
       { path: 'editCont', component: EditContractComponent },

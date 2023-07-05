@@ -1,11 +1,10 @@
+.subsection{
+    background: #0e4185;
+}
+
 .form-contract {
     display: flex;
     align-items: center;
-    left: 231px;
-    width: 65%;
-    height: 100%;
-    position: relative;
-    padding: 5px;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon-selected {
@@ -14,9 +13,8 @@
 }
 
 .mat-stepper-horizontal {
-    background: #0e4185;
+    background: transparent;
     height: 100%;
-    width: 100%;
 }
 
 ::placeholder {
@@ -25,23 +23,17 @@
 }
 
 .radicado {
-    display: inline-grid;
     grid-template-columns: auto auto auto;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     width: max-content;
     border: 1px solid #bfd4ef;
-    height: 30px;
+    height: 40px;
     text-align: center;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
+    border-radius: 6px;
     font-size: 14px;
     color: white;
     opacity: 0.8;
-    padding-top: 2px;
-    margin-right: 8px;
 }
 
 .grid-radicado {
@@ -52,17 +44,28 @@
 
 select,
 input {
-    background: #7195c3be;
+    background:rgba(255, 255, 255, 0.3);
     border-radius: 6px;
     border: 1px solid #bfd4ef;
-    height: 30px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
+    height: 40px;
+    border-radius: 6px;
     font-size: 13px;
     color: white;
 }
+
+select{
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaGV2cm9uLWRvd24iPjxwb2x5bGluZSBwb2ludHM9IjYgOSAxMiAxNSAxOCA5Ii8+PC9zdmc+) no-repeat 100% 50%;
+    background-position: right .7rem center;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+select:focus,
+input:focus {
+    color: white;
+}
+
 .CardMess{
     font-size: 30px;
     background: rgba(247, 4, 4, 0.7);
@@ -82,6 +85,10 @@ textarea {
     resize: none;
 }
 
+textarea:focus {
+    color: white;
+}
+
 .grid-contratista {
 
     grid-column: 1 / 3;
@@ -89,31 +96,20 @@ textarea {
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
-    width: 50px;
     opacity: 0.9;
     filter: invert(0.9);
     -webkit-filter: invert(0.9);
 }
 
-.boxContainerForm {
-    padding: 20px;
+.form-card {
     color: white;
-    top: 30px;
-    width: 580px;
-    height: 100%;
-    position: relative;
-    glyph-orientation-horizontal: center;
     border-radius: 20px;
-    border: 1px solid #9eccf1;
-    background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #466fa4 100%);
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
-    display: flex;
-    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: linear-gradient(112.47deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%);
+    border-radius: 20px;
     justify-content: center;
-    align-items: center;
+    width: fit-content;
+    padding: 2vh 9vw 2vh 9vw;
 }
 
 .boxContainerFormUD {
@@ -121,7 +117,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 30px;
     width: 100%;
     height: 100%;
-    position: relative;
     glyph-orientation-horizontal: center;
     border-radius: 20px;
     border: 1px solid #9eccf1;
@@ -158,15 +153,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 button {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-evenly;
+    align-items: center;
     margin-top: 35px;
-    padding-top: 0.3em;
-    padding-left: 0.4em;
+    padding: 0.5em;
     cursor: pointer;
     background: #ffffff;
     border-radius: 6px;
     border: 1px solid #bfd4ef;
-    height: 30px;
+    height: 50px;
+    width: 10em;
     font-size: 14px;
     color: #0e4185;
     grid-template-columns: auto auto auto;
