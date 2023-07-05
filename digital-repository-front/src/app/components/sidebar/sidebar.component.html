@@ -1,42 +1,35 @@
 <div class="sidebar">
     <div class="grid">
-        <div class="logo">
-            <img class="imglogo" src="/assets/img/LogoUni.png" alt="logo" width="90%" height="90%" />
-        </div>
+        <img class="imglogo" src="../../assets/svg/uni-logo.svg" alt="logo" width="90%" height="90%" />
         <div class="titleRepo">
             <h3>Repositorio de Contratación</h3>
         </div>
     </div>
+    <ul class="pt-2">
 
-    <div class="wrapper">
-        <ul class="sidebar">
-
-            <div class="my-1">
-                <a class="button-link" [routerLink]="['/home']">
-                    <i-lucide class="custom-icon" name="home"></i-lucide>
-                    <p>Inicio</p>
-                </a>
-            </div>
-            <div class="my-1">
-                <a class="button-link" [routerLink]="['/searchCont']">
-                    <i-lucide class="custom-icon" name="search"></i-lucide>
-                    <p>Busqueda</p>
-                </a>
-            </div>
-            <div class="my-1">
-                <a class="button-link" [routerLink]="['/createCont']">
-                    <i-lucide class="custom-icon" name="folder-plus"></i-lucide>
-                    <p>Nuevo contrato</p>
-                </a>
-            </div>
-            <div class="my-1">
-                <a class="button-link" [routerLink]="['/settingSyst']">
-                    <i-lucide class="custom-icon" name="settings"></i-lucide>
-                    <p>Configuracion</p>
-                </a>
-            </div>
-
-        </ul>
-    </div>
-
+        <div class="my-1">
+            <a class="button-link" [routerLink]="['/home']">
+                <i-lucide class="custom-icon" name="home"></i-lucide>
+                <p>Inicio</p>
+            </a>
+        </div>
+        <div class="my-1">
+            <a class="button-link" [routerLink]="['/searchCont']">
+                <i-lucide class="custom-icon" name="search"></i-lucide>
+                <p>Busqueda</p>
+            </a>
+        </div>
+        <div class="my-1">
+            <a class="button-link" [routerLink]="['/createCont']">
+                <i-lucide class="custom-icon" name="folder-plus"></i-lucide>
+                <p>Nuevo contrato</p>
+            </a>
+        </div>
+        <div class="my-1">
+            <a class="button-link" [routerLink]="['/settingSyst']">
+                <i-lucide class="custom-icon" name="settings"></i-lucide>
+                <p>Configuracion</p>
+            </a>
+        </div>
+    </ul>
 </div>

@@ -1,52 +1,53 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 
-
-.sidebar{
-    right:0;
-    position: absolute;
+.sidebar {
+    right: 0;
     width: 300px;
     height: 100%;
     padding: 20px 20px;
-    position: fixed;
     background: #0e4185;
 }
-.btn-Menu{
-  right:0;
-  position: absolute;
-  position: fixed;
-  background: #0e4185;
-  color:white
+
+.btn-Menu {
+    right: 0;
+    background: #0e4185;
+    color: white
 }
-.acordionD{
-    position: relative;
+
+.acordionD {
+
     top: 50px;
     width: 80%;
     margin-left: 20px;
 }
-.acordionC{
-    position: relative;
+
+.acordionC {
+
     top: 50px;
     width: 80%;
     margin-left: 20px;
     margin-top: 30px;
 
 }
-p{
-    color:  #0e4185;
-    font-family:source sans pro ;
+
+p {
+    color: #0e4185;
+    font-family: source sans pro;
     font-weight: bold;
 }
-h3{
-    color:  #0e4185;
-    font-family:source sans pro ;
+
+h3 {
+    color: #0e4185;
+    font-family: source sans pro;
     font-weight: bold;
 }
- ng-scrollbar.virtual-scroll {
-      --scrollbar-size: 8px;
-      --scrollbar-thumb-color: rgb(31, 2, 104);
-      --scrollbar-hover-size: 12px;
-      --scrollbar-track-color: rgb(31, 2, 104);
-      --scrollbar-border-radius: 10px;
-      border-radius: 6px;
-      overflow: hidden;
+
+ng-scrollbar.virtual-scroll {
+    --scrollbar-size: 8px;
+    --scrollbar-thumb-color: rgb(31, 2, 104);
+    --scrollbar-hover-size: 12px;
+    --scrollbar-track-color: rgb(31, 2, 104);
+    --scrollbar-border-radius: 10px;
+    border-radius: 6px;
+    overflow: hidden;
 }

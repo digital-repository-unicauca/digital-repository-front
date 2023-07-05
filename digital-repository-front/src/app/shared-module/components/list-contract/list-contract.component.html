@@ -57,7 +57,8 @@
 
     <br>
     <c-callout class="info-box" color="info" *ngIf="selectedFirstFilter && selectedSecondFilter">
-      Filtrando los datos por : {{ selectedFirstFilter }} &nbsp;&nbsp;&nbsp;Valor: {{selectedSecondFilter}} &nbsp;&nbsp;&nbsp; Contratos Encontrados: {{totalElements}}
+      Filtrando los datos por : {{ selectedFirstFilter }} &nbsp;&nbsp;&nbsp;Valor: {{selectedSecondFilter}}
+      &nbsp;&nbsp;&nbsp; Contratos Encontrados: {{totalElements}}
     </c-callout>
     <br>
 
@@ -72,7 +73,6 @@
               <mat-checkbox (change)="$event ? toggleAllRows() : null"
                 [checked]="selection.hasValue() && isAllSelected()"
                 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-
               </mat-checkbox>
             </ng-container>
           </th>
@@ -97,9 +97,16 @@
           <td>{{ item.contractType }}</td>
           <td>{{ item.modality }}</td>
           <td>{{ item.signingYear }}</td>
-          <td><a ><div class="circle" ><i-lucide name="FolderDown"></i-lucide></div></a></td>
-          <td><a [routerLink]="['/editCont']" (click)="setIdContract(item.id)"><div   class="circle"><i-lucide name="Pencil"></i-lucide></div></a></td>
-
+          <td>
+            <a>
+              <div class="circle flex items-center justify-center"><i-lucide name="FolderDown"></i-lucide></div>
+            </a>
+          </td>
+          <td>
+            <a [routerLink]="['/editCont']" (click)="setIdContract(item.id)">
+              <div class="circle flex items-center justify-center"><i-lucide name="Pencil"></i-lucide></div>
+            </a>
+          </td>
           <!-- <ng-container *ngIf="item.contractType.toLowerCase().includes(searchValue)">
 
           <td>
@@ -121,7 +128,9 @@
         </tr>
       </tbody>
     </table>
+
     <app-paginador [totalElements]="totalElements" [pageSize]="pageSize" [totalPages]="totalPages"
-      (pageChanged)="loadTableContracts($event)"></app-paginador>
+      (pageChanged)="loadTableContracts($event)">
+    </app-paginador>
 
   </div>

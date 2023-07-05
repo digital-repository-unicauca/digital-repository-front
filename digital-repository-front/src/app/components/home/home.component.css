@@ -11,7 +11,7 @@
 }
 
 .main-title-s {
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .start-menu-bg {
@@ -46,22 +46,29 @@
     width: 50%;
 }
 
-.icon-menu {
-    height: 2.5em;
-    width: 2.5em;
+.icon-menu-start {
+    height: 1.2em;
+    width: 1.2em;
     margin-left: .5em;
-    margin-right: .5em;
+    margin-right: .8em;
+}
+
+.icon-menu {
+    height: 2em;
+    width: 2em;
+    margin-left: .5em;
+    margin-right: .8em;
 }
 
 .start-menu {
-    padding-top: .3em;
-    padding-bottom: .3em;
+    padding-top: .5em;
+    padding-bottom: .5em;
     padding-right: 2em;
-    padding-left: 2em;
+    padding-left: .2em;
 }
 
 .border-blue {
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.6);
 }
 
 .new-doc {
@@ -73,7 +80,8 @@
 }
 
 .settings {
-    background: rgba(255, 255, 255, 0.09);
+    /*background: rgba(255, 255, 255, 0.09);*/
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.208333) 45.83%, rgba(255, 255, 255, 0.3) 100%);
 }
 
 .user-settings {
@@ -85,7 +93,7 @@
 }
 
 .search-doc {
-    background: rgba(255, 255, 255, 0.09);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.208333) 45.83%, rgba(255, 255, 255, 0.3) 100%);
 }
 
 .blue-color-text {

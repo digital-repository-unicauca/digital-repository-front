@@ -3,6 +3,7 @@
 * {
   margin: 0;
   padding: 0;
+  border-width: 0px;
 }
 
 ul {
@@ -58,19 +59,12 @@ h3 {
   padding-left: 10px;
 }
 
-.wrapper {
-  display: flex;
-  position: relative;
-}
-
 .sidebar {
-  position: absolute;
   width: 230px;
   height: 100%;
   padding: 20px 0px;
-  position: fixed;
   background: #0e4185;
-  border-right: 2px solid rgba(255, 255, 255, 0.35);;
+  border-right: 2px solid rgba(255, 255, 255, 0.35);
 }
 
 .sidebar ul a {
@@ -85,13 +79,14 @@ h3 {
 
 .sidebar ul a {
   color: #ffffff;
-  font-family: source sans pro;
-  font-weight: bold;
+  font-family: 'source sans pro';
+  font-weight: normal;
 }
 
 .sidebar ul a:hover {
   background-color: rgba(255, 255, 255, 0.35);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: medium;
   border-radius: 10px;
 }
 
