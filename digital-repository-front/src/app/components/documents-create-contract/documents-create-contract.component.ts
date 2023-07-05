@@ -21,6 +21,8 @@ import { Contract } from 'src/app/class/contract';
 import { modalityContractType } from 'src/app/class/models/ModalityContractType';
 import { CollectionService } from 'src/app/services/collection.service';
 import { switchMap } from 'rxjs';
+import { Collection } from 'src/app/class/collection';
+import { Router } from '@angular/router';
 
 
 
@@ -36,10 +38,12 @@ export class DocumentsCreateContractComponent {
   doc: Fila = new Fila();
   checkList: CheckList[] = [];
   fil: Fila = new Fila();
-
+  collection:Collection[]=[];
+  coll:Collection=new Collection();
   subdirectory1: CheckList[] = [];
   subdirectory2: CheckList[] = [];
   subdirectory3: CheckList[] = [];
+  documents: Fila[]=[];
   pdfUrl = '';
   @Input() contractId: number = 0
 
@@ -48,7 +52,9 @@ export class DocumentsCreateContractComponent {
     private dialog: MatDialog,
     private contratoService: ContractService,
     private documentService: DocumentService,
-    private collectionService: CollectionService
+    private collectionService: CollectionService,
+    private toastrSvc: ToastrService,
+    private router: Router
   ) {
 
   }
@@ -58,15 +64,17 @@ export class DocumentsCreateContractComponent {
 
   ngOnInit() {
 
-    this.loadCheckList();
+  
     console.log("contract Id ", this.contractId)
     this.contratoService.getContractById(this.contractId).subscribe((response) => {
       this.contract = response.data
+      console.log(this.contract)
     })
-
+    this.loadCheckList();
   }
   async loadCheckList() {
-    this.documentService.getCheckList(1) // after to delete la linea anterior
+    await new Promise(f => setTimeout(f, 1000));
+    this.documentService.getCheckList(this.contract.modalityContractType) // after to delete la linea anterior
       .subscribe((response) => {
         // console.log('Del servicio ', response);
 
@@ -119,15 +127,22 @@ export class DocumentsCreateContractComponent {
       if (this.doc && Object.keys(this.doc).length > 0) {
         if (subdirectory === 0) {
           console.log("Añadiendo doc a ", this.subdirectory1[indice].contractualDocumentType.name)
+          this.doc.contractualDocumentId=this.subdirectory1[indice].id
+          this.doc.contractId=this.contractId
           this.subdirectory1[indice].filas.push(this.doc);
         } else if (subdirectory === 1) {
+          this.doc.contractId=this.contractId
+          this.doc.contractualDocumentId=this.subdirectory2[indice].id
           this.subdirectory2[indice].filas.push(this.doc);
         } else if (subdirectory === 2) {
+          this.doc.contractId=this.contractId
+          this.doc.contractualDocumentId=this.subdirectory3[indice].id
           this.subdirectory3[indice].filas.push(this.doc);
         }
       }
-
     });
+
+
   }
 
   //Dialog Edit Document
@@ -180,12 +195,19 @@ export class DocumentsCreateContractComponent {
     filas.splice(index, 1);
   }
 
-  recorrerSubs() {
+ 
 
+  FillDocument(){
+    for (const item of this.subdirectory1) {
+      for (const i of item.filas) {
+        this.documents.push(i);
+      }
+    }
+    console.log(this.documents)
   }
   idCollection: number = 0;
   enviarDocumentos() {
-
+    this.FillDocument();
     //sacar la coleccion con el id de contractualDocumentId y el contrato
     // this.collectionService.getCollectionByContractAndContractualDocument(
     //   this.contractId, 1
@@ -202,6 +224,14 @@ export class DocumentsCreateContractComponent {
 
     //crear document
     //enviar document para su creacion
+
+    this.documentService.addDocuments(this.documents).subscribe((res) => {
+      console.log(res);
+      if (res.status == 200) {
+        this.toastrSvc.success('Documentos guardados Correctamente', 'Documentos');
+        this.router.navigate(['/searchCont']);
+      }
+    })
   }
 
 

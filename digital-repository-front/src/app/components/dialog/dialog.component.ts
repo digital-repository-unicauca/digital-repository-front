@@ -130,7 +130,12 @@ export class DialogComponent {
     this.nuevaFila.name=this.myForm.value.name;
     this.nuevaFila.url=this.pdfUrl;
     this.nuevaFila.type=this.s;
-    this.nuevaFila.expeditionDate=this.myForm.value.expeditionDate;
+    this.nuevaFila.expeditionDate=new Date(this.myForm.value.expeditionDate);
+    this.nuevaFila.consecutive=0;
+    this.nuevaFila.ordering=1;
+    this.nuevaFila.isException=false;
+    this.nuevaFila.createUser="dacoes"
+    this.nuevaFila.description="documents";
     console.log(this.nuevaFila)
   }
 

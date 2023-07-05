@@ -42,7 +42,7 @@
                       {{ fila.type }}
                     </div>
                     <div class="columnaDocs">
-                      {{ fila.expeditionDate }}
+                      {{ fila.expeditionDate | date: 'dd/MM/yyyy'  }}
                     </div>
                     <div class="botones-container">
                       <button class="boton-crear">
@@ -100,7 +100,7 @@
                     {{ fila.type }}
                   </div>
                   <div class="columnaDocs">
-                    {{ fila.expeditionDate }}
+                    {{ fila.expeditionDate | date: 'dd/MM/yyyy'  }}
                   </div>
 
 
@@ -159,7 +159,7 @@
                     {{ fila.type }}
                   </div>
                   <div class="columnaDocs">
-                    {{ fila.expeditionDate }}
+                    {{ fila.expeditionDate | date: 'dd/MM/yyyy'  }}
                   </div>
 
 

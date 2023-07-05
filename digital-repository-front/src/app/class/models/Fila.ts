@@ -1,11 +1,13 @@
 export class Fila {
-  expeditionDate!: string;
-  url!: string;
-  name!: string;
-  type!: string;
-  collectionId!: number;
-  description!: string;
-  ordering!: number;
-  consecutive!: number;
-  isException!: false;
+  name!:string
+  description!:string
+  ordering!:number
+  url!:string
+  consecutive!:number
+  isException!:boolean
+  type!:string
+  expeditionDate!:Date
+  createUser!:String
+  contractId!:number
+  contractualDocumentId!:number
 }
