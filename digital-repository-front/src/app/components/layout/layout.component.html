@@ -1,11 +1,11 @@
-<!-- left side bar where user can navigate  -->
-<app-sidebar></app-sidebar>
+<div class="subsection flex flex-row min-w-screen min-h-screen">
+  
+  <app-sidebar class="flex-shrink-0"></app-sidebar>
+  
+  <main class="page-content py-3 px-3 flex-grow">
+    <router-outlet></router-outlet>
+  </main>
 
-<!-- rigth side bar with user information -->
-<app-side-information></app-side-information>
-
-<!-- url information to be rendered -->
-<main class="page-content">
-  <router-outlet></router-outlet>
-</main>
-
+  <app-side-information class="flex-shrink-0"></app-side-information>
+  
+</div>
