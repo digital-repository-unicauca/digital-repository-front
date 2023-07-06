@@ -2,6 +2,7 @@
   <div class="columna">Nombre</div>
   <div class="columna">Tipo de documento</div>
   <div class="columna">Fecha de expedición</div>
+  <div class="columna">Opciones</div>
 </div>
 <div class="contenedor-acordeon">
   <mat-accordion [multi]="true">
@@ -31,33 +32,31 @@
                 <i-lucide name="FilePlus"></i-lucide>
               </button>
             </mat-expansion-panel-header>
-            <mat-panel-description #dialog class="acordeonIC" *ngIf="c1.filas.length > 0">
-              <ng-container *ngFor="let fila of c1.filas; let j = index">
+            <mat-panel-description #dialog class="acordeonIC">
                 <mat-panel-title class="lineaDocumentos">
                   <div class="barraDocumentos">
                     <div class="columnaDocs">
-                      {{ fila.name }}
+                      Documento
                     </div>
                     <div class="columnaDocs">
-                      {{ fila.type }}
+                      Tipo de Documento
                     </div>
                     <div class="columnaDocs">
-                      {{ fila.expeditionDate }}
+                      Fecha
                     </div>
                     <div class="botones-container">
                       <button class="boton-crear">
-                        <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(fila)"></i-lucide>
+                        <i-lucide class="custom-icon" name="FileText"></i-lucide>
                       </button>
-                      <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(0,i,j)">
+                      <button class="boton-editar">
                         <i-lucide name="FileEdit"></i-lucide>
                       </button>
-                      <button class="boton-borrar" (click)="openDialog(j,c1.filas)">
+                      <button class="boton-borrar">
                         <i-lucide name="FileX"></i-lucide>
                       </button>
                     </div>
                   </div>
                 </mat-panel-title>
-              </ng-container>
             </mat-panel-description>            
           </mat-expansion-panel>
           <br />
@@ -184,7 +183,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<div class="uniButton">
+<div class="uniButton justify-end">
   <button class="back-button" matStepperPrevious>
     <i-lucide name="ChevronLeft"></i-lucide>Regresar
   </button>
