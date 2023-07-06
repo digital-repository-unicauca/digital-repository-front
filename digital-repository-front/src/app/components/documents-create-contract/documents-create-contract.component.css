@@ -1,5 +1,3 @@
-
-
 .uniButton {
   display: flex;
   grid-template-columns: auto auto auto;
@@ -7,8 +5,8 @@
 }
 
 .back-button {
-  background: rgba(255, 255, 255, 0.3);
-  opacity: 0.70;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
   padding-right: 0.6em;
   padding-top: 0.4em;
   border-top-right-radius: 0;
@@ -22,17 +20,24 @@
 
 button {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   margin-top: 35px;
-  padding-top: 0.3em;
-  padding-left: 0.4em;
+  padding: 0.5em;
   cursor: pointer;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 6px;
-  border: 1px solid #bfd4ef;
-  height: 30px;
+  border: 1px solid white;
+  height: 50px;
+  width: 10em;
   font-size: 14px;
   color: #0e4185;
   grid-template-columns: auto auto auto;
+}
+
+button:hover{
+  background: #0e4185;
+  color: white;
 }
 
 .barra {
@@ -41,14 +46,16 @@ button {
   background-color: #c7d8e6;
   padding: 10px;
   border-radius: 5px;
+  width: 100%;
 }
 
 .barraDocumentos {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+  text-align: center;
   width: 100%;
-  margin-bottom: 10px; /* Ajusta el margen inferior si es necesario */
+  margin: 5px; /* Ajusta el margen inferior si es necesario */
 }
 
 .columna {
@@ -56,11 +63,12 @@ button {
   text-align: center;
   font-weight: bold;
   padding: 0 10px;
-  flex: 1;
   margin-right: 20px;
 }
 
 .columnaDocs {
+  flex: 1;
+  text-align: center;
   padding: 0 10px;
   width: 100%;
   /* Asegurar que ocupe todo el ancho disponible */
@@ -81,13 +89,15 @@ button {
 .acordeonIC {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin: 0px;
 }
 
 
 
 .mat-panel-title.lineaDocumentos {
-  display: block;
-  margin-bottom: 10px; 
+  display: flex;
+  margin-bottom: 0px;
 }
 
 
@@ -96,16 +106,27 @@ button {
 }
 
 .mat-expansion-panel {
-  background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
+  /*background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);*/
+  background: transparent;
   margin-bottom: 10px;
-  border-radius: 10px;
+  border-radius: inherit;
   border: 2px solid rgba(255, 255, 255, 0.6);
 }
+.mat-expansion-panel-header[aria-expanded=false]{
+  background: transparent;
+}
+.mat-expansion-panel-header.mat-expanded:focus{
+  background: rgba(255, 255, 255, 0.2);
+  color: #0E4185;
+}
+.mat-expansion-panel-header[aria-expanded=true]{
+  background: rgba(255, 255, 255, 0.2);
+}
 .mat-expansion-panel-header {
-  background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);
+  /*background-image: linear-gradient(135deg, #7e9db7 0, #6186b7 50%, #619ceb 100%);*/
+  background: transparent;
   position: relative;
-  border-radius: 10px;
-
+  border-radius: inherit;
 }
 
 .mat-expansion-panel-header::after {
@@ -118,6 +139,7 @@ button {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
   pointer-events: none;
 }
+
 
 .mat-panel-title {
   display: block;
@@ -139,7 +161,8 @@ button {
 
 .contenedor-acordeon {
   margin-top: 8px;
-  width: 97%;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .etiqueta {
@@ -147,18 +170,13 @@ button {
   color: white;
 }
 
-.linea-blanca-panel {
-  border: 1px solid #fff;
-  padding: 10px;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
 .lineaDocumentos {
   border: 1px solid #fff;
-  padding: 10px;
+  color: white;
+  border-radius: 10px;
   width: 100%;
-  margin-top: 10px;
+  margin: 10px 0px 0px 0px;
+
 }
 
 .titulo-acordeon {
@@ -185,6 +203,12 @@ button {
   justify-content: center;
   font-size: 24px;
   margin-right: 5px;
+  border: none;
+}
+
+.add-button:hover {
+  background: #0E4185;
+  color: white;
 }
 
 .add-button mat-icon {
@@ -194,7 +218,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: fit-content;
 }
 .boton-crear,
 .boton-editar,
@@ -209,15 +233,16 @@ button {
 }
 
 .boton-crear {
-  background-color: #9eeef7;
+  display: flex;
+  background: #AFE68D;
   justify-content: center;
   align-items: center;
-  color:#016cd1;
+  color:#0E750C;
 }
 
 .boton-editar {
   display: flex;
-  background-color: #8DB6E6;
+  background: #8DB6E6;
   justify-content: center;
   align-items: center;
   color: #0E4185;
@@ -225,9 +250,27 @@ button {
 
 .boton-borrar {
   display: flex;
-  background-color: #e95c5c;
+  background: #e95c5c;
   justify-content: center;
   align-items: center;
   color: #750C0C;
 }
 
+.boton-crear:hover {
+  background: #0E750C;
+  color:#AFE68D;
+}
+
+.boton-editar:hover {
+  background: #0E4185;
+  color: #8DB6E6;
+}
+
+.boton-borrar:hover {
+  background: #750C0C;
+  color: #e95c5c;
+}
+
+::ng-deep .mat-horizontal-stepper-content.mat-horizontal-stepper-content-inactive  {
+  width: 1px;
+}

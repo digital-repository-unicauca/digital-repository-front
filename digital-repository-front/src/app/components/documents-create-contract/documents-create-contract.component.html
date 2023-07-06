@@ -2,6 +2,7 @@
   <div class="columna">Nombre</div>
   <div class="columna">Tipo de documento</div>
   <div class="columna">Fecha de expedición</div>
+  <div class="columna">Opciones</div>
 </div>
 <div class="contenedor-acordeon">
   <mat-accordion [multi]="true">
@@ -58,7 +59,7 @@
                   </div>
                 </mat-panel-title>
               </ng-container>
-            </mat-panel-description>            
+            </mat-panel-description>        
           </mat-expansion-panel>
           <br />
         </mat-accordion>
@@ -184,7 +185,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<div class="uniButton">
+<div class="uniButton justify-end">
   <button class="back-button" matStepperPrevious>
     <i-lucide name="ChevronLeft"></i-lucide>Regresar
   </button>
