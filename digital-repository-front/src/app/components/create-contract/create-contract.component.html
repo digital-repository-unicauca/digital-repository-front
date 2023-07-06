@@ -3,7 +3,7 @@
   <div class="flex justify-center items-center w-full">
     <div class="form-card w-full">
       <mat-stepper>
-        <mat-step label="Datos del contrato" completed="true">
+        <mat-step label="Datos del contrato">
           <div class="flex justify-center items-center w-full">
           <form [formGroup]="myForm" (ngSubmit)="submitFormulario()" id="formregistro">
             <p class="mb-3">
@@ -74,24 +74,31 @@
           </form>
         </div>
           <div class="flex justify-end">
-            <button (click)="moveToNextStep()" >
+            <button (click)="submitFormulario()" type="submit">
               Continuar
               <i-lucide name="ChevronRight"></i-lucide>
             </button>
           </div>
         </mat-step>
 
-        <mat-step label="Subir Documentos" completed="false">
-          <div class="doc-table flex justify-center items-center w-full">
+        <mat-step label="Subir Documentos">
+          <div *ngIf="myForm.valid && newContract.id!=0 ;else errorForm">
+
             <!-- Componente para mostrar los documentos  -->
-            <app-documents-create-contract [contractId]="1"></app-documents-create-contract>
+            <app-documents-create-contract [contractId]="newContract.id">
+
+            </app-documents-create-contract>
           </div>
+
           <ng-template #errorForm>
             <mat-card>
               <mat-card-content class="CardMess">
                 Complete la informacion del contrato</mat-card-content>
             </mat-card>
+
+
           </ng-template>
+
         </mat-step>
 
 

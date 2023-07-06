@@ -32,32 +32,34 @@
                 <i-lucide name="FilePlus"></i-lucide>
               </button>
             </mat-expansion-panel-header>
-            <mat-panel-description #dialog class="acordeonIC">
+            <mat-panel-description #dialog class="acordeonIC" *ngIf="c1.filas.length > 0">
+              <ng-container *ngFor="let fila of c1.filas; let j = index">
                 <mat-panel-title class="lineaDocumentos">
                   <div class="barraDocumentos">
                     <div class="columnaDocs">
-                      Documento
+                      {{ fila.name }}
                     </div>
                     <div class="columnaDocs">
-                      Tipo de Documento
+                      {{ fila.type }}
                     </div>
                     <div class="columnaDocs">
-                      Fecha
+                      {{ fila.expeditionDate }}
                     </div>
                     <div class="botones-container">
                       <button class="boton-crear">
-                        <i-lucide class="custom-icon" name="FileText"></i-lucide>
+                        <i-lucide class="custom-icon" name="FileText" (click)="openPdfViewerDialog(fila)"></i-lucide>
                       </button>
-                      <button class="boton-editar">
+                      <button class="boton-editar" (click)="abrirVentanaEmergenteEdit(0,i,j)">
                         <i-lucide name="FileEdit"></i-lucide>
                       </button>
-                      <button class="boton-borrar">
+                      <button class="boton-borrar" (click)="openDialog(j,c1.filas)">
                         <i-lucide name="FileX"></i-lucide>
                       </button>
                     </div>
                   </div>
                 </mat-panel-title>
-            </mat-panel-description>            
+              </ng-container>
+            </mat-panel-description>        
           </mat-expansion-panel>
           <br />
         </mat-accordion>
