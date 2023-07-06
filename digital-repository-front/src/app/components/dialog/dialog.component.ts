@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DialogComponent {
   pdfUrl = '';
   s='';
+  UrlD='';
   myForm!: FormGroup;
   nuevaFila:Fila=new Fila();
   filas: any[] = [];
@@ -89,7 +90,7 @@ export class DialogComponent {
     }
     if(this.nuevaFila.url!=null){
       this.toastrSvc.success('Documento creado exitosamente.', '');
-      this.dialogRef.close(this.nuevaFila);
+      this.dialogRef.close(this.nuevaFila,);
 
     }else{
       this.toastrSvc.error(`Debe seleccionar un documento.`);
@@ -141,6 +142,8 @@ export class DialogComponent {
 
   onFileSelected(event: any) {
     this.selectedFile = (event.target as HTMLInputElement).files?.[0];
+    this.UrlD=event.target.files[0].name;
+    console.log(this.UrlD);
     if (this.selectedFile) {
       this.pdfUrl = URL.createObjectURL(this.selectedFile);
       console.log(this.pdfUrl)

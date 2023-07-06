@@ -203,6 +203,16 @@ export class DocumentsCreateContractComponent {
         this.documents.push(i);
       }
     }
+    for (const item of this.subdirectory2) {
+      for (const i of item.filas) {
+        this.documents.push(i);
+      }
+    }
+    for (const item of this.subdirectory3) {
+      for (const i of item.filas) {
+        this.documents.push(i);
+      }
+    }
     console.log(this.documents)
   }
   idCollection: number = 0;
